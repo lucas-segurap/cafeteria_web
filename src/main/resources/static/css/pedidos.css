@@ -303,4 +303,125 @@
     .produtos-pedido-grid {
         grid-template-columns: 1fr;
     }
+}.produtos-pedido {
+    padding: 1.5rem;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: var(--sombra-suave);
+}
+
+.produtos-pedido-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.produto-checkbox {
+    position: relative;
+    display: block;
+    height: 100%;
+}
+
+.produto-selecao {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.checkbox-conteudo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 190px;
+    padding: 1.2rem 1.2rem 1.2rem 3.2rem;
+    border: 2px solid #eee2d7;
+    border-radius: 16px;
+    background: #fffdfb;
+    cursor: pointer;
+    transition: var(--transicao);
+}
+
+.checkbox-conteudo::before {
+    position: absolute;
+    top: 1.2rem;
+    left: 1rem;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d4c1af;
+    border-radius: 6px;
+    content: "";
+}
+
+.produto-selecao:checked + .checkbox-conteudo {
+    border-color: var(--dourado-500);
+    background: linear-gradient(135deg, #fff9ef, #fff);
+    box-shadow: 0 8px 18px rgba(220, 166, 61, 0.15);
+}
+
+.produto-selecao:checked + .checkbox-conteudo::before {
+    border-color: var(--dourado-500);
+    background: var(--dourado-500);
+    box-shadow: inset 0 0 0 4px #fff;
+}
+
+.checkbox-conteudo strong {
+    color: var(--cafe-800);
+    font-size: 1.05rem;
+}
+
+.checkbox-conteudo > span:not(.quantidade-controle) {
+    margin-top: 0.35rem;
+    color: var(--cinza-500);
+    font-size: 0.88rem;
+}
+
+.checkbox-conteudo b {
+    margin-top: auto;
+    padding-top: 1rem;
+    color: var(--cafe-600);
+    font-size: 1.1rem;
+}
+
+.quantidade-controle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid #eee2d7;
+    color: var(--cafe-800);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: default;
+}
+
+.quantidade-produto {
+    width: 72px;
+    min-height: 36px;
+    padding: 0.3rem;
+    border: 1px solid #d4c1af;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--cafe-800);
+    text-align: center;
+}
+
+.quantidade-produto:disabled {
+    cursor: not-allowed;
+    background: #eeeae6;
+    opacity: 0.7;
+}
+
+.order-submit:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+@media (max-width: 767px) {
+    .produtos-pedido-grid {
+        grid-template-columns: 1fr;
+    }
 }

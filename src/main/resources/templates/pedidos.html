@@ -4,346 +4,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta name="description"
         content="Faça seu pedido na Cafeteria Segura e aproveite uma experiência prática e saborosa.">
     <meta name="author" content="Lucas Segura">
+
     <title>Pedidos | Cafeteria Segura</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
+
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="../static/css/pedidos.css">
 </head>
 
-
 <body>
-    <header class="site-header">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container">
-                <a class="navbar-brand" href="../index.html">
-                    <span class="navbar-brand-mark">☕</span>
-                    Cafeteria Segura
-                </a>
 
+<header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
 
+            <a class="navbar-brand" href="../index.html">
+                <span class="navbar-brand-mark">☕</span>
+                Cafeteria Segura
+            </a>
 
-                <div class="collapse navbar-collapse" id="menuPrincipal">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="produtos.html">Produtos</a>
-                        </li>
-                        <a class="nav-link active" aria-current="page" href="/pedidos.html">
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#menuPrincipal"
+                    aria-controls="menuPrincipal"
+                    aria-expanded="false"
+                    aria-label="Abrir menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="produtos.html">Produtos</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                           aria-current="page"
+                           href="pedidos.html">
                             Pedidos
                         </a>
-                    </ul>
-                </div>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
 
-    <main>
-        <section class="pedido-hero">
-            <div class="container pedido-hero-inner">
-                <div class="row align-items-center g-4">
-                    <div class="col-lg-7">
-                        <span class="eyebrow">Cafeteria segura</span>
-                        <h1
-                            style="margin-top: 1rem; color: #fff; font-size: clamp(2.4rem, 4vw, 4rem); line-height: 1.05; letter-spacing: -0.05em; max-width: 720px;">
-                            Seu café favorito está a poucos cliques.
-                        </h1>
-                        <p
-                            style="margin: 1rem 0 0; max-width: 620px; color: rgba(255,255,255,0.8); font-size: 1.08rem;">
-                            Monte seu pedido, escolha a forma de entrega e aproveite uma experiência deliciosa e
-                            prática.
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    <section class="pedido-hero">
+        <div class="container pedido-hero-inner">
+            <div class="row align-items-center g-4">
+
+                <div class="col-lg-7">
+                    <span class="eyebrow">Cafeteria Segura</span>
+
+                    <h1 class="pedido-titulo">
+                        Seu café favorito está a poucos cliques.
+                    </h1>
+
+                    <p class="pedido-descricao">
+                        Escolha os produtos, informe as quantidades e confirme
+                        seu pedido de forma rápida e prática.
+                    </p>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="pedido-hero-card">
+                        <span class="pedido-icon">☕</span>
+                        <h2>Atendimento rápido</h2>
+                        <p>
+                            Preparamos seu pedido com carinho, qualidade e
+                            atenção em cada detalhe.
                         </p>
                     </div>
-
-                    <div class="col-lg-5">
-                        <div class="pedido-hero-card">
-                            <span class="pedido-icon">☕</span>
-                            <h2>Atendimento rápido</h2>
-                            <p>Pedidos preparados com carinho, ingredientes selecionados e atenção em cada detalhe.</p>
-                        </div>
-                    </div>
                 </div>
+
             </div>
-        </section>
-
-        <section class="pedido-area">
-            <div class="container">
-                <div class="pedido-layout">
-                    <div>
-                        <form id="formPedido" action="/pedidos" method="post">
-                            <div class="produtos-pedido">
-                                <div class="pedido-box-title">
-                                    <span class="pedido-number">1</span>
-                                    <div>
-                                        <h2>Escolha seus produtos</h2>
-                                        <p>Selecione os itens e informe a quantidade desejada.</p>
-                                    </div>
-                                </div>
-
-                                <div class="produtos-pedido-grid">
-
-                                    <label class="produto-checkbox">
-                                        <input type="checkbox" name="produtos" value="espresso" data-nome="Espresso"
-                                            data-price="8.90">
-
-                                        <span class="checkbox-conteudo">
-                                            <strong>Espresso</strong>
-                                            <span>Café espresso preparado na hora</span>
-                                            <b>R$ 8,90</b>
-
-                                            <span class="quantidade-controle">
-                                                <span>Quantidade</span>
-                                                <input class="quantidade-produto" type="number"
-                                                    name="quantidade_espresso" value="1" min="1" max="20" disabled>
-                                            </span>
-                                        </span>
-                                    </label>
-
-                                    <label class="produto-checkbox">
-                                        <input type="checkbox" name="produtos" value="cappuccino" data-nome="Cappuccino"
-                                            data-price="12.90">
-
-                                        <span class="checkbox-conteudo">
-                                            <strong>Cappuccino</strong>
-                                            <span>Café, leite e espuma cremosa</span>
-                                            <b>R$ 12,90</b>
-
-                                            <span class="quantidade-controle">
-                                                <span>Quantidade</span>
-                                                <input class="quantidade-produto" type="number"
-                                                    name="quantidade_cappuccino" value="1" min="1" max="20" disabled>
-                                            </span>
-                                        </span>
-                                    </label>
-
-                                    <label class="produto-checkbox">
-                                        <input type="checkbox" name="produtos" value="cafe-doce" data-nome="Café & Doce"
-                                            data-price="18.90">
-
-                                        <span class="checkbox-conteudo">
-                                            <strong>Café &amp; Doce</strong>
-                                            <span>Combinação especial para acompanhar o café</span>
-                                            <b>R$ 18,90</b>
-
-                                            <span class="quantidade-controle">
-                                                <span>Quantidade</span>
-                                                <input class="quantidade-produto" type="number"
-                                                    name="quantidade_cafe_doce" value="1" min="1" max="20" disabled>
-                                            </span>
-                                        </span>
-                                    </label>
-
-                                    <label class="produto-checkbox">
-                                        <input type="checkbox" name="produtos" value="croissant" data-nome="Croissant"
-                                            data-price="10.90">
-
-                                        <span class="checkbox-conteudo">
-                                            <strong>Croissant</strong>
-                                            <span>Dourado e crocante</span>
-                                            <b>R$ 10,90</b>
-
-                                            <span class="quantidade-controle">
-                                                <span>Quantidade</span>
-                                                <input class="quantidade-produto" type="number"
-                                                    name="quantidade_croissant" value="1" min="1" max="20" disabled>
-                                            </span>
-                                        </span>
-                                    </label>
-
-                                    <label class="produto-checkbox">
-                                        <input type="checkbox" name="produtos" value="donuts" data-nome="Donuts"
-                                            data-price="9.90">
-
-                                        <span class="checkbox-conteudo">
-                                            <strong>Donuts</strong>
-                                            <span>Macio e saboroso</span>
-                                            <b>R$ 9,90</b>
-
-                                            <span class="quantidade-controle">
-                                                <span>Quantidade</span>
-                                                <input class="quantidade-produto" type="number" name="quantidade_donuts"
-                                                    value="1" min="1" max="20" disabled>
-                                            </span>
-                                        </span>
-                                    </label>
-
-                                    <label class="produto-checkbox">
-                                        <input type="checkbox" name="produtos" value="salgados" data-nome="Salgados"
-                                            data-price="8.50">
-
-                                        <span class="checkbox-conteudo">
-                                            <strong>Salgados</strong>
-                                            <span>Opções salgadas para um lanche rápido</span>
-                                            <b>R$ 8,50</b>
-
-                                            <span class="quantidade-controle">
-                                                <span>Quantidade</span>
-                                                <input class="quantidade-produto" type="number"
-                                                    name="quantidade_salgados" value="1" min="1" max="20" disabled>
-                                            </span>
-                                        </span>
-                                    </label>
-
-                                    <label class="produto-checkbox">
-                                        <input type="checkbox" name="produtos" value="bolo" data-nome="Bolo"
-                                            data-price="11.90">
-
-                                        <span class="checkbox-conteudo">
-                                            <strong>Bolo</strong>
-                                            <span>Fatia de bolo macio</span>
-                                            <b>R$ 11,90</b>
-
-                                            <span class="quantidade-controle">
-                                                <span>Quantidade</span>
-                                                <input class="quantidade-produto" type="number" name="quantidade_bolo"
-                                                    value="1" min="1" max="20" disabled>
-                                            </span>
-                                        </span>
-                                    </label>
-
-                                    <label class="produto-checkbox">
-                                        <input type="checkbox" name="produtos" value="cheesecake" data-nome="Cheesecake"
-                                            data-price="15.90">
-
-                                        <span class="checkbox-conteudo">
-                                            <strong>Cheesecake</strong>
-                                            <span>Sobremesa cremosa e delicada</span>
-                                            <b>R$ 15,90</b>
-
-                                            <span class="quantidade-controle">
-                                                <span>Quantidade</span>
-                                                <input class="quantidade-produto" type="number"
-                                                    name="quantidade_cheesecake" value="1" min="1" max="20" disabled>
-                                            </span>
-                                        </span>
-                                    </label>
-
-                                    <label class="produto-checkbox">
-                                        <input type="checkbox" name="produtos" value="sanduiche" data-nome="Sanduíche"
-                                            data-price="19.90">
-
-                                        <span class="checkbox-conteudo">
-                                            <strong>Sanduíche</strong>
-                                            <span>Refeição prática e saborosa</span>
-                                            <b>R$ 19,90</b>
-
-                                            <span class="quantidade-controle">
-                                                <span>Quantidade</span>
-                                                <input class="quantidade-produto" type="number"
-                                                    name="quantidade_sanduiche" value="1" min="1" max="20" disabled>
-                                            </span>
-                                        </span>
-                                    </label>
-
-                                </div>
-                            </div>
-                            <br><br>
-                            <div class="pedido-box">
-                                <div class="pedido-box-title">
-                                    <span class="pedido-number">3</span>
-                                    <div>
-                                        <h2>Seus dados</h2>
-                                        <p>Precisamos dessas informações para confirmar o pedido.</p>
-                                    </div>
-                                </div>
-
-                                <div class="pedido-form-grid" style="margin-top: 1.25rem;">
-                                    <div class="form-field">
-                                        <label for="nome" class="form-label">Nome completo</label>
-                                        <input type="text" class="form-control" id="nome" name="nome"
-                                            placeholder="Digite seu nome" autocomplete="name" required>
-                                    </div>
-
-                                    <div class="form-field">
-                                        <label for="telefone" class="form-label">Telefone</label>
-                                        <input type="tel" class="form-control" id="telefone" name="telefone"
-                                            placeholder="(00) 00000-0000" autocomplete="tel" required>
-                                    </div>
-
-                                    <div class="form-field form-field--full">
-                                        <label for="endereco" class="form-label">Endereço para entrega</label>
-                                        <input type="text" class="form-control" id="endereco" name="endereco"
-                                            placeholder="Rua, número e complemento" autocomplete="street-address"
-                                            disabled>
-                                    </div>
-
-                                    <div class="form-field">
-                                        <label for="pagamento" class="form-label">Forma de pagamento</label>
-                                        <select class="form-select" id="pagamento" name="pagamento" required>
-                                            <option value="">Selecione uma opção</option>
-                                            <option value="Pix">Pix</option>
-                                            <option value="Cartão de crédito">Cartão de crédito</option>
-                                            <option value="Cartão de débito">Cartão de débito</option>
-                                            <option value="Dinheiro">Dinheiro</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-field">
-                                        <label for="horario" class="form-label">Horário preferencial</label>
-
-                                        <select class="form-select" id="horario" name="horario">
-                                            <option value="">Escolha um horário</option>
-
-                                            <option value="08:00">08:00</option>
-                                            <option value="09:00">09:00</option>
-                                            <option value="10:00">10:00</option>
-                                            <option value="11:00">11:00</option>
-                                            <option value="12:00">12:00</option>
-                                            <option value="13:00">13:00</option>
-                                            <option value="14:00">14:00</option>
-                                            <option value="15:00">15:00</option>
-                                            <option value="16:00">16:00</option>
-                                            <option value="17:00">17:00</option>
-                                            <option value="18:00">18:00</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-field form-field--full">
-                                        <label for="observacoes" class="form-label">Observações</label>
-                                        <textarea class="form-textarea" id="observacoes" name="observacoes" rows="3"
-                                            placeholder="Ex.: pouco açúcar, retirar canudo..."></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="order-actions">
-                                <button type="submit" class="order-submit">Confirmar pedido</button>
-                            </div>
-                            <div id="mensagemConfirmacao" class="mensagem-pedido" role="alert" aria-live="polite">
-                            </div>
-                            <p class="order-note">Ao confirmar, nossa equipe entrará em contato para validar os
-                                detalhes.</p>
-                        </form>
-                    </div>
-
-                    
-                </div>
-
-                <div class="contact-box">
-                    <strong>Precisa de ajuda?</strong>
-                    <p>Fale com a nossa equipe: <a
-                            href="mailto:pedidos@cafeteriasegura.com">pedidos@cafeteriasegura.com</a></p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container site-footer-inner">
-            <strong>☕ Cafeteria Segura</strong>
-            <small>&copy; 2026 Cafeteria Segura. Todos os direitos reservados.</small>
         </div>
-    </footer>
+    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    <section class="pedido-area">
+        <div class="container">
+
+            <div class="pedido-layout">
+
+                <div>
+                    <form id="formPedido" method="post">
+
+                        <section class="pedido-box produtos-pedido">
+                            <div class="pedido-box-title">
+                                <span class="pedido-number">1</span>
+
+                                <div>
+                                    <h2>Escolha seus produtos</h2>
+                                    <p>
+                                        Marque os produtos e informe a quantidade.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div id="produtosPedido"
+                                 class="produtos-pedido-grid">
+                            </div>
+                        </section>
+
+                        <section class="pedido-box">
+                            <div class="pedido-box-title">
+                                <span class="pedido-number">2</span>
+
+                                <div>
+                                    <h2>Seus dados</h2>
+                                    <p>
+                                        Precisamos dessas informações para confirmar
+                                        seu pedido.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="pedido-form-grid">
+
+                                <div class="form-field">
+                                    <label class="form-label" for="nome">
+                                        Nome completo
+                                    </label>
+
+                                    <input class="form-control"
+                                           type="text"
+                                           id="nome"
+                                           name="nome"
+                                           placeholder="Digite seu nome"
+                                           autocomplete="name"
+                                           required>
+                                </div>
+
+                                <div class="form-field">
+                                    <label class="form-label" for="telefone">
+                                        Telefone
+                                    </label>
+
+                                    <input class="form-control"
+                                           type="tel"
+                                           id="telefone"
+                                           name="telefone"
+                                           placeholder="(00) 00000-0000"
+                                           autocomplete="tel"
+                                           required>
+                                </div>
+
+                                <div class="form-field form-field--full">
+                                    <label class="form-label" for="endereco">
+                                        Endereço
+                                    </label>
+
+                                    <input class="form-control"
+                                           type="text"
+                                           id="endereco"
+                                           name="endereco"
+                                           placeholder="Rua, número e complemento"
+                                           autocomplete="street-address"
+                                           required>
+                                </div>
+
+                                <div class="form-field">
+                                    <label class="form-label" for="pagamento">
+                                        Forma de pagamento
+                                    </label>
+
+                                    <select class="form-select"
+                                            id="pagamento"
+                                            name="pagamento"
+                                            required>
+                                        <option value="">
+                                            Selecione uma opção
+                                        </option>
+                                        <option value="Pix">Pix</option>
+                                        <option value="Cartão de crédito">
+                                            Cartão de crédito
+                                        </option>
+                                        <option value="Cartão de débito">
+                                            Cartão de débito
+                                        </option>
+                                        <option value="Dinheiro">
+                                            Dinheiro
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-field">
+                                    <label class="form-label" for="horario">
+                                        Horário preferencial
+                                    </label>
+
+                                    <select class="form-select"
+                                            id="horario"
+                                            name="horario"
+                                            required>
+                                        <option value="">
+                                            Escolha um horário
+                                        </option>
+                                        <option value="08:00">08:00</option>
+                                        <option value="09:00">09:00</option>
+                                        <option value="10:00">10:00</option>
+                                        <option value="11:00">11:00</option>
+                                        <option value="12:00">12:00</option>
+                                        <option value="13:00">13:00</option>
+                                        <option value="14:00">14:00</option>
+                                        <option value="15:00">15:00</option>
+                                        <option value="16:00">16:00</option>
+                                        <option value="17:00">17:00</option>
+                                        <option value="18:00">18:00</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-field form-field--full">
+                                    <label class="form-label" for="observacoes">
+                                        Observações
+                                    </label>
+
+                                    <textarea class="form-textarea"
+                                              id="observacoes"
+                                              name="observacoes"
+                                              rows="4"
+                                              placeholder="Ex.: pouco açúcar, retirar canudo..."></textarea>
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <button class="order-submit" type="submit">
+                            Confirmar pedido
+                        </button>
+
+                        <div id="mensagemConfirmacao"
+                             class="mensagem-pedido"
+                             role="alert"
+                             aria-live="polite">
+                        </div>
+
+                        <p class="order-note">
+                            Ao confirmar, o pedido será enviado para a cafeteria.
+                        </p>
+
+                    </form>
+                </div>
+
+                <aside class="summary-box">
+
+                    <div class="summary-header">
+                        <span>Seu pedido</span>
+                        <span class="summary-icon">🛍️</span>
+                    </div>
+
+                    <div class="summary-content">
+
+                        <div id="listaResumo">
+                            <div class="summary-empty">
+                                <span>☕</span>
+                                <p>Seu pedido está vazio.</p>
+                                <small>Escolha um produto para começar.</small>
+                            </div>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <strong id="valorSubtotal">R$ 0,00</strong>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>Entrega</span>
+                            <strong>Grátis</strong>
+                        </div>
+
+                        <div class="summary-row summary-row--total">
+                            <span>Total</span>
+                            <strong id="valorTotal">R$ 0,00</strong>
+                        </div>
+
+                        <div class="summary-footer">
+                            <span>✓</span>
+                            <p>
+                                Seus dados serão utilizados somente para
+                                processar o pedido.
+                            </p>
+                        </div>
+
+                    </div>
+                </aside>
+
+            </div>
+
+            <div class="contact-box">
+                <strong>Precisa de ajuda?</strong>
+                <p>
+                    Fale com a nossa equipe:
+                    <a href="mailto:pedidos@cafeteriasegura.com">
+                        pedidos@cafeteriasegura.com
+                    </a>
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="container site-footer-inner">
+        <strong>☕ Cafeteria Segura</strong>
+        <small>
+            &copy; 2026 Cafeteria Segura. Todos os direitos reservados.
+        </small>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYjR8ZK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-    <script src="/src/main/resources/static/js/script.js"></script>
-</body>
+        crossorigin="anonymous">
+</script>
 
+<script src="../static/js/script.js"></script>
+
+</body>
 </html>
