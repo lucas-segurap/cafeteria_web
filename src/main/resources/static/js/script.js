@@ -166,58 +166,82 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 document.addEventListener("DOMContentLoaded", function () {
-            const botoes = document.querySelectorAll(".filtro-produto");
-            const produtos = document.querySelectorAll(".produto-item");
+    const botoes = document.querySelectorAll(".filtro-produto");
+    const produtos = document.querySelectorAll(".produto-item");
 
-            botoes.forEach(function (botao) {
-                botao.addEventListener("click", function () {
-                    botoes.forEach(function (item) {
-                        item.classList.remove("ativo");
-                    });
+    botoes.forEach(function (botao) {
+        botao.addEventListener("click", function () {
+            botoes.forEach(function (item) {
+                item.classList.remove("ativo");
+            });
 
-                    botao.classList.add("ativo");
+            botao.classList.add("ativo");
 
-                    const filtro = botao.dataset.filtro;
+            const filtro = botao.dataset.filtro;
 
-                    produtos.forEach(function (produto) {
-                        if (filtro === "todos" || produto.dataset.categoria === filtro) {
-                            produto.style.display = "";
-                        } else {
-                            produto.style.display = "none";
-                        }
-                    });
-                });
+            produtos.forEach(function (produto) {
+                if (filtro === "todos" || produto.dataset.categoria === filtro) {
+                    produto.style.display = "";
+                } else {
+                    produto.style.display = "none";
+                }
             });
         });
-        document.addEventListener("DOMContentLoaded", function () {
-                            const botoes = document.querySelectorAll(".filtro-produto");
-                            const produtos = document.querySelectorAll(".produto-item");
-                            const contador = document.querySelector(".produtos-contador strong");
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const botoes = document.querySelectorAll(".filtro-produto");
+    const produtos = document.querySelectorAll(".produto-item");
+    const contador = document.querySelector(".produtos-contador strong");
 
-                            function aplicarFiltro(filtro) {
-                                let visiveis = 0;
+    function aplicarFiltro(filtro) {
+        let visiveis = 0;
 
-                                produtos.forEach(function (produto) {
-                                    const mostrar = filtro === "todos" || produto.dataset.categoria === filtro;
-                                    produto.hidden = !mostrar;
-                                    if (mostrar) visiveis++;
-                                });
+        produtos.forEach(function (produto) {
+            const mostrar = filtro === "todos" || produto.dataset.categoria === filtro;
+            produto.hidden = !mostrar;
+            if (mostrar) visiveis++;
+        });
 
-                                if (contador) contador.textContent = visiveis;
-                            }
+        if (contador) contador.textContent = visiveis;
+    }
 
-                            botoes.forEach(function (botao) {
-                                botao.addEventListener("click", function () {
-                                    botoes.forEach(function (item) {
-                                        item.classList.remove("ativo");
-                                        item.setAttribute("aria-pressed", "false");
-                                    });
+    botoes.forEach(function (botao) {
+        botao.addEventListener("click", function () {
+            botoes.forEach(function (item) {
+                item.classList.remove("ativo");
+                item.setAttribute("aria-pressed", "false");
+            });
 
-                                    botao.classList.add("ativo");
-                                    botao.setAttribute("aria-pressed", "true");
-                                    aplicarFiltro(botao.dataset.filtro);
-                                });
-                            });
+            botao.classList.add("ativo");
+            botao.setAttribute("aria-pressed", "true");
+            aplicarFiltro(botao.dataset.filtro);
+        });
+    });
 
-                            aplicarFiltro("todos");
-                        });
+    aplicarFiltro("todos");
+});
+const filtros = document.querySelectorAll(".filtro-produto");
+const produtos = document.querySelectorAll(".produto-item");
+
+filtros.forEach((filtro) => {
+    filtro.addEventListener("click", () => {
+        const categoriaSelecionada = filtro.dataset.filtro;
+
+        filtros.forEach((item) => {
+            const ativo = item === filtro;
+
+            item.classList.toggle("ativo", ativo);
+            item.setAttribute("aria-pressed", ativo);
+        });
+
+        produtos.forEach((produto) => {
+            const categoriaProduto = produto.dataset.categoria;
+            const deveExibir =
+                categoriaSelecionada === "todos" ||
+                categoriaProduto === categoriaSelecionada;
+
+            produto.hidden = !deveExibir;
+        });
+    });
+});
