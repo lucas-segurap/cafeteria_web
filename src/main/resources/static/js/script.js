@@ -245,3 +245,302 @@ filtros.forEach((filtro) => {
         });
     });
 });
+document.addEventListener("DOMContentLoaded", () => {
+
+    const botaoProdutos = document.querySelector(".btn-produtos");
+    const listaProdutos = document.querySelector(".lista-produtos");
+
+    const produtos = document.querySelectorAll(
+        '.lista-produtos input[type="checkbox"]'
+    );
+
+    const listaResumo = document.getElementById("listaResumo");
+    const valorSubtotal = document.getElementById("valorSubtotal");
+    const valorEntrega = document.getElementById("valorEntrega");
+    const valorTotal = document.getElementById("valorTotal");
+
+    // Abrir e fechar produtos
+    botaoProdutos.addEventListener("click", () => {
+        listaProdutos.classList.toggle("aberto");
+    });
+
+
+    // Atualizar resumo quando selecionar produto
+    produtos.forEach(produto => {
+
+        produto.addEventListener("change", () => {
+
+            atualizarResumo();
+
+        });
+
+    });
+
+
+    function atualizarResumo() {
+
+        const selecionados = Array.from(produtos)
+            .filter(produto => produto.checked);
+
+        listaResumo.innerHTML = "";
+
+        let subtotal = 0;
+
+
+        // Nenhum produto
+        if (selecionados.length === 0) {
+
+            listaResumo.innerHTML = `
+                <p class="resumo-vazio">
+                    Nenhum produto selecionado.
+                </p>
+            `;
+
+        }
+
+
+        // Produtos selecionados
+        selecionados.forEach(produto => {
+
+            const nome = produto.value;
+            const preco = Number(produto.dataset.price);
+
+            subtotal += preco;
+
+            const item = document.createElement("div");
+
+            item.className = "item-resumo";
+
+            item.innerHTML = `
+                <span>${nome}</span>
+                <strong>${formatarMoeda(preco)}</strong>
+            `;
+
+            listaResumo.appendChild(item);
+
+        });
+
+
+        // Atualiza valores
+        valorSubtotal.textContent = formatarMoeda(subtotal);
+
+        const entrega = obterTaxaEntrega();
+
+        valorEntrega.textContent =
+            entrega === 0
+                ? "Grátis"
+                : formatarMoeda(entrega);
+
+        valorTotal.textContent =
+            formatarMoeda(subtotal + entrega);
+    }
+
+
+    function obterTaxaEntrega() {
+
+        const entregaSelecionada =
+            document.querySelector(
+                'input[name="entrega"]:checked'
+            );
+
+        if (!entregaSelecionada) {
+            return 0;
+        }
+
+        return Number(
+            entregaSelecionada.dataset.fee || 0
+        );
+    }
+
+
+    function formatarMoeda(valor) {
+
+        return valor.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+
+    }
+
+}); /*
+     * JavaScript da página.
+     * Não depende de ../static: o arquivo é servido pelo Spring Boot em /js/script.js
+     * e este código permanece dentro da própria página.
+     */
+(() => {
+    const select = document.getElementById("produtoSelecionado");
+    const btnAdicionar = document.getElementById("btnAdicionar");
+    const listaResumo = document.getElementById("listaResumo");
+    const valorSubtotal = document.getElementById("valorSubtotal");
+    const valorTotal = document.getElementById("valorTotal");
+    const produtosJson = document.getElementById("produtosJson");
+
+    const produtoInfo = document.getElementById("produtoInfo");
+    const produtoNome = document.getElementById("produtoNome");
+    const produtoDescricao = document.getElementById("produtoDescricao");
+    const produtoPreco = document.getElementById("produtoPreco");
+
+    const endereco = document.getElementById("endereco");
+    const mensagem = document.getElementById("mensagemPedido");
+    const form = document.getElementById("formPedido");
+
+    // Estrutura: [{ id, nome, descricao, preco, quantidade }]
+    let pedido = [];
+
+    const dinheiro = valor =>
+        valor.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+
+    function atualizarProdutoSelecionado() {
+        const option = select.options[select.selectedIndex];
+
+        if (!option || !option.value) {
+            produtoInfo.hidden = true;
+            return;
+        }
+
+        produtoInfo.hidden = false;
+        produtoNome.textContent = option.dataset.name;
+        produtoDescricao.textContent = option.dataset.description;
+        produtoPreco.textContent = dinheiro(Number(option.dataset.price));
+    }
+
+    function atualizarResumo() {
+        if (pedido.length === 0) {
+            listaResumo.innerHTML = `
+                    <div class="summary-empty">
+                        <span>☕</span>
+                        <p>Seu pedido está vazio.</p>
+                        <small>Escolha um produto para começar.</small>
+                    </div>
+                `;
+        } else {
+            listaResumo.innerHTML = pedido.map((item, index) => `
+                    <div class="resumo-item">
+                        <div class="resumo-item-info">
+                            <strong>${item.nome}</strong>
+                            <small>${dinheiro(item.preco)} × ${item.quantidade}</small>
+                        </div>
+
+                        <div class="resumo-controles">
+                            <button type="button" data-action="menos" data-index="${index}" aria-label="Diminuir quantidade">−</button>
+                            <strong>${item.quantidade}</strong>
+                            <button type="button" data-action="mais" data-index="${index}" aria-label="Aumentar quantidade">+</button>
+                            <button type="button" class="btn-remover" data-action="remover" data-index="${index}" aria-label="Remover produto">×</button>
+                        </div>
+                    </div>
+                `).join("");
+        }
+
+        const subtotal = pedido.reduce(
+            (total, item) => total + item.preco * item.quantidade,
+            0
+        );
+
+        valorSubtotal.textContent = dinheiro(subtotal);
+        valorTotal.textContent = dinheiro(subtotal);
+
+        // Mantém os produtos disponíveis para o Spring Boot.
+        produtosJson.value = JSON.stringify(pedido);
+    }
+
+    btnAdicionar.addEventListener("click", () => {
+        const option = select.options[select.selectedIndex];
+
+        if (!option || !option.value) {
+            alert("Selecione um produto antes de adicionar.");
+            return;
+        }
+
+        const existente = pedido.find(item => item.id === option.value);
+
+        if (existente) {
+            existente.quantidade++;
+        } else {
+            pedido.push({
+                id: option.value,
+                nome: option.dataset.name,
+                descricao: option.dataset.description,
+                preco: Number(option.dataset.price),
+                quantidade: 1
+            });
+        }
+
+        atualizarResumo();
+    });
+
+    select.addEventListener("change", atualizarProdutoSelecionado);
+
+    listaResumo.addEventListener("click", event => {
+        const button = event.target.closest("button[data-action]");
+        if (!button) return;
+
+        const index = Number(button.dataset.index);
+        const action = button.dataset.action;
+
+        if (!pedido[index]) return;
+
+        if (action === "mais") {
+            pedido[index].quantidade++;
+        }
+
+        if (action === "menos") {
+            pedido[index].quantidade--;
+
+            if (pedido[index].quantidade <= 0) {
+                pedido.splice(index, 1);
+            }
+        }
+
+        if (action === "remover") {
+            pedido.splice(index, 1);
+        }
+
+        atualizarResumo();
+    });
+
+    // Entrega: habilita endereço quando houver produto.
+    function atualizarEndereco() {
+        const temProdutos = pedido.length > 0;
+        endereco.disabled = !temProdutos;
+        endereco.required = temProdutos;
+    }
+
+    const resumoOriginal = atualizarResumo;
+    atualizarResumo = function () {
+        resumoOriginal();
+        atualizarEndereco();
+    };
+
+    // Formatação simples do telefone.
+    document.getElementById("telefone").addEventListener("input", event => {
+        let valor = event.target.value.replace(/\D/g, "").slice(0, 11);
+
+        if (valor.length > 10) {
+            valor = valor.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+        } else if (valor.length > 6) {
+            valor = valor.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+        } else if (valor.length > 2) {
+            valor = valor.replace(/(\d{2})(\d{0,5})/, "($1) $2");
+        }
+
+        event.target.value = valor;
+    });
+
+    form.addEventListener("submit", event => {
+        if (pedido.length === 0) {
+            event.preventDefault();
+            mensagem.className = "mensagem-pedido alert alert-warning";
+            mensagem.textContent = "Adicione pelo menos um produto ao pedido.";
+            return;
+        }
+
+        mensagem.className = "mensagem-pedido alert alert-success";
+        mensagem.textContent = "Pedido pronto para ser enviado ao Spring Boot.";
+    });
+
+    atualizarProdutoSelecionado();
+    atualizarResumo();
+})();

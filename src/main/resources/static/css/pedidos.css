@@ -1,0 +1,186 @@
+.produtos-pedido {
+    display: grid;
+    gap: 15px;
+}
+
+.produtos-pedido h2 {
+    margin-bottom: 10px;
+}
+
+.produto-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    border: 2px solid #ddd;
+    border-radius: 14px;
+    background: #fff;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.produto-checkbox:hover {
+    border-color: #dca63d;
+    transform: translateY(-2px);
+}
+
+.produto-checkbox input {
+    width: 20px;
+    height: 20px;
+    accent-color: #3a2419;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.produto-checkbox:has(input:checked) {
+    border-color: #dca63d;
+    background: #fff9ed;
+}
+
+.checkbox-conteudo {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5px 15px;
+    width: 100%;
+}
+
+.checkbox-conteudo strong {
+    color: #3a2419;
+    font-size: 1.05rem;
+}
+
+.checkbox-conteudo span {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.checkbox-conteudo b {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+    color: #8a5a24;
+    font-size: 1.05rem;
+}
+
+@media (max-width: 575px) {
+    .produto-checkbox {
+        padding: 14px;
+    }
+
+    .checkbox-conteudo {
+        grid-template-columns: 1fr;
+    }
+
+    .checkbox-conteudo b {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+.produto-select-wrapper {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .75rem;
+    align-items: end;
+}
+
+.produto-select-card {
+    padding: 1.25rem;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .08);
+}
+
+.produto-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+    padding: .9rem 1rem;
+    border-radius: 12px;
+    background: #f8f5f1;
+}
+
+.produto-info small {
+    display: block;
+    color: #777;
+}
+
+.produto-info strong {
+    white-space: nowrap;
+}
+
+.btn-adicionar {
+    min-height: 48px;
+    border: 0;
+    border-radius: 10px;
+    padding: 0 1.25rem;
+    font-weight: 700;
+    background: #6f4e37;
+    color: #fff;
+}
+
+.btn-adicionar:hover {
+    opacity: .9;
+}
+
+.resumo-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .75rem;
+    align-items: center;
+    padding: .8rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
+}
+
+.resumo-item:last-child {
+    border-bottom: 0;
+}
+
+.resumo-item-info strong,
+.resumo-item-info small {
+    display: block;
+}
+
+.resumo-item-info small {
+    color: #777;
+}
+
+.resumo-controles {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.resumo-controles button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    background: #fff;
+    font-weight: 700;
+}
+
+.btn-remover {
+    color: #a33;
+}
+
+.mensagem-pedido {
+    margin-top: 1rem;
+}
+
+@media (max-width: 576px) {
+    .produto-select-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-adicionar {
+        width: 100%;
+    }
+
+    .produto-info {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
