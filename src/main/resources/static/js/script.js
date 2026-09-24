@@ -543,7 +543,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     atualizarProdutoSelecionado();
     atualizarResumo();
-})();document.addEventListener("DOMContentLoaded", () => {
+})(); document.addEventListener("DOMContentLoaded", () => {
     const formPedido = document.querySelector("#formPedido");
     const produtos = document.querySelectorAll(".produto-checkbox");
     const listaResumo = document.querySelector("#listaResumo");
@@ -682,4 +682,164 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     atualizarResumo();
+}); document.addEventListener("DOMContentLoaded", () => {
+    const produtos = document.querySelectorAll(".produto-checkbox");
+    const listaResumo = document.querySelector("#listaResumo");
+    const valorSubtotal = document.querySelector("#valorSubtotal");
+    const valorTotal = document.querySelector("#valorTotal");
+
+    if (!produtos.length || !listaResumo) {
+        return;
+    }
+
+    function formatarMoeda(valor) {
+        return valor.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+    }
+
+    function atualizarResumo() {
+        const produtosSelecionados = [];
+
+        produtos.forEach((produto) => {
+            const checkbox = produto.querySelector(
+                'input[type="checkbox"]'
+            );
+
+            const quantidadeInput = produto.querySelector(
+                ".quantidade-produto"
+            );
+
+            if (checkbox.checked) {
+                const quantidade = Math.max(
+                    1,
+                    Math.min(20, Number(quantidadeInput.value) || 1)
+                );
+
+                quantidadeInput.value = quantidade;
+
+                produtosSelecionados.push({
+                    nome: checkbox.dataset.nome,
+                    preco: Number(checkbox.dataset.price),
+                    quantidade: quantidade
+                });
+            }
+        });
+
+        if (produtosSelecionados.length === 0) {
+            listaResumo.innerHTML = `
+                <div class="summary-empty">
+                    <span>☕</span>
+                    <p>Seu pedido está vazio.</p>
+                    <small>Escolha um produto para começar.</small>
+                </div>
+            `;
+
+            valorSubtotal.textContent = formatarMoeda(0);
+            valorTotal.textContent = formatarMoeda(0);
+
+            return;
+        }
+
+        let subtotal = 0;
+
+        listaResumo.innerHTML = produtosSelecionados.map((produto) => {
+            const totalProduto = produto.preco * produto.quantidade;
+            subtotal += totalProduto;
+
+            return `
+                <div class="summary-item">
+                    <div>
+                        <strong>${produto.nome}</strong>
+                        <small>
+                            ${produto.quantidade} x
+                            ${formatarMoeda(produto.preco)}
+                        </small>
+                    </div>
+
+                    <span>${formatarMoeda(totalProduto)}</span>
+                </div>
+            `;
+        }).join("");
+
+        valorSubtotal.textContent = formatarMoeda(subtotal);
+        valorTotal.textContent = formatarMoeda(subtotal);
+    }
+
+    produtos.forEach((produto) => {
+        const checkbox = produto.querySelector(
+            'input[type="checkbox"]'
+        );
+
+        const quantidadeInput = produto.querySelector(
+            ".quantidade-produto"
+        );
+
+        checkbox.addEventListener("change", () => {
+            quantidadeInput.disabled = !checkbox.checked;
+
+            if (checkbox.checked && !quantidadeInput.value) {
+                quantidadeInput.value = 1;
+            }
+
+            atualizarResumo();
+        });
+
+        quantidadeInput.addEventListener("input", () => {
+            atualizarResumo();
+        });
+
+        quantidadeInput.addEventListener("change", () => {
+            if (quantidadeInput.value < 1) {
+                quantidadeInput.value = 1;
+            }
+            document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".produto-checkbox").forEach((item) => {
+    const checkbox = item.querySelector('input[type="checkbox"]');
+    const quantidade = item.querySelector(".quantidade-produto");
+
+    if (!checkbox || !quantidade) return;
+
+    checkbox.addEventListener("change", () => {
+      quantidade.disabled = !checkbox.checked;
+
+      if (checkbox.checked) {
+        quantidade.focus();
+        quantidade.select();
+      }
+    });
+
+    quantidade.disabled = true;
+  });
+});
+
+            if (quantidadeInput.value > 20) {
+                quantidadeInput.value = 20;
+            }
+
+            atualizarResumo();
+        });
+    });
+
+    atualizarResumo();
+});
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".produto-checkbox").forEach((item) => {
+    const checkbox = item.querySelector('input[type="checkbox"]');
+    const quantidade = item.querySelector(".quantidade-produto");
+
+    if (!checkbox || !quantidade) return;
+
+    checkbox.addEventListener("change", () => {
+      quantidade.disabled = !checkbox.checked;
+
+      if (checkbox.checked) {
+        quantidade.focus();
+        quantidade.select();
+      }
+    });
+
+    quantidade.disabled = true;
+  });
 });
