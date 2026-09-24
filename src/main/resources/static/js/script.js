@@ -213,3 +213,27 @@ document.addEventListener("DOMContentLoaded", () => {
     atualizarEndereco();
     atualizarResumo();
 });
+document.addEventListener("DOMContentLoaded", function () {
+            const botoes = document.querySelectorAll(".filtro-produto");
+            const produtos = document.querySelectorAll(".produto-item");
+
+            botoes.forEach(function (botao) {
+                botao.addEventListener("click", function () {
+                    botoes.forEach(function (item) {
+                        item.classList.remove("ativo");
+                    });
+
+                    botao.classList.add("ativo");
+
+                    const filtro = botao.dataset.filtro;
+
+                    produtos.forEach(function (produto) {
+                        if (filtro === "todos" || produto.dataset.categoria === filtro) {
+                            produto.style.display = "";
+                        } else {
+                            produto.style.display = "none";
+                        }
+                    });
+                });
+            });
+        });
