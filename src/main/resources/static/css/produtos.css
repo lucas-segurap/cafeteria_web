@@ -90,7 +90,7 @@
 
 .btn-produto:hover {
     background: var(--cafe-800) !important;
-    color: #fff !important;
+    color: #000000 !important;
 }
 
 /* Filtro dos produtos */

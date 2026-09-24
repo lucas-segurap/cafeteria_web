@@ -184,3 +184,123 @@
         flex-direction: column;
     }
 }
+.produtos-pedido {
+    padding: 1.5rem;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: var(--sombra-suave);
+}
+
+.produtos-pedido-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.produto-checkbox {
+    display: block;
+    height: 100%;
+    cursor: pointer;
+}
+
+.produto-checkbox > input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.checkbox-conteudo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 190px;
+    padding: 1.1rem 1.1rem 1.1rem 3.2rem;
+    border: 2px solid #eee2d7;
+    border-radius: 16px;
+    background: #fffdfb;
+    transition: var(--transicao);
+}
+
+.checkbox-conteudo::before {
+    position: absolute;
+    top: 1.2rem;
+    left: 1rem;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d4c1af;
+    border-radius: 6px;
+    content: "";
+    transition: var(--transicao);
+}
+
+.produto-checkbox:hover .checkbox-conteudo {
+    border-color: var(--dourado-500);
+    transform: translateY(-3px);
+}
+
+.produto-checkbox > input[type="checkbox"]:checked + .checkbox-conteudo {
+    border-color: var(--dourado-500);
+    background: linear-gradient(135deg, #fff9ef, #fff);
+    box-shadow: 0 8px 18px rgba(220, 166, 61, 0.12);
+}
+
+.produto-checkbox > input[type="checkbox"]:checked + .checkbox-conteudo::before {
+    border-color: var(--dourado-500);
+    background: var(--dourado-500);
+    box-shadow: inset 0 0 0 4px #fff;
+}
+
+.checkbox-conteudo strong {
+    color: var(--cafe-800);
+    font-size: 1.05rem;
+}
+
+.checkbox-conteudo > span:not(.quantidade-controle) {
+    margin-top: 0.3rem;
+    color: var(--cinza-500);
+    font-size: 0.85rem;
+}
+
+.checkbox-conteudo b {
+    margin-top: auto;
+    padding-top: 1rem;
+    color: var(--cafe-600);
+    font-size: 1.1rem;
+}
+
+.quantidade-controle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+    margin-top: 0.8rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid #eee2d7;
+    color: var(--cafe-800);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.quantidade-produto {
+    width: 70px;
+    min-height: 36px;
+    padding: 0.35rem;
+    border: 1px solid #d8c8bb;
+    border-radius: 8px;
+    color: var(--cafe-800);
+    text-align: center;
+}
+
+.quantidade-produto:disabled {
+    cursor: not-allowed;
+    background: #eeeae6;
+    opacity: 0.65;
+}
+
+@media (max-width: 767px) {
+    .produtos-pedido-grid {
+        grid-template-columns: 1fr;
+    }
+}
