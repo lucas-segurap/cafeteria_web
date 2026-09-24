@@ -4,26 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="description" content="Cafeteria Segura - café, sobremesas, lanches e pedidos prontos para você.">
     <meta name="author" content="Lucas Segura">
-    <meta name="description" content="Cafeteria Segura - cafés especiais, produtos artesanais e pedidos online">
-
+    <title>Cafeteria Segura</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="/css/style.css">
-
-    <title>Cafeteria Segura</title>
+    <link rel="stylesheet" href="/src/main/resources/static/css/style.css">
 </head>
 
 <body>
-
-    <!-- Menu principal -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand fw-bold fs-4" href="index.html">
-                    <span class="text-warning">☕</span> Cafeteria Segura
+                <a class="navbar-brand" href="index.html">
+                    <span class="navbar-brand-mark">☕</span>
+                    Cafeteria Segura
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
@@ -32,23 +27,15 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="menuPrincipal">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html">
-                                Home
-                            </a>
+                            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link" href="/src/main/resources/templates/produtos.html">
-                                Produtos
-                            </a>
+                            <a class="nav-link" href="templates/produtos.html">Produtos</a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link" href="/src/main/resources/templates/pedidos.html">
-                                Pedidos
-                            </a>
+                            <a class="nav-link" href="templates/pedidos.html">Pedidos</a>
                         </li>
                     </ul>
                 </div>
@@ -57,76 +44,35 @@
     </header>
 
     <main>
+        <section class="hero-banner">
+            <div class="container hero-content">
+                <div class="row align-items-center w-100">
+                    <div class="col-lg-8">
+                        <span class="eyebrow">Experiência cafeeira</span>
+                        <h1>O café que combina com o seu momento.</h1>
+                        <p>Sabores especiais, ambiente acolhedor e atendimento pensado para transformar sua pausa em uma experiência memorável.</p>
 
-        <!-- Carrossel principal -->
-        <section id="home" aria-label="Destaques da cafeteria">
-            <div id="carouselCafeteria" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="hero-actions">
+                            <a href="#produtos" class="btn btn-primary">Conheça nossos produtos</a>
+                            <a href="templates/pedidos.html" class="btn btn-outline-light">Fazer pedido</a>
+                        </div>
 
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselCafeteria" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
-
-                    <button type="button" data-bs-target="#carouselCafeteria" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-
-                    <button type="button" data-bs-target="#carouselCafeteria" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
+                        <div class="hero-metrics">
+                            <div class="metric-card">
+                                <strong>4.9★</strong>
+                                <span>avaliação dos clientes</span>
+                            </div>
+                            <div class="metric-card">
+                                <strong>25 min</strong>
+                                <span>tempo médio de preparo</span>
+                            </div>
+                            <div class="metric-card">
+                                <strong>+500</strong>
+                                <span>pedidos confirmados</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="carousel-inner">
-
-                    <div class="carousel-item active">
-                        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1600&q=85"
-                            class="d-block w-100" alt="Café sendo servido em uma xícara">
-
-                        <div
-                            class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
-                            <h1 class="display-4 fw-bold">O café que combina com o seu momento</h1>
-                            <p class="fs-5">Sabores especiais preparados com carinho.</p>
-                            <a href="#produtos" class="btn btn-warning btn-lg fw-semibold">
-                                Conheça nossos produtos
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1600&q=85"
-                            class="d-block w-100" alt="Xícara de café sobre uma mesa">
-
-                        <div
-                            class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
-                            <h2 class="display-5 fw-bold">Cafés selecionados</h2>
-                            <p class="fs-5">Grãos de qualidade para uma experiência única.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1600&q=85"
-                            class="d-block w-100" alt="Café com leite sendo preparado">
-
-                        <div
-                            class="carousel-caption d-flex flex-column align-items-center justify-content-center h-100">
-                            <h2 class="display-5 fw-bold">Feito para você</h2>
-                            <p class="fs-5">Peça seu café favorito de forma rápida e fácil.</p>
-                            <a href="/pedidos.html" class="btn btn-light btn-lg fw-semibold">
-                                Fazer pedido
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselCafeteria"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Anterior</span>
-                </button>
-
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselCafeteria"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Próximo</span>
-                </button>
             </div>
         </section>
 
@@ -148,21 +94,118 @@
         <!-- Produtos -->
       
 
-       
-    <!-- Rodapé -->
-    <footer class="py-4 bg-black text-white">
-        <div class="container text-center">
-            <p class="mb-1 fw-semibold">☕ Cafeteria Segura</p>
-            <small class="text-white-50">
-                © 2026 Cafeteria Segura. Todos os direitos reservados.
-            </small>
+        <section class="section-shell section-shell-light">
+            <div class="container">
+                <div class="section-head">
+                    <span class="eyebrow" style="color: var(--cafe-700);">Por que escolher</span>
+                    <h2>Qualidade em cada detalhe</h2>
+                </div>
+
+                <div class="feature-strip">
+                    <article class="feature-item">
+                        <div class="feature-icon">☕</div>
+                        <h3>Grãos selecionados</h3>
+                        <p>Preparação cuidadosa com cafés de sabor marcante e aroma envolvente.</p>
+                    </article>
+
+                    <article class="feature-item">
+                        <div class="feature-icon">⏱️</div>
+                        <h3>Entrega ágil</h3>
+                        <p>Praticidade para você receber no momento certo, com rapidez e atenção.</p>
+                    </article>
+
+                    <article class="feature-item">
+                        <div class="feature-icon">💛</div>
+                        <h3>Atendimento acolhedor</h3>
+                        <p>Um serviço pensado para fazer cada visita ser especial e memorável.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="produtos" class="section-shell">
+            <div class="container">
+                <div class="section-head">
+                    <span class="eyebrow" style="color: var(--cafe-700);">Nosso cardápio</span>
+                    <h2>Escolha o seu favorito</h2>
+                </div>
+
+                <div class="product-grid">
+                    <article class="product-card">
+                        <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=900&q=85" alt="Café espresso servido em uma xícara">
+                        <div class="product-card-body">
+                            <h3>Espresso Especial</h3>
+                            <p>Intenso, aromático e preparado com grãos cuidadosamente selecionados.</p>
+                            <div class="product-card-bottom">
+                                <span class="product-price">R$ 8,90</span>
+                                <a href="templates/pedidos.html" class="btn btn-outline-dark">Pedir agora</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card">
+                        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=85" alt="Cappuccino com espuma cremosa">
+                        <div class="product-card-body">
+                            <h3>Cappuccino Cremoso</h3>
+                            <p>Leite vaporizado, espuma delicada e sabor equilibrado em cada gole.</p>
+                            <div class="product-card-bottom">
+                                <span class="product-price">R$ 12,90</span>
+                                <a href="templates/pedidos.html" class="btn btn-outline-dark">Pedir agora</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="product-card">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=900&q=85" alt="Croissant artesanal e café">
+                        <div class="product-card-body">
+                            <h3>Croissant Artesanal</h3>
+                            <p>Textura crocante e amanteigada para acompanhar seu melhor café.</p>
+                            <div class="product-card-bottom">
+                                <span class="product-price">R$ 10,90</span>
+                                <a href="templates/pedidos.html" class="btn btn-outline-dark">Pedir agora</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-shell section-shell-light">
+            <div class="container">
+                <div class="story-grid">
+                    <div class="story-panel">
+                        <span class="eyebrow" style="color: var(--cafe-700);">Nossa essência</span>
+                        <h3>Mais que café, uma pausa especial.</h3>
+                        <p>Na Cafeteria Segura, cada detalhe é pensado para transformar sua rotina em um momento de prazer, conforto e sabor.</p>
+
+                        <ul class="story-list">
+                            <li>Ambiente agradável e acolhedor</li>
+                            <li>Produtos feitos com cuidado e qualidade</li>
+                            <li>Pedido simples, rápido e confiável</li>
+                        </ul>
+                    </div>
+
+                    <div class="story-highlight">
+                        <span class="eyebrow">Atendimento</span>
+                        <h3>Seu café favorito em poucos cliques.</h3>
+                        <p>Escolha seus itens, defina a forma de entrega e tenha a melhor experiência da Cafeteria Segura na palma da sua mão.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer-inner">
+            <strong>☕ Cafeteria Segura</strong>
+            <small>&copy; 2026 Cafeteria Segura. Todos os direitos reservados.</small>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYjR8ZK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-
 </body>
 
 </html>
