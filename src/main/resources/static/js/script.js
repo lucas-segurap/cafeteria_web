@@ -189,3 +189,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
         });
+        document.addEventListener("DOMContentLoaded", function () {
+                            const botoes = document.querySelectorAll(".filtro-produto");
+                            const produtos = document.querySelectorAll(".produto-item");
+                            const contador = document.querySelector(".produtos-contador strong");
+
+                            function aplicarFiltro(filtro) {
+                                let visiveis = 0;
+
+                                produtos.forEach(function (produto) {
+                                    const mostrar = filtro === "todos" || produto.dataset.categoria === filtro;
+                                    produto.hidden = !mostrar;
+                                    if (mostrar) visiveis++;
+                                });
+
+                                if (contador) contador.textContent = visiveis;
+                            }
+
+                            botoes.forEach(function (botao) {
+                                botao.addEventListener("click", function () {
+                                    botoes.forEach(function (item) {
+                                        item.classList.remove("ativo");
+                                        item.setAttribute("aria-pressed", "false");
+                                    });
+
+                                    botao.classList.add("ativo");
+                                    botao.setAttribute("aria-pressed", "true");
+                                    aplicarFiltro(botao.dataset.filtro);
+                                });
+                            });
+
+                            aplicarFiltro("todos");
+                        });
