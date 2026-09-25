@@ -1,193 +1,6 @@
-.produtos-pedido h2 {
-    margin-bottom: 10px;
-}
-
-.produto-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 18px;
-    border: 2px solid #ddd;
-    border-radius: 14px;
-    background: #fff;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.produto-checkbox:hover {
-    border-color: #dca63d;
-    transform: translateY(-2px);
-}
-
-.produto-checkbox input {
-    width: 20px;
-    height: 20px;
-    accent-color: #3a2419;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.produto-checkbox:has(input:checked) {
-    border-color: #dca63d;
-    background: #fff9ed;
-}
-
-.checkbox-conteudo {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 5px 15px;
-    width: 100%;
-}
-
-.checkbox-conteudo strong {
-    color: #3a2419;
-    font-size: 1.05rem;
-}
-
-.checkbox-conteudo span {
-    color: #777;
-    font-size: 0.9rem;
-}
-
-.checkbox-conteudo b {
-    grid-column: 2;
-    grid-row: 1 / 3;
-    align-self: center;
-    color: #8a5a24;
-    font-size: 1.05rem;
-}
-
-@media (max-width: 575px) {
-    .produto-checkbox {
-        padding: 14px;
-    }
-
-    .checkbox-conteudo {
-        grid-template-columns: 1fr;
-    }
-
-    .checkbox-conteudo b {
-        grid-column: 1;
-        grid-row: auto;
-    }
-}
-
-.produto-select-wrapper {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: .75rem;
-    align-items: end;
-}
-
-.produto-select-card {
-    padding: 1.25rem;
-    border-radius: 16px;
-    background: #fff;
-    border: 1px solid rgba(0, 0, 0, .08);
-}
-
-.produto-info {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: center;
-    margin-top: 1rem;
-    padding: .9rem 1rem;
-    border-radius: 12px;
-    background: #f8f5f1;
-}
-
-.produto-info small {
-    display: block;
-    color: #777;
-}
-
-.produto-info strong {
-    white-space: nowrap;
-}
-
-.btn-adicionar {
-    min-height: 48px;
-    border: 0;
-    border-radius: 10px;
-    padding: 0 1.25rem;
-    font-weight: 700;
-    background: #6f4e37;
-    color: #fff;
-}
-
-.btn-adicionar:hover {
-    opacity: .9;
-}
-
-.resumo-item {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: .75rem;
-    align-items: center;
-    padding: .8rem 0;
-    border-bottom: 1px solid rgba(0, 0, 0, .08);
-}
-
-.resumo-item:last-child {
-    border-bottom: 0;
-}
-
-.resumo-item-info strong,
-.resumo-item-info small {
-    display: block;
-}
-
-.resumo-item-info small {
-    color: #777;
-}
-
-.resumo-controles {
-    display: flex;
-    align-items: center;
-    gap: .35rem;
-}
-
-.resumo-controles button {
-    width: 30px;
-    height: 30px;
-    border: 1px solid #ddd;
-    border-radius: 7px;
-    background: #fff;
-    font-weight: 700;
-}
-
-.btn-remover {
-    color: #a33;
-}
-
-.mensagem-pedido {
-    margin-top: 1rem;
-}
-
-@media (max-width: 576px) {
-    .produto-select-wrapper {
-        grid-template-columns: 1fr;
-    }
-
-    .btn-adicionar {
-        width: 100%;
-    }
-
-    .produto-info {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-}
-
-.produtos-pedido {
-    padding: 1.5rem;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow: var(--sombra-suave);
-    display: grid;
-    gap: 15px;
-}
+/* =========================================
+   Pedidos — grade de seleção de produtos
+========================================= */
 
 .produtos-pedido-grid {
     display: grid;
@@ -197,15 +10,13 @@
 }
 
 .produto-checkbox {
-    display: block;
-    height: 100%;
-    cursor: pointer;
     position: relative;
     display: block;
     height: 100%;
+    cursor: pointer;
 }
 
-.produto-checkbox>input[type="checkbox"] {
+.produto-selecao {
     position: absolute;
     opacity: 0;
     pointer-events: none;
@@ -217,7 +28,7 @@
     flex-direction: column;
     height: 100%;
     min-height: 190px;
-    padding: 1.1rem 1.1rem 1.1rem 3.2rem;
+    padding: 1.2rem 1.2rem 1.2rem 3.2rem;
     border: 2px solid #eee2d7;
     border-radius: 16px;
     background: #fffdfb;
@@ -241,111 +52,21 @@
     transform: translateY(-3px);
 }
 
-.produto-checkbox>input[type="checkbox"]:checked+.checkbox-conteudo {
-    border-color: var(--dourado-500);
-    background: linear-gradient(135deg, #fff9ef, #fff);
-    box-shadow: 0 8px 18px rgba(220, 166, 61, 0.12);
-}
-
-.produto-checkbox>input[type="checkbox"]:checked+.checkbox-conteudo::before {
-    border-color: var(--dourado-500);
-    background: var(--dourado-500);
-    box-shadow: inset 0 0 0 4px #fff;
-}
-
-.checkbox-conteudo strong {
-    color: var(--cafe-800);
-    font-size: 1.05rem;
-}
-
-.checkbox-conteudo>span:not(.quantidade-controle) {
-    margin-top: 0.3rem;
-    color: var(--cinza-500);
-    font-size: 0.85rem;
-}
-
-.checkbox-conteudo b {
-    margin-top: auto;
-    padding-top: 1rem;
-    color: var(--cafe-600);
-    font-size: 1.1rem;
-}
-
-.quantidade-controle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.7rem;
-    margin-top: 0.8rem;
-    padding-top: 0.7rem;
-    border-top: 1px solid #eee2d7;
-    color: var(--cafe-800);
-    font-size: 0.82rem;
-    font-weight: 700;
-}
-
-.quantidade-produto {
-    width: 70px;
-    min-height: 36px;
-    padding: 0.35rem;
-    border: 1px solid #d8c8bb;
-    border-radius: 8px;
-    color: var(--cafe-800);
-    text-align: center;
-}
-
-.quantidade-produto:disabled {
-    cursor: not-allowed;
-    background: #eeeae6;
-    opacity: 0.65;
-}
-
-@media (max-width: 767px) {
-    .produtos-pedido-grid {
-        grid-template-columns: 1fr;
-    }
-}
-.produto-selecao {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-}
-
-.checkbox-conteudo {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    min-height: 190px;
-    padding: 1.2rem 1.2rem 1.2rem 3.2rem;
-    border: 2px solid #eee2d7;
-    border-radius: 16px;
-    background: #fffdfb;
-    cursor: pointer;
-    transition: var(--transicao);
-}
-
-.checkbox-conteudo::before {
-    position: absolute;
-    top: 1.2rem;
-    left: 1rem;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #d4c1af;
-    border-radius: 6px;
-    content: "";
-}
-
-.produto-selecao:checked+.checkbox-conteudo {
+.produto-selecao:checked + .checkbox-conteudo {
     border-color: var(--dourado-500);
     background: linear-gradient(135deg, #fff9ef, #fff);
     box-shadow: 0 8px 18px rgba(220, 166, 61, 0.15);
 }
 
-.produto-selecao:checked+.checkbox-conteudo::before {
+.produto-selecao:checked + .checkbox-conteudo::before {
     border-color: var(--dourado-500);
     background: var(--dourado-500);
     box-shadow: inset 0 0 0 4px #fff;
+}
+
+.produto-selecao:focus-visible + .checkbox-conteudo {
+    outline: 3px solid rgba(239, 199, 111, 0.8);
+    outline-offset: 3px;
 }
 
 .checkbox-conteudo strong {
@@ -353,7 +74,7 @@
     font-size: 1.05rem;
 }
 
-.checkbox-conteudo>span:not(.quantidade-controle) {
+.checkbox-conteudo > span:not(.quantidade-controle) {
     margin-top: 0.35rem;
     color: var(--cinza-500);
     font-size: 0.88rem;
@@ -377,11 +98,10 @@
     color: var(--cafe-800);
     font-size: 0.85rem;
     font-weight: 700;
-    cursor: default;
 }
 
 .quantidade-produto {
-    width: 72px;
+    width: 64px;
     min-height: 36px;
     padding: 0.3rem;
     border: 1px solid #d4c1af;
@@ -397,60 +117,30 @@
     opacity: 0.7;
 }
 
-.order-submit:disabled {
-    cursor: wait;
-    opacity: 0.7;
+@media (max-width: 767px) {
+    .produtos-pedido-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-
-.dropdown-produtos {
-    .dropdown-produtos {
-        position: relative;
-        width: 100%;
+@media (prefers-reduced-motion: reduce) {
+    .produto-checkbox,
+    .checkbox-conteudo,
+    .checkbox-conteudo::before {
+        transition: none !important;
     }
+}
 
-    .btn-produtos {
-        width: 100%;
-        padding: 14px 18px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        background: white;
-        color: #3a2419;
-        text-align: left;
-        cursor: pointer;
-        font-size: 16px;
-    }
+/* =========================================
+   Botão de envio — estado de carregamento
+========================================= */
 
-    .lista-produtos {
-        display: none;
-        position: absolute;
-        z-index: 1000;
-        width: 100%;
-        margin-top: 5px;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        background: white;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
+.order-submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
 
-    .lista-produtos.aberto {
-        display: block;
-        max-width: 624px;
-    }
-
-    .lista-produtos label {
-        display: block;
-        padding: 10px;
-        cursor: pointer;
-        border-radius: 6px;
-    }
-
-    .lista-produtos label:hover {
-        background: #fff5df;
-    }
-
-    .lista-produtos input {
-        margin-right: 8px;
-    }
+.order-submit.is-loading {
+    cursor: wait;
+    opacity: 0.85;
 }

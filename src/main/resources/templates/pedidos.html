@@ -92,78 +92,159 @@
 
                 <div class="pedido-layout">
 
+                    <form id="formPedido" method="post" novalidate>
 
-                    <form id="formPedido" method="post">
-
-                        <section class="pedido-box produtos-pedido">
+                        <section class="pedido-box">
                             <div class="pedido-box-title">
                                 <span class="pedido-number">1</span>
 
                                 <div>
                                     <h2>Escolha seus produtos</h2>
                                     <p>
-                                        Marque os produtos e informe a quantidade.
+                                        Marque os produtos e ajuste a quantidade de cada um.
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="dropdown-produtos">
+                            <div class="produtos-pedido-grid">
 
-                                <button type="button" class="btn-produtos">
-                                    Escolha seus produtos ▾
-                                </button>
+                                <label class="produto-checkbox">
+                                    <input type="checkbox" class="produto-selecao" name="produtos" value="espresso"
+                                        data-nome="Espresso" data-preco="8.90">
+                                    <span class="checkbox-conteudo">
+                                        <strong>Espresso</strong>
+                                        <span>Bebida — tirado na hora</span>
+                                        <span class="quantidade-controle">
+                                            Quantidade
+                                            <input type="number" class="quantidade-produto" min="1" max="10"
+                                                value="1" disabled aria-label="Quantidade de Espresso">
+                                        </span>
+                                        <b>R$ 8,90</b>
+                                    </span>
+                                </label>
 
-                                <div class="lista-produtos">
+                                <label class="produto-checkbox">
+                                    <input type="checkbox" class="produto-selecao" name="produtos" value="cappuccino"
+                                        data-nome="Cappuccino" data-preco="12.90">
+                                    <span class="checkbox-conteudo">
+                                        <strong>Cappuccino</strong>
+                                        <span>Bebida — espuma cremosa</span>
+                                        <span class="quantidade-controle">
+                                            Quantidade
+                                            <input type="number" class="quantidade-produto" min="1" max="10"
+                                                value="1" disabled aria-label="Quantidade de Cappuccino">
+                                        </span>
+                                        <b>R$ 12,90</b>
+                                    </span>
+                                </label>
 
-                                    <label>
-                                        <input type="checkbox" name="produtos" value="espresso">
-                                        Espresso — R$ 8,90
-                                    </label>
+                                <label class="produto-checkbox">
+                                    <input type="checkbox" class="produto-selecao" name="produtos" value="cafe-doce"
+                                        data-nome="Café &amp; Doce" data-preco="18.90">
+                                    <span class="checkbox-conteudo">
+                                        <strong>Café &amp; Doce</strong>
+                                        <span>Combo — café + fatia de bolo</span>
+                                        <span class="quantidade-controle">
+                                            Quantidade
+                                            <input type="number" class="quantidade-produto" min="1" max="10"
+                                                value="1" disabled aria-label="Quantidade de Café e Doce">
+                                        </span>
+                                        <b>R$ 18,90</b>
+                                    </span>
+                                </label>
 
-                                    <label>
-                                        <input type="checkbox" name="produtos" value="cappuccino">
-                                        Cappuccino — R$ 12,90
-                                    </label>
+                                <label class="produto-checkbox">
+                                    <input type="checkbox" class="produto-selecao" name="produtos" value="croissant"
+                                        data-nome="Croissant" data-preco="10.90">
+                                    <span class="checkbox-conteudo">
+                                        <strong>Croissant</strong>
+                                        <span>Padaria — amanteigado</span>
+                                        <span class="quantidade-controle">
+                                            Quantidade
+                                            <input type="number" class="quantidade-produto" min="1" max="10"
+                                                value="1" disabled aria-label="Quantidade de Croissant">
+                                        </span>
+                                        <b>R$ 10,90</b>
+                                    </span>
+                                </label>
 
-                                    <label>
-                                        <input type="checkbox" name="produtos" value="cafe-doce">
-                                        Café & Doce — R$ 18,90
-                                    </label>
+                                <label class="produto-checkbox">
+                                    <input type="checkbox" class="produto-selecao" name="produtos" value="donuts"
+                                        data-nome="Donuts" data-preco="9.90">
+                                    <span class="checkbox-conteudo">
+                                        <strong>Donuts</strong>
+                                        <span>Doce — cobertura variada</span>
+                                        <span class="quantidade-controle">
+                                            Quantidade
+                                            <input type="number" class="quantidade-produto" min="1" max="10"
+                                                value="1" disabled aria-label="Quantidade de Donuts">
+                                        </span>
+                                        <b>R$ 9,90</b>
+                                    </span>
+                                </label>
 
-                                    <label>
-                                        <input type="checkbox" name="produtos" value="croissant">
-                                        Croissant — R$ 10,90
-                                    </label>
+                                <label class="produto-checkbox">
+                                    <input type="checkbox" class="produto-selecao" name="produtos" value="salgados"
+                                        data-nome="Salgados" data-preco="8.50">
+                                    <span class="checkbox-conteudo">
+                                        <strong>Salgados</strong>
+                                        <span>Salgado — sortimento do dia</span>
+                                        <span class="quantidade-controle">
+                                            Quantidade
+                                            <input type="number" class="quantidade-produto" min="1" max="10"
+                                                value="1" disabled aria-label="Quantidade de Salgados">
+                                        </span>
+                                        <b>R$ 8,50</b>
+                                    </span>
+                                </label>
 
-                                    <label>
-                                        <input type="checkbox" name="produtos" value="donuts">
-                                        Donuts — R$ 9,90
-                                    </label>
+                                <label class="produto-checkbox">
+                                    <input type="checkbox" class="produto-selecao" name="produtos" value="bolo"
+                                        data-nome="Bolo" data-preco="11.90">
+                                    <span class="checkbox-conteudo">
+                                        <strong>Bolo</strong>
+                                        <span>Doce — fatia generosa</span>
+                                        <span class="quantidade-controle">
+                                            Quantidade
+                                            <input type="number" class="quantidade-produto" min="1" max="10"
+                                                value="1" disabled aria-label="Quantidade de Bolo">
+                                        </span>
+                                        <b>R$ 11,90</b>
+                                    </span>
+                                </label>
 
-                                    <label>
-                                        <input type="checkbox" name="produtos" value="salgados">
-                                        Salgados — R$ 8,50
-                                    </label>
+                                <label class="produto-checkbox">
+                                    <input type="checkbox" class="produto-selecao" name="produtos" value="cheesecake"
+                                        data-nome="Cheesecake" data-preco="15.90">
+                                    <span class="checkbox-conteudo">
+                                        <strong>Cheesecake</strong>
+                                        <span>Doce — massa crocante</span>
+                                        <span class="quantidade-controle">
+                                            Quantidade
+                                            <input type="number" class="quantidade-produto" min="1" max="10"
+                                                value="1" disabled aria-label="Quantidade de Cheesecake">
+                                        </span>
+                                        <b>R$ 15,90</b>
+                                    </span>
+                                </label>
 
-                                    <label>
-                                        <input type="checkbox" name="produtos" value="bolo">
-                                        Bolo — R$ 11,90
-                                    </label>
-
-                                    <label>
-                                        <input type="checkbox" name="produtos" value="cheesecake">
-                                        Cheesecake — R$ 15,90
-                                    </label>
-
-                                    <label>
-                                        <input type="checkbox" name="produtos" value="sanduiche">
-                                        Sanduíche — R$ 19,90
-                                    </label>
-
-                                </div>
+                                <label class="produto-checkbox">
+                                    <input type="checkbox" class="produto-selecao" name="produtos" value="sanduiche"
+                                        data-nome="Sanduíche" data-preco="19.90">
+                                    <span class="checkbox-conteudo">
+                                        <strong>Sanduíche</strong>
+                                        <span>Salgado — pão artesanal</span>
+                                        <span class="quantidade-controle">
+                                            Quantidade
+                                            <input type="number" class="quantidade-produto" min="1" max="10"
+                                                value="1" disabled aria-label="Quantidade de Sanduíche">
+                                        </span>
+                                        <b>R$ 19,90</b>
+                                    </span>
+                                </label>
 
                             </div>
-                        </section><br><br><br><br>
+                        </section>
 
                         <section class="pedido-box">
                             <div class="pedido-box-title">
@@ -264,7 +345,7 @@
                             </div>
                         </section>
 
-                        <button class="order-submit" type="submit">
+                        <button class="order-submit" type="submit" disabled>
                             Confirmar pedido
                         </button>
 
@@ -353,7 +434,6 @@
 
     <script src="../static/js/script.js"></script>
     <script src="../static/js/pedidos.js"></script>
-    
 
 </body>
 
