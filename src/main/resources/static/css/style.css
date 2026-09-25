@@ -1524,13 +1524,15 @@ textarea:focus-visible {
 
 .produtos-hero h1 {
     margin: 0 0 12px;
-    color: #fff;
+    color: #fafafa !important;
     font-size: clamp(2rem, 4vw, 3.15rem);
     line-height: 1.08;
     font-weight: 800;
     letter-spacing: -1.2px;
 }
-
+.pedido-descricao,  .pedido-titulo{
+    color: #fff;
+}
 .produtos-hero p {
     max-width: 620px;
     margin: 0 0 24px;
