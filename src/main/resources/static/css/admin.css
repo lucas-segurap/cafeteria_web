@@ -1,0 +1,416 @@
+    /* =========================================
+   LOGIN ADMINISTRATIVO - CAFETERIA SEGURA
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --marrom-escuro: #2b1d16;
+    --marrom: #5c3b2e;
+    --marrom-claro: #8b5e3c;
+    --cafe: #3d281e;
+    --creme: #f8f3ed;
+    --creme-escuro: #eee4d8;
+    --dourado: #c79a63;
+    --branco: #ffffff;
+    --cinza: #77716c;
+    --erro: #c0392b;
+    --sombra: rgba(43, 29, 22, 0.18);
+}
+
+/* =========================================
+   BODY
+   ========================================= */
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at 10% 20%, rgba(199, 154, 99, 0.20), transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(92, 59, 46, 0.25), transparent 35%),
+        linear-gradient(135deg, #2b1d16, #5c3b2e 50%, #241811);
+
+    color: var(--marrom-escuro);
+}
+
+/* =========================================
+   ÁREA PRINCIPAL
+   ========================================= */
+
+.login-admin {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* detalhes decorativos */
+
+.login-admin::before,
+.login-admin::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.login-admin::before {
+    width: 350px;
+    height: 350px;
+    background: rgba(255, 255, 255, 0.04);
+    top: -120px;
+    left: -100px;
+}
+
+.login-admin::after {
+    width: 450px;
+    height: 450px;
+    background: rgba(199, 154, 99, 0.07);
+    bottom: -200px;
+    right: -150px;
+}
+
+/* =========================================
+   CAIXA DE LOGIN
+   ========================================= */
+
+.login-admin-box {
+    width: 100%;
+    max-width: 470px;
+    padding: 45px 42px;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 24px;
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.35),
+        0 5px 20px rgba(0, 0, 0, 0.15);
+
+    text-align: center;
+    position: relative;
+    z-index: 2;
+
+    animation: aparecer 0.7s ease;
+}
+
+/* linha superior */
+
+.login-admin-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    width: 76%;
+    height: 4px;
+    border-radius: 0 0 10px 10px;
+    background: linear-gradient(
+        90deg,
+        var(--marrom),
+        var(--dourado),
+        var(--marrom)
+    );
+}
+
+/* =========================================
+   LOGO
+   ========================================= */
+
+.logo-login {
+    width: 105px;
+    height: 105px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 18px;
+
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.15));
+
+    transition: transform 0.3s ease;
+}
+
+.logo-login:hover {
+    transform: scale(1.05);
+}
+
+/* =========================================
+   TAG ÁREA RESTRITA
+   ========================================= */
+
+.login-tag {
+    display: inline-block;
+    padding: 7px 16px;
+    margin-bottom: 15px;
+
+    border-radius: 30px;
+
+    background: var(--creme-escuro);
+    color: var(--marrom);
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* =========================================
+   TÍTULO
+   ========================================= */
+
+.login-admin-box h1 {
+    margin-bottom: 10px;
+
+    color: var(--marrom-escuro);
+
+    font-size: 30px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+/* =========================================
+   DESCRIÇÃO
+   ========================================= */
+
+.descricao-login {
+    margin-bottom: 30px;
+
+    color: var(--cinza);
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   CAMPOS
+   ========================================= */
+
+.campo-login {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.campo-login label {
+    display: block;
+    margin-bottom: 8px;
+
+    color: var(--marrom-escuro);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.campo-login input {
+    width: 100%;
+    height: 52px;
+
+    padding: 0 16px;
+
+    border: 1.5px solid #ded4ca;
+    border-radius: 12px;
+
+    background: #fffdfb;
+
+    color: var(--marrom-escuro);
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.campo-login input::placeholder {
+    color: #aaa09a;
+}
+
+.campo-login input:hover {
+    border-color: var(--dourado);
+}
+
+.campo-login input:focus {
+    border-color: var(--marrom-claro);
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px rgba(199, 154, 99, 0.16);
+}
+
+/* =========================================
+   BOTÃO LOGIN
+   ========================================= */
+
+.btn-login {
+    width: 100%;
+    height: 54px;
+
+    margin-top: 8px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        var(--marrom),
+        var(--marrom-escuro)
+    );
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 18px rgba(43, 29, 22, 0.25);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(43, 29, 22, 0.32);
+
+    filter: brightness(1.08);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+/* =========================================
+   MENSAGEM DE LOGIN
+   ========================================= */
+
+#mensagemLogin {
+    min-height: 20px;
+
+    margin-top: 15px;
+    margin-bottom: 0;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* caso o JS utilize essas classes */
+
+#mensagemLogin.erro {
+    color: var(--erro);
+}
+
+#mensagemLogin.sucesso {
+    color: #287a45;
+}
+
+/* =========================================
+   VOLTAR PARA O SITE
+   ========================================= */
+
+.voltar-site {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    margin-top: 27px;
+
+    color: var(--marrom);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.voltar-site::before {
+    content: "←";
+    font-size: 17px;
+}
+
+.voltar-site:hover {
+    color: var(--marrom-claro);
+    transform: translateX(-3px);
+}
+
+/* =========================================
+   ANIMAÇÃO
+   ========================================= */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
+
+@media (max-width: 576px) {
+
+    .login-admin {
+        padding: 20px 15px;
+    }
+
+    .login-admin-box {
+        padding: 35px 25px;
+        border-radius: 20px;
+    }
+
+    .logo-login {
+        width: 90px;
+        height: 90px;
+    }
+
+    .login-admin-box h1 {
+        font-size: 25px;
+    }
+
+    .descricao-login {
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+
+    .campo-login input {
+        height: 50px;
+    }
+
+    .btn-login {
+        height: 52px;
+    }
+}
+
+/* =========================================
+   ACESSIBILIDADE
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

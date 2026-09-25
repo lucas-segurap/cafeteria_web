@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Agendamentos - Cafeteria Segura</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <!-- CSS administrativo -->
+    <link rel="stylesheet" href="../static/css/admin.css">
+
+    <!-- CSS dos agendamentos -->
+    <link rel="stylesheet" href="../static/css/agendamentos.css">
+</head>
+
+<body>
+
+    <main class="admin-agendamentos">
+
+        <!-- CABEÇALHO -->
+        <header class="admin-header">
+
+            <div class="admin-header-info">
+
+                <span class="admin-tag">
+                    PAINEL ADMINISTRATIVO
+                </span>
+
+                <h1>Agendamentos</h1>
+
+                <p>
+                    Gerencie todos os agendamentos da Cafeteria Segura.
+                </p>
+
+            </div>
+
+            <a href="./admin.html" class="btn-voltar-admin">
+                ← Voltar ao painel
+            </a>
+
+        </header>
+
+
+        <!-- CARDS DE RESUMO -->
+        <section class="resumo-agendamentos">
+
+            <div class="resumo-card">
+                <div class="resumo-icone">📅</div>
+
+                <div>
+                    <span>Total</span>
+                    <strong id="totalAgendamentos">12</strong>
+                </div>
+            </div>
+
+
+            <div class="resumo-card">
+                <div class="resumo-icone">⏳</div>
+
+                <div>
+                    <span>Pendentes</span>
+                    <strong id="pendentesAgendamentos">4</strong>
+                </div>
+            </div>
+
+
+            <div class="resumo-card">
+                <div class="resumo-icone">✅</div>
+
+                <div>
+                    <span>Confirmados</span>
+                    <strong id="confirmadosAgendamentos">6</strong>
+                </div>
+            </div>
+
+
+            <div class="resumo-card">
+                <div class="resumo-icone">❌</div>
+
+                <div>
+                    <span>Cancelados</span>
+                    <strong id="canceladosAgendamentos">2</strong>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- FILTROS -->
+        <section class="filtros-agendamentos">
+
+            <div class="campo-filtro busca">
+
+                <label for="buscarAgendamento">
+                    Buscar
+                </label>
+
+                <input
+                    type="search"
+                    id="buscarAgendamento"
+                    placeholder="Nome, telefone ou serviço..."
+                >
+
+            </div>
+
+
+            <div class="campo-filtro">
+
+                <label for="filtroStatus">
+                    Status
+                </label>
+
+                <select id="filtroStatus">
+
+                    <option value="todos">
+                        Todos
+                    </option>
+
+                    <option value="pendente">
+                        Pendente
+                    </option>
+
+                    <option value="confirmado">
+                        Confirmado
+                    </option>
+
+                    <option value="cancelado">
+                        Cancelado
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="campo-filtro">
+
+                <label for="filtroData">
+                    Data
+                </label>
+
+                <input
+                    type="date"
+                    id="filtroData"
+                >
+
+            </div>
+
+
+            <button
+                type="button"
+                class="btn-limpar-filtros"
+                id="limparFiltros"
+            >
+                Limpar filtros
+            </button>
+
+        </section>
+
+
+        <!-- TABELA -->
+        <section class="tabela-container">
+
+            <div class="tabela-topo">
+
+                <div>
+                    <h2>Todos os agendamentos</h2>
+
+                    <p>
+                        Lista completa dos agendamentos cadastrados.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-novo-agendamento"
+                    onclick="window.location.href='./novo-agendamento.html'"
+                >
+                    + Novo agendamento
+                </button>
+
+            </div>
+
+
+            <div class="tabela-scroll">
+
+                <table class="tabela-agendamentos">
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Telefone</th>
+                            <th>Serviço</th>
+                            <th>Data</th>
+                            <th>Horário</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="listaAgendamentos">
+
+                        <!-- AGENDAMENTO 1 -->
+                        <tr data-status="confirmado" data-data="2026-09-25">
+
+                            <td>
+                                <strong>#001</strong>
+                            </td>
+
+                            <td>
+                                <div class="cliente-info">
+                                    <div class="cliente-avatar">
+                                        LS
+                                    </div>
+
+                                    <div>
+                                        <strong>Lucas Pereira</strong>
+                                        <small>Cliente</small>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>
+                                (11) 99999-9999
+                            </td>
+
+                            <td>
+                                Mesa para 2 pessoas
+                            </td>
+
+                            <td>
+                                25/09/2026
+                            </td>
+
+                            <td>
+                                <strong>14:30</strong>
+                            </td>
+
+                            <td>
+                                <span class="status confirmado">
+                                    Confirmado
+                                </span>
+                            </td>
+
+                            <td>
+                                <div class="acoes">
+
+                                    <button
+                                        class="acao visualizar"
+                                        title="Visualizar"
+                                        onclick="visualizarAgendamento(1)"
+                                    >
+                                        👁
+                                    </button>
+
+                                    <button
+                                        class="acao editar"
+                                        title="Editar"
+                                        onclick="editarAgendamento(1)"
+                                    >
+                                        ✏️
+                                    </button>
+
+                                    <button
+                                        class="acao excluir"
+                                        title="Excluir"
+                                        onclick="excluirAgendamento(1)"
+                                    >
+                                        🗑
+                                    </button>
+
+                                </div>
+                            </td>
+
+                        </tr>
+
+
+                        <!-- AGENDAMENTO 2 -->
+                        <tr data-status="pendente" data-data="2026-09-26">
+
+                            <td>
+                                <strong>#002</strong>
+                            </td>
+
+                            <td>
+                                <div class="cliente-info">
+
+                                    <div class="cliente-avatar">
+                                        AM
+                                    </div>
+
+                                    <div>
+                                        <strong>Ana Martins</strong>
+                                        <small>Cliente</small>
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>
+                                (11) 98888-7777
+                            </td>
+
+                            <td>
+                                Mesa para 4 pessoas
+                            </td>
+
+                            <td>
+                                26/09/2026
+                            </td>
+
+                            <td>
+                                <strong>10:00</strong>
+                            </td>
+
+                            <td>
+                                <span class="status pendente">
+                                    Pendente
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <div class="acoes">
+
+                                    <button
+                                        class="acao visualizar"
+                                        onclick="visualizarAgendamento(2)"
+                                    >
+                                        👁
+                                    </button>
+
+                                    <button
+                                        class="acao editar"
+                                        onclick="editarAgendamento(2)"
+                                    >
+                                        ✏️
+                                    </button>
+
+                                    <button
+                                        class="acao excluir"
+                                        onclick="excluirAgendamento(2)"
+                                    >
+                                        🗑
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- AGENDAMENTO 3 -->
+                        <tr data-status="cancelado" data-data="2026-09-27">
+
+                            <td>
+                                <strong>#003</strong>
+                            </td>
+
+                            <td>
+
+                                <div class="cliente-info">
+
+                                    <div class="cliente-avatar">
+                                        JC
+                                    </div>
+
+                                    <div>
+                                        <strong>João Costa</strong>
+                                        <small>Cliente</small>
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>
+                                (11) 97777-6666
+                            </td>
+
+                            <td>
+                                Mesa para 3 pessoas
+                            </td>
+
+                            <td>
+                                27/09/2026
+                            </td>
+
+                            <td>
+                                <strong>16:00</strong>
+                            </td>
+
+                            <td>
+                                <span class="status cancelado">
+                                    Cancelado
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <div class="acoes">
+
+                                    <button
+                                        class="acao visualizar"
+                                        onclick="visualizarAgendamento(3)"
+                                    >
+                                        👁
+                                    </button>
+
+                                    <button
+                                        class="acao excluir"
+                                        onclick="excluirAgendamento(3)"
+                                    >
+                                        🗑
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- SEM RESULTADOS -->
+
+            <div
+                id="semResultados"
+                class="sem-resultados"
+                style="display: none;"
+            >
+
+                <div>
+                    🔎
+                </div>
+
+                <h3>Nenhum agendamento encontrado</h3>
+
+                <p>
+                    Tente alterar os filtros ou realizar uma nova busca.
+                </p>
+
+            </div>
+
+
+            <!-- PAGINAÇÃO -->
+
+            <div class="paginacao">
+
+                <button disabled>
+                    ←
+                </button>
+
+                <button class="pagina-atual">
+                    1
+                </button>
+
+                <button>
+                    2
+                </button>
+
+                <button>
+                    3
+                </button>
+
+                <button>
+                    →
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../static/js/agendamentos.js"></script>
+
+</body>
+
+</html>

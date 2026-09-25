@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login Administrativo - Cafeteria Segura</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <!-- CSS administrativo -->
+    <link rel="stylesheet" href="../static/css/admin.css">
+
+</head>
+
+<body>
+
+    <main class="login-admin">
+
+        <div class="login-admin-box">
+
+            <!-- LOGO -->
+            <span class="navbar-brand-mark" aria-label="Cafeteria Segura">
+                ☕
+            </span>
+
+
+            <!-- IDENTIFICAÇÃO -->
+            <span class="login-tag">
+                ÁREA RESTRITA
+            </span>
+
+
+            <!-- TÍTULO -->
+            <h1>
+                Login Administrativo
+            </h1>
+
+
+            <!-- DESCRIÇÃO -->
+            <p class="descricao-login">
+                Acesse o painel administrativo da Cafeteria Segura.
+            </p>
+
+
+            <!-- FORMULÁRIO -->
+            <form id="loginAdmin">
+
+                <!-- USUÁRIO -->
+                <div class="campo-login">
+
+                    <label for="usuario">
+                        Usuário
+                    </label>
+
+                    <input
+                        type="text"
+                        id="usuario"
+                        name="usuario"
+                        placeholder="Digite seu usuário"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- SENHA -->
+                <div class="campo-login">
+
+                    <label for="senha">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- BOTÃO -->
+                <button
+                    type="submit"
+                    class="btn-login"
+                >
+                    Entrar no painel
+                </button>
+
+
+                <!-- MENSAGEM -->
+                <p id="mensagemLogin"></p>
+
+            </form>
+
+
+            <!-- VOLTAR -->
+            <a
+                href="../index.html"
+                class="voltar-site"
+            >
+                Voltar para o site
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- JavaScript do administrador -->
+    <script src="../static/js/admin.js"></script>
+
+</body>
+
+</html>
