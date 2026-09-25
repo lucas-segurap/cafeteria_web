@@ -15,7 +15,6 @@ O sistema permite apresentar produtos como:
 * ☕ Cafés
 * 🥐 Salgados
 * 🍰 Doces
-* 🥤 Bebidas
 * 🍪 Acompanhamentos
 * 🧁 Sobremesas
 
