@@ -15,19 +15,42 @@ public class ProdutoService {
         this.produtoRepository = produtoRepository;
     }
 
-    public List<Produto> listarProdutos() {
+    /**
+     * Lista todos os produtos cadastrados.
+     */
+    public List<Produto> listarTodos() {
         return produtoRepository.findAll();
     }
 
+    /**
+     * Busca um produto pelo ID.
+     */
     public Produto buscarPorId(Long id) {
-        return produtoRepository.findById(id).orElse(null);
+        return produtoRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Produto não encontrado com o ID: " + id
+                        )
+                );
     }
 
+    /**
+     * Salva ou atualiza um produto.
+     */
     public Produto salvar(Produto produto) {
         return produtoRepository.save(produto);
     }
 
+    /**
+     * Exclui um produto pelo ID.
+     */
     public void excluir(Long id) {
+        if (!produtoRepository.existsById(id)) {
+            throw new RuntimeException(
+                    "Não é possível excluir. Produto não encontrado com o ID: " + id
+            );
+        }
+
         produtoRepository.deleteById(id);
     }
 }
