@@ -663,7 +663,8 @@ textarea {
 }
 
 .pedido-area {
-    padding: 5rem 0;
+    
+    padding: 2% 0.2;
     background:
         linear-gradient(180deg, rgba(248, 244, 238, 0.96), rgba(248, 244, 238, 0.96)),
         url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1800&q=80") center / cover fixed;

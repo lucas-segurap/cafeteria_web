@@ -203,3 +203,9 @@ document.addEventListener("DOMContentLoaded", () => {
     enviarPedido();
     atualizarResumo();
 });
+const botaoProdutos = document.querySelector(".btn-produtos");
+const listaProdutos = document.querySelector(".lista-produtos");
+
+botaoProdutos.addEventListener("click", () => {
+    listaProdutos.classList.toggle("aberto");
+});

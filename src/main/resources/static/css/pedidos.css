@@ -1,8 +1,3 @@
-.produtos-pedido {
-    display: grid;
-    gap: 15px;
-}
-
 .produtos-pedido h2 {
     margin-bottom: 10px;
 }
@@ -184,11 +179,14 @@
         flex-direction: column;
     }
 }
+
 .produtos-pedido {
     padding: 1.5rem;
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.94);
     box-shadow: var(--sombra-suave);
+    display: grid;
+    gap: 15px;
 }
 
 .produtos-pedido-grid {
@@ -202,9 +200,12 @@
     display: block;
     height: 100%;
     cursor: pointer;
+    position: relative;
+    display: block;
+    height: 100%;
 }
 
-.produto-checkbox > input[type="checkbox"] {
+.produto-checkbox>input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     pointer-events: none;
@@ -240,13 +241,13 @@
     transform: translateY(-3px);
 }
 
-.produto-checkbox > input[type="checkbox"]:checked + .checkbox-conteudo {
+.produto-checkbox>input[type="checkbox"]:checked+.checkbox-conteudo {
     border-color: var(--dourado-500);
     background: linear-gradient(135deg, #fff9ef, #fff);
     box-shadow: 0 8px 18px rgba(220, 166, 61, 0.12);
 }
 
-.produto-checkbox > input[type="checkbox"]:checked + .checkbox-conteudo::before {
+.produto-checkbox>input[type="checkbox"]:checked+.checkbox-conteudo::before {
     border-color: var(--dourado-500);
     background: var(--dourado-500);
     box-shadow: inset 0 0 0 4px #fff;
@@ -257,7 +258,7 @@
     font-size: 1.05rem;
 }
 
-.checkbox-conteudo > span:not(.quantidade-controle) {
+.checkbox-conteudo>span:not(.quantidade-controle) {
     margin-top: 0.3rem;
     color: var(--cinza-500);
     font-size: 0.85rem;
@@ -303,26 +304,7 @@
     .produtos-pedido-grid {
         grid-template-columns: 1fr;
     }
-}.produtos-pedido {
-    padding: 1.5rem;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow: var(--sombra-suave);
 }
-
-.produtos-pedido-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.produto-checkbox {
-    position: relative;
-    display: block;
-    height: 100%;
-}
-
 .produto-selecao {
     position: absolute;
     opacity: 0;
@@ -354,13 +336,13 @@
     content: "";
 }
 
-.produto-selecao:checked + .checkbox-conteudo {
+.produto-selecao:checked+.checkbox-conteudo {
     border-color: var(--dourado-500);
     background: linear-gradient(135deg, #fff9ef, #fff);
     box-shadow: 0 8px 18px rgba(220, 166, 61, 0.15);
 }
 
-.produto-selecao:checked + .checkbox-conteudo::before {
+.produto-selecao:checked+.checkbox-conteudo::before {
     border-color: var(--dourado-500);
     background: var(--dourado-500);
     box-shadow: inset 0 0 0 4px #fff;
@@ -371,7 +353,7 @@
     font-size: 1.05rem;
 }
 
-.checkbox-conteudo > span:not(.quantidade-controle) {
+.checkbox-conteudo>span:not(.quantidade-controle) {
     margin-top: 0.35rem;
     color: var(--cinza-500);
     font-size: 0.88rem;
@@ -420,8 +402,55 @@
     opacity: 0.7;
 }
 
-@media (max-width: 767px) {
-    .produtos-pedido-grid {
-        grid-template-columns: 1fr;
+
+.dropdown-produtos {
+    .dropdown-produtos {
+        position: relative;
+        width: 100%;
+    }
+
+    .btn-produtos {
+        width: 100%;
+        padding: 14px 18px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background: white;
+        color: #3a2419;
+        text-align: left;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .lista-produtos {
+        display: none;
+        position: absolute;
+        z-index: 1000;
+        width: 100%;
+        margin-top: 5px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .lista-produtos.aberto {
+        display: block;
+        max-width: 624px;
+    }
+
+    .lista-produtos label {
+        display: block;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 6px;
+    }
+
+    .lista-produtos label:hover {
+        background: #fff5df;
+    }
+
+    .lista-produtos input {
+        margin-right: 8px;
     }
 }
