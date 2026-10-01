@@ -18,6 +18,16 @@ public class Pedido {
 
     private Double total;
 
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
+
+    @Enumerated(EnumType.STRING)
+    private TipoAtendimento tipoAtendimento;
+
+    private Integer numeroMesa;
+
+    private String enderecoEntrega;
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
@@ -30,6 +40,7 @@ public class Pedido {
 
     public Pedido() {
         this.data = LocalDateTime.now();
+        this.status = StatusPedido.RECEBIDO;
     }
 
     public Long getId() {
@@ -48,6 +59,38 @@ public class Pedido {
         this.total = total;
     }
 
+    public StatusPedido getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusPedido status) {
+        this.status = status;
+    }
+
+    public TipoAtendimento getTipoAtendimento() {
+        return tipoAtendimento;
+    }
+
+    public void setTipoAtendimento(TipoAtendimento tipoAtendimento) {
+        this.tipoAtendimento = tipoAtendimento;
+    }
+
+    public Integer getNumeroMesa() {
+        return numeroMesa;
+    }
+
+    public void setNumeroMesa(Integer numeroMesa) {
+        this.numeroMesa = numeroMesa;
+    }
+
+    public String getEnderecoEntrega() {
+        return enderecoEntrega;
+    }
+
+    public void setEnderecoEntrega(String enderecoEntrega) {
+        this.enderecoEntrega = enderecoEntrega;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -64,4 +107,3 @@ public class Pedido {
         this.itens = itens;
     }
 }
-

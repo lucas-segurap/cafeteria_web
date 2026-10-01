@@ -16,7 +16,11 @@ public class Cliente {
 
     private String endereco;
 
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private String senha;
 
     public Cliente() {
     }
@@ -25,12 +29,14 @@ public class Cliente {
             String nome,
             String telefone,
             String endereco,
-            String email) {
+            String email,
+            String senha) {
 
         this.nome = nome;
         this.telefone = telefone;
         this.endereco = endereco;
         this.email = email;
+        this.senha = senha;
     }
 
     public Long getId() {
@@ -69,4 +75,11 @@ public class Cliente {
         this.email = email;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }

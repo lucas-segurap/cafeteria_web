@@ -1,254 +1,467 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-        content="Conheça os produtos da Cafeteria Segura. Cafés, doces, salgados e opções para todos os momentos.">
+          content="Conheça os produtos da Cafeteria Segura. Bebidas, padaria, lanches, sobremesas e opções saudáveis.">
 
-    <meta name="description" content="Veja os produtos da Cafeteria Segura e escolha o melhor para o seu momento.">
-    <meta name="author" content="Lucas Segura">
+    <meta name="author"
+          content="Lucas Segura">
 
     <title>Produtos | Cafeteria Segura</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/produtos.css">
-    <link rel="stylesheet" href="../static/css/style.css">
 
+    <!-- Bootstrap -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+            crossorigin="anonymous">
 
+    <!-- CSS do projeto -->
+    <link
+            rel="stylesheet"
+            th:href="@{/css/produtos.css}">
+
+    <link
+            rel="stylesheet"
+            th:href="@{./css/style.css}">
 
 </head>
 
+
 <body>
-    <!-- --------------------- -->
-    <!-- HEADER -->
-    <!-- --------------------- -->
-    <header class="site-header">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container">
-                <a class="navbar-brand" href="../index.html">
-                    <span class="navbar-brand-mark">☕</span>
-                    Cafeteria Segura
-                </a>
 
+<!-- ===================================================== -->
+<!-- HEADER -->
+<!-- ===================================================== -->
 
+<header class="site-header">
 
-                <div class="collapse navbar-collapse" id="menuPrincipal">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="produtos.html" class="active">Produtos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="pedidos.html">Pedidos</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!-- --------------------- -->
-    <!-- MAIN -->
-    <!-- --------------------- -->
-    <main class="pagina-produtos">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
         <div class="container">
 
-            <section class="produtos-hero">
-                <div class="produtos-hero-conteudo">
-                    <span class="produtos-eyebrow">CAFETERIA SEGURA</span>
+            <a class="navbar-brand"
+               th:href="@{/}">
 
-                    <h1>Escolha seu próximo momento favorito</h1>
+                <span class="navbar-brand-mark">☕</span>
 
-                    <p>
-                        Explore nosso cardápio e encontre cafés, doces, salgados
-                        e lanches preparados para você.
+                Cafeteria Segura
+
+            </a>
+
+
+            <!-- Botão mobile -->
+
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#menuPrincipal"
+                    aria-controls="menuPrincipal"
+                    aria-expanded="false"
+                    aria-label="Abrir menu">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <!-- MENU -->
+
+            <div
+                    class="collapse navbar-collapse"
+                    id="menuPrincipal">
+
+                <ul
+                        class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
+
+
+                    <li class="nav-item">
+
+                        <a
+                                class="nav-link"
+                                th:href="@{/}">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                                class="nav-link active"
+                                aria-current="page"
+                                th:href="@{/produtos}">
+
+                            Produtos
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                                class="nav-link"
+                                th:href="@{/pedidos}">
+
+                            Pedidos
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<!-- ===================================================== -->
+<!-- MAIN -->
+<!-- ===================================================== -->
+
+<main class="pagina-produtos">
+
+    <div class="container">
+
+
+        <!-- ================================================= -->
+        <!-- HERO -->
+        <!-- ================================================= -->
+
+        <section class="produtos-hero">
+
+            <div class="produtos-hero-conteudo">
+
+                <span class="produtos-eyebrow">
+                    CAFETERIA SEGURA
+                </span>
+
+
+                <h1>
+                    Escolha seu próximo momento favorito
+                </h1>
+
+
+                <p>
+                    Explore nosso cardápio e encontre bebidas,
+                    produtos de padaria, lanches, sobremesas
+                    e opções saudáveis preparados para você.
+                </p>
+
+            </div>
+
+
+            <div
+                    class="produtos-hero-selo"
+                    aria-hidden="true">
+
+                <span>☕</span>
+
+                <small>
+                    feito para<br>
+                    você
+                </small>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- CONTROLES -->
+        <!-- ================================================= -->
+
+        <div class="produtos-controles">
+
+
+            <!-- CONTADOR -->
+
+            <div class="produtos-contador">
+
+                <strong
+                        th:text="${#lists.size(produtos)}">
+                    0
+                </strong>
+
+                opções no cardápio
+
+            </div>
+
+
+            <!-- FILTROS -->
+
+            <div
+                    class="filtros-produtos"
+                    aria-label="Filtro de produtos">
+
+
+                <!-- TODOS -->
+
+                <button
+                        type="button"
+                        class="filtro-produto ativo"
+                        data-filtro="todos"
+                        aria-pressed="true">
+
+                    Todos
+
+                </button>
+
+
+                <!-- BEBIDAS QUENTES -->
+
+                <button
+                        type="button"
+                        class="filtro-produto"
+                        data-filtro="BEBIDAS_QUENTES"
+                        aria-pressed="false">
+
+                    Bebidas quentes
+
+                </button>
+
+
+                <!-- BEBIDAS GELADAS -->
+
+                <button
+                        type="button"
+                        class="filtro-produto"
+                        data-filtro="BEBIDAS_GELADAS"
+                        aria-pressed="false">
+
+                    Bebidas geladas
+
+                </button>
+
+
+                <!-- PADARIA -->
+
+                <button
+                        type="button"
+                        class="filtro-produto"
+                        data-filtro="PADARIA_CONFEITARIA"
+                        aria-pressed="false">
+
+                    Padaria e confeitaria
+
+                </button>
+
+
+                <!-- LANCHES -->
+
+                <button
+                        type="button"
+                        class="filtro-produto"
+                        data-filtro="LANCHES_SALGADOS"
+                        aria-pressed="false">
+
+                    Lanches salgados
+
+                </button>
+
+
+                <!-- SOBREMESAS -->
+
+                <button
+                        type="button"
+                        class="filtro-produto"
+                        data-filtro="SOBREMESAS"
+                        aria-pressed="false">
+
+                    Sobremesas
+
+                </button>
+
+
+                <!-- SAUDÁVEIS -->
+
+                <button
+                        type="button"
+                        class="filtro-produto"
+                        data-filtro="OPCOES_SAUDAVEIS"
+                        aria-pressed="false">
+
+                    Opções saudáveis
+
+                </button>
+
+
+                <!-- PRODUTOS PARA VENDA -->
+
+                <button
+                        type="button"
+                        class="filtro-produto"
+                        data-filtro="PRODUTOS_VENDA"
+                        aria-pressed="false">
+
+                    Produtos para venda
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- PRODUTOS -->
+        <!-- ================================================= -->
+
+        <section
+                class="produtos-grid"
+                aria-label="Produtos do cardápio">
+
+
+            <!-- ================================================= -->
+            <!-- CADA PRODUTO VEM DO BANCO -->
+            <!-- ================================================= -->
+
+            <article
+                    class="produto-card produto-item"
+                    th:each="produto : ${produtos}"
+                    th:attr="data-categoria=${produto.categoria}">
+
+
+                <!-- IMAGEM -->
+
+                <img
+                        class="produto-imagem"
+                        th:src="${produto.imagem}"
+                        th:alt="${produto.nome}"
+                        loading="lazy">
+
+
+                <!-- CONTEÚDO -->
+
+                <div class="produto-conteudo">
+
+
+                    <!-- CATEGORIA -->
+
+                    <span
+                            class="produto-categoria"
+                            th:text="${produto.categoria}">
+                        CATEGORIA
+                    </span>
+
+
+                    <!-- NOME -->
+
+                    <h2
+                            th:text="${produto.nome}">
+                        Produto
+                    </h2>
+
+
+                    <!-- DESCRIÇÃO -->
+
+                    <p
+                            th:text="${produto.descricao}">
+                        Descrição do produto.
                     </p>
 
 
+                    <!-- PREÇO -->
+
+                    <strong
+                            class="produto-preco"
+                            th:text="${'R$ ' + #numbers.formatDecimal(produto.preco, 1, 2).replace('.', ',')}">
+                        R$ 0,00
+                    </strong>
+
+
+                    <!-- PEDIR -->
+
+                    <a
+                            class="btn btn-produto"
+                            th:href="@{/pedidos}">
+
+                        Pedir agora
+
+                    </a>
+
                 </div>
 
-                <div class="produtos-hero-selo" aria-hidden="true">
-                    <span>☕</span>
-                    <small>feito para<br>você</small>
-                </div>
-            </section>
+            </article>
 
-            <div class="produtos-controles">
-                <div class="produtos-contador">
-                    <strong>9</strong> opções no cardápio
-                </div>
 
-                <div class="filtros-produtos" aria-label="Filtro de produtos">
-                    <button class="filtro-produto ativo" data-filtro="todos" aria-pressed="true">
-                        Todos
-                    </button>
-                    <button class="filtro-produto" data-filtro="cafe" aria-pressed="false">
-                        Cafés
-                    </button>
-                    <button class="filtro-produto" data-filtro="doce" aria-pressed="false">
-                        Doces
-                    </button>
-                    <button class="filtro-produto" data-filtro="salgado" aria-pressed="false">
-                        Salgados
-                    </button>
-                    <button class="filtro-produto" data-filtro="lanche" aria-pressed="false">
-                        Lanches
-                    </button>
-                </div>
+            <!-- ================================================= -->
+            <!-- CASO NÃO EXISTAM PRODUTOS -->
+            <!-- ================================================= -->
+
+            <div
+                    class="sem-produtos"
+                    th:if="${#lists.isEmpty(produtos)}">
+
+                <h2>
+                    Nenhum produto cadastrado
+                </h2>
+
+                <p>
+                    No momento não existem produtos disponíveis
+                    no cardápio.
+                </p>
+
             </div>
 
-            <section class="produtos-grid" aria-label="Produtos do cardápio">
+        </section>
 
-                <article class="produto-card produto-item" data-categoria="cafe">
-                    <img class="produto-imagem"
-                        src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=900&q=85"
-                        alt="Xícara de café espresso" loading="lazy">
+    </div>
 
-                    <div class="produto-conteudo">
-                        <span class="produto-categoria">CAFÉ</span>
-                        <h2>Espresso</h2>
-                        <p>Café espresso preparado na hora, com sabor intenso e aroma marcante.</p>
-                        <strong class="produto-preco">R$ 8,90</strong>
-                        <a class="btn btn-produto" href="pedidos.html">Pedir agora</a>
-                    </div>
-                </article>
+</main>
 
-                <article class="produto-card produto-item" data-categoria="cafe">
-                    <img class="produto-imagem"
-                        src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=900&q=85"
-                        alt="Cappuccino cremoso" loading="lazy">
 
-                    <div class="produto-conteudo">
-                        <span class="produto-categoria">CAFÉ</span>
-                        <h2>Cappuccino</h2>
-                        <p>Combinação cremosa de café, leite e espuma para um momento especial.</p>
-                        <strong class="produto-preco">R$ 12,90</strong>
-                        <a class="btn btn-produto" href="pedidos.html">Pedir agora</a>
-                    </div>
-                </article>
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
 
-                <article class="produto-card produto-item" data-categoria="doce">
-                    <img class="produto-imagem"
-                        src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=900&q=85"
-                        alt="Café acompanhado de doce" loading="lazy">
+<footer class="site-footer">
 
-                    <div class="produto-conteudo">
-                        <span class="produto-categoria">DOCE</span>
-                        <h2>Café &amp; Doce</h2>
-                        <p>Uma combinação especial para acompanhar seu café durante o dia.</p>
-                        <strong class="produto-preco">R$ 18,90</strong>
-                        <a class="btn btn-produto" href="pedidos.html">Pedir agora</a>
-                    </div>
-                </article>
+    <div class="container site-footer-inner">
 
-                <article class="produto-card produto-item" data-categoria="doce">
-                    <img class="produto-imagem"
-                        src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=85"
-                        alt="Croissant dourado" loading="lazy">
+        <strong>
+            ☕ Cafeteria Segura
+        </strong>
 
-                    <div class="produto-conteudo">
-                        <span class="produto-categoria">DOCE</span>
-                        <h2>Croissant</h2>
-                        <p>Croissant dourado e crocante, perfeito para acompanhar uma bebida quente.</p>
-                        <strong class="produto-preco">R$ 10,90</strong>
-                        <a class="btn btn-produto" href="pedidos.html">Pedir agora</a>
-                    </div>
-                </article>
+        <small>
+            &copy; 2026 Cafeteria Segura.
+            Todos os direitos reservados.
+        </small>
 
-                <article class="produto-card produto-item" data-categoria="doce">
-                    <img class="produto-imagem"
-                        src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=85"
-                        alt="Donuts decorados" loading="lazy">
+    </div>
 
-                    <div class="produto-conteudo">
-                        <span class="produto-categoria">DOCE</span>
-                        <h2>Donuts</h2>
-                        <p>Donuts macios e saborosos para deixar seu café ainda mais gostoso.</p>
-                        <strong class="produto-preco">R$ 9,90</strong>
-                        <a class="btn btn-produto" href="pedidos.html">Pedir agora</a>
-                    </div>
-                </article>
+</footer>
 
-                <article class="produto-card produto-item" data-categoria="salgado">
-                    <img class="produto-imagem"
-                        src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=85"
-                        alt="Salgados variados" loading="lazy">
 
-                    <div class="produto-conteudo">
-                        <span class="produto-categoria">SALGADO</span>
-                        <h2>Salgados</h2>
-                        <p>Opções salgadas para um lanche rápido e saboroso.</p>
-                        <strong class="produto-preco">R$ 8,50</strong>
-                        <a class="btn btn-produto" href="pedidos.html">Pedir agora</a>
-                    </div>
-                </article>
+<!-- ===================================================== -->
+<!-- BOOTSTRAP -->
+<!-- ===================================================== -->
 
-                <article class="produto-card produto-item" data-categoria="doce">
-                    <img class="produto-imagem"
-                        src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=85"
-                        alt="Fatia de bolo" loading="lazy">
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYjR8ZK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous">
+</script>
 
-                    <div class="produto-conteudo">
-                        <span class="produto-categoria">DOCE</span>
-                        <h2>Bolo</h2>
-                        <p>Fatia de bolo macio para acompanhar seu café ou lanche.</p>
-                        <strong class="produto-preco">R$ 11,90</strong>
-                        <a class="btn btn-produto" href="pedidos.html">Pedir agora</a>
-                    </div>
-                </article>
-
-                <article class="produto-card produto-item" data-categoria="doce">
-                    <img class="produto-imagem"
-                        src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=900&q=85"
-                        alt="Cheesecake com frutas" loading="lazy">
-
-                    <div class="produto-conteudo">
-                        <span class="produto-categoria">DOCE</span>
-                        <h2>Cheesecake</h2>
-                        <p>Sobremesa cremosa e delicada para adoçar seu momento.</p>
-                        <strong class="produto-preco">R$ 15,90</strong>
-                        <a class="btn btn-produto" href="pedidos.html">Pedir agora</a>
-                    </div>
-                </article>
-
-                <article class="produto-card produto-item" data-categoria="lanche">
-                    <img class="produto-imagem"
-                        src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=85"
-                        alt="Sanduíche artesanal" loading="lazy">
-
-                    <div class="produto-conteudo">
-                        <span class="produto-categoria">LANCHE</span>
-                        <h2>Sanduíche</h2>
-                        <p>Sanduíche preparado para uma refeição prática e saborosa.</p>
-                        <strong class="produto-preco">R$ 19,90</strong>
-                        <a class="btn btn-produto" href="pedidos.html">Pedir agora</a>
-                    </div>
-                </article>
-
-            </section>
-        </div>
-
-    </main>
-    <!-- --------------------- -->
-    <!-- FOOTER -->
-    <!-- --------------------- -->
-    <footer class="site-footer">
-        <div class="container site-footer-inner">
-            <strong>☕ Cafeteria Segura</strong>
-            <small>&copy; 2026 Cafeteria Segura. Todos os direitos reservados.</small>
-        </div>
-    </footer>
-</body>
-
-</html>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYjR8ZK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script src="../static/js/script.js"></script>
 
 </body>
 

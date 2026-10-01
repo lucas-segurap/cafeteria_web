@@ -18,14 +18,23 @@ public class Produto {
 
     private String imagem;
 
+    private String categoria;
+
     public Produto() {
     }
 
-    public Produto(String nome, String descricao, Double preco, String imagem) {
+    public Produto(
+            String nome,
+            String descricao,
+            Double preco,
+            String imagem,
+            String categoria) {
+
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.imagem = imagem;
+        this.categoria = categoria;
     }
 
     public Long getId() {
@@ -62,5 +71,13 @@ public class Produto {
 
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }
