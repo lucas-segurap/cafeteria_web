@@ -19,13 +19,12 @@ public class PedidoService {
         return pedidoRepository.findAll();
     }
 
-    public Pedido salvar(Pedido pedido) {
-        return pedidoRepository.save(pedido);
+    public List<Pedido> listarPorCliente(Long clienteId) {
+        return pedidoRepository.findByClienteId(clienteId);
     }
 
-    public Pedido buscarPorId(Long id) {
-        return pedidoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+    public Pedido salvar(Pedido pedido) {
+        return pedidoRepository.save(pedido);
     }
 
     public void excluir(Long id) {

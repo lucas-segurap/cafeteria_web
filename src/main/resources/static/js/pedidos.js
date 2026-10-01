@@ -228,3 +228,78 @@ document.addEventListener("DOMContentLoaded", function () {
 
     atualizarResumo();
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const opcoesAtendimento =
+        document.querySelectorAll(
+            'input[name="tipoAtendimento"]'
+        );
+
+    const campoMesa =
+        document.getElementById("campoMesa");
+
+    const campoEntrega =
+        document.getElementById("campoEntrega");
+
+    const numeroMesa =
+        document.getElementById("numeroMesa");
+
+    const enderecoEntrega =
+        document.getElementById("enderecoEntrega");
+
+
+    function atualizarAtendimento() {
+
+        const selecionado =
+            document.querySelector(
+                'input[name="tipoAtendimento"]:checked'
+            );
+
+
+        campoMesa.style.display = "none";
+        campoEntrega.style.display = "none";
+
+
+        numeroMesa.required = false;
+        enderecoEntrega.required = false;
+
+
+        if (!selecionado) {
+            return;
+        }
+
+
+        if (selecionado.value === "MESA") {
+
+            campoMesa.style.display = "block";
+
+            numeroMesa.required = true;
+
+        }
+
+
+        if (selecionado.value === "ENTREGA") {
+
+            campoEntrega.style.display = "block";
+
+            enderecoEntrega.required = true;
+
+        }
+
+    }
+
+
+    opcoesAtendimento.forEach(function (opcao) {
+
+        opcao.addEventListener(
+            "change",
+            atualizarAtendimento
+        );
+
+    });
+
+});
+
+

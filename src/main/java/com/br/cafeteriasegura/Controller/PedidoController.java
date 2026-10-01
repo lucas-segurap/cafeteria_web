@@ -1,11 +1,13 @@
 package com.br.cafeteriasegura.Controller;
 
+import com.br.cafeteriasegura.Model.Cliente;
 import com.br.cafeteriasegura.Model.ItemPedido;
 import com.br.cafeteriasegura.Model.Pedido;
 import com.br.cafeteriasegura.Model.Produto;
 import com.br.cafeteriasegura.Model.TipoAtendimento;
 import com.br.cafeteriasegura.Service.PedidoService;
 import com.br.cafeteriasegura.Service.ProdutoService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,16 +33,30 @@ public class PedidoController {
     }
 
     @GetMapping
-    public String pedidos(Model model) {
+    public String pedidos(
+            HttpSession session,
+            Model model) {
+
+        Cliente cliente =
+                (Cliente) session.getAttribute("cliente");
+
+        if (cliente == null) {
+            return "redirect:/login";
+        }
 
         model.addAttribute(
                 "pedidos",
-                pedidoService.listar()
+                pedidoService.listarPorCliente(cliente.getId())
         );
 
         model.addAttribute(
                 "produtos",
                 produtoService.listarTodos()
+        );
+
+        model.addAttribute(
+                "cliente",
+                cliente
         );
 
         return "pedidos";
@@ -52,7 +68,15 @@ public class PedidoController {
             @RequestParam List<Integer> quantidades,
             @RequestParam TipoAtendimento tipoAtendimento,
             @RequestParam(required = false) Integer numeroMesa,
-            @RequestParam(required = false) String enderecoEntrega) {
+            @RequestParam(required = false) String enderecoEntrega,
+            HttpSession session) {
+
+        Cliente cliente =
+                (Cliente) session.getAttribute("cliente");
+
+        if (cliente == null) {
+            return "redirect:/login";
+        }
 
         if (produtos.size() != quantidades.size()) {
             throw new IllegalArgumentException(
@@ -62,11 +86,15 @@ public class PedidoController {
 
         Pedido pedido = new Pedido();
 
+        pedido.setCliente(cliente);
         pedido.setTipoAtendimento(tipoAtendimento);
 
         if (tipoAtendimento == TipoAtendimento.MESA) {
 
-            if (numeroMesa == null || numeroMesa < 1 || numeroMesa > 15) {
+            if (numeroMesa == null ||
+                    numeroMesa < 1 ||
+                    numeroMesa > 15) {
+
                 throw new IllegalArgumentException(
                         "A mesa deve estar entre 1 e 15."
                 );
@@ -98,6 +126,7 @@ public class PedidoController {
             int quantidade = quantidades.get(i);
 
             if (quantidade < 1 || quantidade > 10) {
+
                 throw new IllegalArgumentException(
                         "A quantidade deve estar entre 1 e 10."
                 );
@@ -105,12 +134,13 @@ public class PedidoController {
 
             double preco = produto.getPreco();
 
-            ItemPedido item = new ItemPedido(
-                    produto,
-                    quantidade,
-                    preco,
-                    pedido
-            );
+            ItemPedido item =
+                    new ItemPedido(
+                            produto,
+                            quantidade,
+                            preco,
+                            pedido
+                    );
 
             pedido.getItens().add(item);
 
@@ -118,6 +148,7 @@ public class PedidoController {
         }
 
         if (pedido.getItens().isEmpty()) {
+
             throw new IllegalArgumentException(
                     "Selecione pelo menos um produto."
             );
