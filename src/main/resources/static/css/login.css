@@ -1,30 +1,288 @@
-.login-container {
-    min-height: calc(100vh - 160px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
+/* =========================================================
+   CAFETERIA SEGURA - ESTILO PRINCIPAL
+   Autor: Lucas Segura
+   ========================================================= */
+
+/* ---------- RESET ---------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        linear-gradient(
+            rgba(44, 28, 20, 0.82),
+            rgba(44, 28, 20, 0.82)
+        ),
+        linear-gradient(135deg, #f5e6d3, #d7b899);
+
+    color: #3b261c;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header {
+    width: 100%;
+    background: rgba(55, 32, 22, 0.97);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+    position: relative;
+    z-index: 10;
+}
+
+nav {
+    width: 90%;
+    max-width: 1200px;
+    min-height: 75px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+/* Nome da cafeteria */
+
+nav a:first-child {
+    margin-right: auto;
+
+    color: #f4d19b;
+    font-size: 1.45rem;
+    font-weight: 700;
+    text-decoration: none;
+
+    letter-spacing: 0.5px;
+
+    transition: 0.3s ease;
+}
+
+nav a:first-child:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* Links */
+
+nav a:not(:first-child) {
+    position: relative;
+
+    color: #f8eee5;
+    text-decoration: none;
+
+    font-size: 1rem;
+    font-weight: 500;
+
+    padding: 10px 2px;
+
+    transition: 0.3s ease;
+}
+
+nav a:not(:first-child)::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: 3px;
+
+    width: 0;
+    height: 2px;
+
+    background: #d9a441;
+
+    transition: width 0.3s ease;
+}
+
+nav a:not(:first-child):hover {
+    color: #e6b85c;
+}
+
+nav a:not(:first-child):hover::after {
+    width: 100%;
+}
+
+
+/* =========================================================
+   ÁREA PRINCIPAL
+   ========================================================= */
+
+.login-container {
+    flex: 1;
+
+    width: 100%;
+    padding: 70px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+/* Detalhe decorativo */
+
+.login-container::before {
+    content: "☕";
+
+    position: absolute;
+
+    top: 45px;
+    left: 8%;
+
+    font-size: 4rem;
+
+    opacity: 0.12;
+
+    transform: rotate(-15deg);
+}
+
+.login-container::after {
+    content: "☕";
+
+    position: absolute;
+
+    right: 8%;
+    bottom: 45px;
+
+    font-size: 4rem;
+
+    opacity: 0.12;
+
+    transform: rotate(15deg);
+}
+
+
+/* =========================================================
+   CARD DE LOGIN
+   ========================================================= */
 
 .login-card {
     width: 100%;
-    max-width: 450px;
-    padding: 40px;
-    border-radius: 16px;
-    background: #111;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    max-width: 440px;
+
+    padding: 42px 40px;
+
+    background: rgba(255, 248, 239, 0.97);
+
+    border: 1px solid rgba(255, 255, 255, 0.6);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.30),
+        0 5px 15px rgba(0, 0, 0, 0.12);
+
+    position: relative;
+    z-index: 2;
+
+    animation: aparecer 0.6s ease;
 }
 
+
+/* Animação do card */
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Linha decorativa superior */
+
+.login-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 80px;
+    height: 5px;
+
+    background: #c58b3a;
+
+    border-radius: 0 0 10px 10px;
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
 .login-card h1 {
-    margin-bottom: 10px;
     text-align: center;
+
+    color: #4a2e20;
+
+    font-size: 2.1rem;
+
+    margin-bottom: 10px;
+
+    font-weight: 700;
 }
 
 .login-subtitulo {
-    margin-bottom: 30px;
     text-align: center;
-    opacity: 0.8;
+
+    color: #80695b;
+
+    font-size: 0.95rem;
+
+    line-height: 1.6;
+
+    margin-bottom: 30px;
 }
+
+
+/* =========================================================
+   MENSAGEM DE ERRO
+   ========================================================= */
+
+.mensagem-erro {
+    padding: 12px 15px;
+
+    margin-bottom: 22px;
+
+    border-radius: 10px;
+
+    background: #fbe4e1;
+    border: 1px solid #e7aaa3;
+
+    color: #9b3028;
+
+    font-size: 0.9rem;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
 
 .campo-login {
     margin-bottom: 20px;
@@ -32,60 +290,257 @@
 
 .campo-login label {
     display: block;
+
     margin-bottom: 8px;
+
+    color: #4a2e20;
+
+    font-size: 0.95rem;
+
     font-weight: 600;
 }
 
 .campo-login input {
     width: 100%;
-    padding: 13px 15px;
-    border: 1px solid #444;
-    border-radius: 8px;
-    background: #222;
-    color: #fff;
-    box-sizing: border-box;
+
+    height: 52px;
+
+    padding: 0 16px;
+
+    border: 1px solid #d7c1ae;
+
+    border-radius: 10px;
+
+    background: #fffdf9;
+
+    color: #3b261c;
+
+    font-size: 0.95rem;
+
+    outline: none;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+.campo-login input::placeholder {
+    color: #a8978a;
+}
+
+.campo-login input:hover {
+    border-color: #c59a6b;
 }
 
 .campo-login input:focus {
-    outline: none;
-    border-color: #d4af37;
+    border-color: #a86f32;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(168, 111, 50, 0.14);
 }
+
+
+/* =========================================================
+   BOTÃO LOGIN
+   ========================================================= */
 
 .btn-login {
     width: 100%;
-    padding: 14px;
+
+    height: 52px;
+
+    margin-top: 8px;
+
     border: none;
-    border-radius: 8px;
-    background: #d4af37;
-    color: #111;
-    font-weight: bold;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #6b3f28,
+        #4a2e20
+    );
+
+    color: #ffffff;
+
+    font-size: 1rem;
+    font-weight: 700;
+
     cursor: pointer;
+
+    box-shadow:
+        0 7px 15px rgba(74, 46, 32, 0.25);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.3s ease;
 }
 
 .btn-login:hover {
-    background: #f0d56a;
+    background: linear-gradient(
+        135deg,
+        #805035,
+        #5a3827
+    );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(74, 46, 32, 0.32);
 }
 
-.mensagem-erro {
-    margin-bottom: 20px;
-    padding: 12px;
-    border-radius: 8px;
-    background: #3a1515;
-    color: #ffb3b3;
-    text-align: center;
+.btn-login:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 4px 10px rgba(74, 46, 32, 0.25);
 }
+
+
+/* =========================================================
+   LINK DE CADASTRO
+   ========================================================= */
 
 .cadastro-link {
-    margin-top: 25px;
+    margin-top: 28px;
+
+    padding-top: 22px;
+
+    border-top: 1px solid #e3d5c8;
+
     text-align: center;
+}
+
+.cadastro-link p {
+    color: #80695b;
+
+    font-size: 0.9rem;
+
+    margin-bottom: 8px;
 }
 
 .cadastro-link a {
-    color: #d4af37;
+    color: #9a642d;
+
+    font-size: 0.95rem;
+
+    font-weight: 700;
+
     text-decoration: none;
-    font-weight: bold;
+
+    transition: 0.3s ease;
 }
 
 .cadastro-link a:hover {
+    color: #5c3825;
+
     text-decoration: underline;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    width: 100%;
+
+    padding: 20px;
+
+    background: #2f1d15;
+
+    color: #cdbbad;
+
+    text-align: center;
+
+    font-size: 0.85rem;
+}
+
+footer p {
+    margin: 0;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    nav {
+        min-height: auto;
+
+        padding: 18px 0;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        gap: 18px;
+    }
+
+    nav a:first-child {
+        width: 100%;
+
+        margin-right: 0;
+
+        text-align: center;
+
+        margin-bottom: 5px;
+    }
+
+    nav a:not(:first-child) {
+        font-size: 0.9rem;
+    }
+
+    .login-container {
+        padding: 45px 15px;
+    }
+
+    .login-card {
+        padding: 35px 25px;
+
+        border-radius: 16px;
+    }
+
+    .login-card h1 {
+        font-size: 1.8rem;
+    }
+
+    .login-container::before,
+    .login-container::after {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .login-card {
+        padding: 30px 20px;
+    }
+
+    .login-card h1 {
+        font-size: 1.6rem;
+    }
+
+    .login-subtitulo {
+        font-size: 0.88rem;
+    }
+
+    .campo-login input,
+    .btn-login {
+        height: 48px;
+    }
+
+    footer {
+        font-size: 0.75rem;
+    }
 }
