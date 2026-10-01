@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+﻿<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cafeteria Segura - café, sobremesas, lanches e pedidos prontos para você.">
+    <meta name="description" content="Cafeteria Segura - cafÃ©, sobremesas, lanches e pedidos prontos para vocÃª.">
     <meta name="author" content="Lucas Segura">
     <title>Cafeteria Segura</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
@@ -19,20 +19,20 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <span class="navbar-brand-mark">☕</span>
+                <a class="navbar-brand" th:href="@{/}">
+                    <span class="navbar-brand-mark">â˜•</span>
                     Cafeteria Segura
                 </a>
                 <div class="collapse navbar-collapse" id="menuPrincipal">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html" class="active">Home</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="templates/produtos.html">Produtos</a>
+                            <a class="nav-link" th:href="@{/produtos}">Produtos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="templates/pedidos.html">Pedidos</a>
+                            <a class="nav-link" th:href="@{/pedidos}">Pedidos</a>
                         </li>
                     </ul>
                 </div>
@@ -47,24 +47,24 @@
             <div class="container hero-content">
                 <div class="row align-items-center w-100">
                     <div class="col-lg-8">
-                        <span class="eyebrow">Experiência cafeeira</span>
-                        <h1>O café que combina com o seu momento.</h1>
+                        <span class="eyebrow">ExperiÃªncia cafeeira</span>
+                        <h1>O cafÃ© que combina com o seu momento.</h1>
                         <p>Sabores especiais, ambiente acolhedor e atendimento pensado para transformar sua pausa em uma
-                            experiência memorável.</p>
+                            experiÃªncia memorÃ¡vel.</p>
 
                         <div class="hero-actions">
-                            <a href="templates/produtos.html" class="btn btn-primary">Conheça nossos produtos</a>
-                            <a href="templates/pedidos.html" class="btn btn-outline-light">Fazer pedido</a>
+                            <a th:href="@{/produtos}" class="btn btn-primary">ConheÃ§a nossos produtos</a>
+                            <a th:href="@{/pedidos}" class="btn btn-outline-light">Fazer pedido</a>
                         </div>
 
                         <div class="hero-metrics">
                             <div class="metric-card">
-                                <strong>4.9★</strong>
-                                <span>avaliação dos clientes</span>
+                                <strong>4.9â˜…</strong>
+                                <span>avaliaÃ§Ã£o dos clientes</span>
                             </div>
                             <div class="metric-card">
                                 <strong>25 min</strong>
-                                <span>tempo médio de preparo</span>
+                                <span>tempo mÃ©dio de preparo</span>
                             </div>
                             <div class="metric-card">
                                 <strong>+500</strong>
@@ -75,15 +75,15 @@
                 </div>
             </div>
         </section>
-        <!-- Apresentação -->
+        <!-- ApresentaÃ§Ã£o -->
         <section class="py-5 bg-light">
             <div class="container text-center">
-                <span class="text-warning fw-bold text-uppercase">Experiência Cafeteria Segura</span>
+                <span class="text-warning fw-bold text-uppercase">ExperiÃªncia Cafeteria Segura</span>
 
-                <h2 class="mt-2 mb-3 fw-bold">Mais que café, uma pausa especial</h2>
+                <h2 class="mt-2 mb-3 fw-bold">Mais que cafÃ©, uma pausa especial</h2>
 
                 <p class="text-secondary mx-auto" style="max-width: 700px;">
-                    Descubra uma seleção de cafés preparados com grãos especiais,
+                    Descubra uma seleÃ§Ã£o de cafÃ©s preparados com grÃ£os especiais,
                     acompanhamentos deliciosos e todo o cuidado para tornar seu dia
                     ainda melhor.
                 </p>
@@ -99,21 +99,21 @@
 
                 <div class="feature-strip">
                     <article class="feature-item">
-                        <div class="feature-icon">☕</div>
-                        <h3>Grãos selecionados</h3>
-                        <p>Preparação cuidadosa com cafés de sabor marcante e aroma envolvente.</p>
+                        <div class="feature-icon">â˜•</div>
+                        <h3>GrÃ£os selecionados</h3>
+                        <p>PreparaÃ§Ã£o cuidadosa com cafÃ©s de sabor marcante e aroma envolvente.</p>
                     </article>
 
                     <article class="feature-item">
-                        <div class="feature-icon">⏱️</div>
-                        <h3>Entrega ágil</h3>
-                        <p>Praticidade para você receber no momento certo, com rapidez e atenção.</p>
+                        <div class="feature-icon">â±ï¸</div>
+                        <h3>Entrega Ã¡gil</h3>
+                        <p>Praticidade para vocÃª receber no momento certo, com rapidez e atenÃ§Ã£o.</p>
                     </article>
 
                     <article class="feature-item">
-                        <div class="feature-icon">💛</div>
+                        <div class="feature-icon">ðŸ’›</div>
                         <h3>Atendimento acolhedor</h3>
-                        <p>Um serviço pensado para fazer cada visita ser especial e memorável.</p>
+                        <p>Um serviÃ§o pensado para fazer cada visita ser especial e memorÃ¡vel.</p>
                     </article>
                 </div>
             </div>
@@ -122,23 +122,23 @@
             <div class="container">
                 <div class="story-grid">
                     <div class="story-panel">
-                        <span class="eyebrow" style="color: var(--cafe-700);">Nossa essência</span>
-                        <h3>Mais que café, uma pausa especial.</h3>
-                        <p>Na Cafeteria Segura, cada detalhe é pensado para transformar sua rotina em um momento de
+                        <span class="eyebrow" style="color: var(--cafe-700);">Nossa essÃªncia</span>
+                        <h3>Mais que cafÃ©, uma pausa especial.</h3>
+                        <p>Na Cafeteria Segura, cada detalhe Ã© pensado para transformar sua rotina em um momento de
                             prazer, conforto e sabor.</p>
 
                         <ul class="story-list">
-                            <li>Ambiente agradável e acolhedor</li>
+                            <li>Ambiente agradÃ¡vel e acolhedor</li>
                             <li>Produtos feitos com cuidado e qualidade</li>
-                            <li>Pedido simples, rápido e confiável</li>
+                            <li>Pedido simples, rÃ¡pido e confiÃ¡vel</li>
                         </ul>
                     </div>
 
                     <div class="story-highlight">
                         <span class="eyebrow">Atendimento</span>
-                        <h3>Seu café favorito em poucos cliques.</h3>
-                        <p>Escolha seus itens, defina a forma de entrega e tenha a melhor experiência da Cafeteria
-                            Segura na palma da sua mão.</p>
+                        <h3>Seu cafÃ© favorito em poucos cliques.</h3>
+                        <p>Escolha seus itens, defina a forma de entrega e tenha a melhor experiÃªncia da Cafeteria
+                            Segura na palma da sua mÃ£o.</p>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@
     <!-- --------------------- -->
     <footer class="site-footer">
         <div class="container site-footer-inner">
-            <strong>☕ Cafeteria Segura</strong>
+            <strong>â˜• Cafeteria Segura</strong>
             <small>&copy; 2026 Cafeteria Segura. Todos os direitos reservados.</small>
         </div>
     </footer>
@@ -160,3 +160,4 @@
 </body>
 
 </html>
+
