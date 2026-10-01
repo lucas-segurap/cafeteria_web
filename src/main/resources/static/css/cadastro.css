@@ -1,0 +1,99 @@
+.cadastro-container {
+    min-height: calc(100vh - 160px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.cadastro-card {
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    border-radius: 16px;
+    background: #111;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.cadastro-card h1 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.cadastro-subtitulo {
+    margin-bottom: 30px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.campo-cadastro {
+    margin-bottom: 18px;
+}
+
+.campo-cadastro label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.campo-cadastro input,
+.campo-cadastro textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background: #222;
+    color: #fff;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.campo-cadastro textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.campo-cadastro input:focus,
+.campo-cadastro textarea:focus {
+    outline: none;
+    border-color: #d4af37;
+}
+
+.btn-cadastro {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #d4af37;
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-cadastro:hover {
+    background: #f0d56a;
+}
+
+.mensagem-erro {
+    margin-bottom: 20px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #3a1515;
+    color: #ffb3b3;
+    text-align: center;
+}
+
+.login-link {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.login-link a {
+    color: #d4af37;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
