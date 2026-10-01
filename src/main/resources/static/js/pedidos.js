@@ -149,3 +149,82 @@ document.addEventListener('DOMContentLoaded', () => {
 
     atualizarResumo();
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const produtos = document.querySelectorAll(".produto-selecao");
+
+    function atualizarResumo() {
+
+        let subtotal = 0;
+        let quantidadeTotal = 0;
+
+        produtos.forEach(function (produto) {
+
+            const quantidadeInput =
+                produto.closest(".produto-checkbox")
+                    .querySelector(".quantidade-produto");
+
+            if (produto.checked) {
+
+                quantidadeInput.disabled = false;
+
+                let quantidade = parseInt(quantidadeInput.value) || 1;
+
+                if (quantidade < 1) {
+                    quantidade = 1;
+                    quantidadeInput.value = 1;
+                }
+
+                if (quantidade > 10) {
+                    quantidade = 10;
+                    quantidadeInput.value = 10;
+                }
+
+                const preco = parseFloat(produto.dataset.preco);
+
+                subtotal += preco * quantidade;
+                quantidadeTotal += quantidade;
+
+            } else {
+
+                quantidadeInput.disabled = true;
+                quantidadeInput.value = 1;
+            }
+        });
+
+        const subtotalElemento =
+            document.getElementById("subtotal");
+
+        const totalElemento =
+            document.getElementById("total");
+
+        if (subtotalElemento) {
+            subtotalElemento.textContent =
+                "R$ " + subtotal.toFixed(2).replace(".", ",");
+        }
+
+        if (totalElemento) {
+            totalElemento.textContent =
+                "R$ " + subtotal.toFixed(2).replace(".", ",");
+        }
+    }
+
+
+    produtos.forEach(function (produto) {
+
+        produto.addEventListener("change", atualizarResumo);
+
+        const quantidadeInput =
+            produto.closest(".produto-checkbox")
+                .querySelector(".quantidade-produto");
+
+        quantidadeInput.addEventListener(
+            "input",
+            atualizarResumo
+        );
+    });
+
+
+    atualizarResumo();
+});
