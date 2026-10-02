@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Painel do funcionário da Cafeteria Segura">
+
+    <meta name="author"
+          content="Lucas Segura">
+
+    <title>Painel do Funcionário | Cafeteria Segura</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/funcionario.css}">
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <nav class="navbar">
+
+        <div class="container">
+
+            <a class="navbar-brand"
+               th:href="@{/funcionario}">
+
+                <span class="navbar-brand-mark">
+                    ☕
+                </span>
+
+                Cafeteria Segura
+
+            </a>
+
+            <div class="menu">
+
+                <a class="nav-link"
+                   th:href="@{/}">
+                    Site
+                </a>
+
+                <a class="nav-link sair"
+                   th:href="@{/logout-funcionario}">
+                    Sair
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<main class="painel-container">
+
+    <section class="painel-header">
+
+        <div>
+
+            <p class="texto-boas-vindas">
+                Bem-vindo(a)
+            </p>
+
+            <h1>
+
+                Olá,
+                <span th:text="${funcionario.nome}">
+                    Funcionário
+                </span>!
+
+            </h1>
+
+            <p class="subtitulo">
+
+                Este é o painel de gerenciamento da Cafeteria Segura.
+
+            </p>
+
+        </div>
+
+        <div class="icone-funcionario">
+            👨‍💼
+        </div>
+
+    </section>
+
+
+    <section class="cards">
+
+        <a class="card"
+           th:href="@{/produtos}">
+
+            <div class="card-icon">
+                ☕
+            </div>
+
+            <div>
+
+                <h2>
+                    Produtos
+                </h2>
+
+                <p>
+                    Visualizar os produtos disponíveis na cafeteria.
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <a class="card"
+           th:href="@{/pedidos}">
+
+            <div class="card-icon">
+                📋
+            </div>
+
+            <div>
+
+                <h2>
+                    Pedidos
+                </h2>
+
+                <p>
+                    Acompanhar os pedidos realizados.
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                👥
+            </div>
+
+            <div>
+
+                <h2>
+                    Clientes
+                </h2>
+
+                <p>
+                    Área destinada ao gerenciamento dos clientes.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                📊
+            </div>
+
+            <div>
+
+                <h2>
+                    Relatórios
+                </h2>
+
+                <p>
+                    Visualizar informações e movimentações da cafeteria.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="informacoes">
+
+        <h2>
+            Funcionário conectado
+        </h2>
+
+        <div class="info">
+
+            <strong>
+                Nome:
+            </strong>
+
+            <span th:text="${funcionario.nome}">
+                Funcionário
+            </span>
+
+        </div>
+
+        <div class="info">
+
+            <strong>
+                E-mail:
+            </strong>
+
+            <span th:text="${funcionario.email}">
+                funcionario@email.com
+            </span>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        &copy; 2026 Cafeteria Segura.
+        Todos os direitos reservados.
+    </p>
+
+</footer>
+
+</body>
+
+</html>      

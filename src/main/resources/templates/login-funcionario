@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Área de acesso dos funcionários da Cafeteria Segura">
+
+    <meta name="author"
+          content="Lucas Segura">
+
+    <title>Login do Funcionário | Cafeteria Segura</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/login.css}">
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <nav class="navbar">
+
+        <div class="container">
+
+            <a class="navbar-brand"
+               th:href="@{/}">
+
+                <span class="navbar-brand-mark">
+                    ☕
+                </span>
+
+                Cafeteria Segura
+
+            </a>
+
+            <div class="menu">
+
+                <a class="nav-link"
+                   th:href="@{/}">
+                    Home
+                </a>
+
+                <a class="nav-link"
+                   th:href="@{/produtos}">
+                    Produtos
+                </a>
+
+                <a class="nav-link"
+                   th:href="@{/login}">
+                    Área do cliente
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<main class="login-container">
+
+    <section class="login-card">
+
+        <div class="login-icon">
+            👨‍💼
+        </div>
+
+        <h1>
+            Área do Funcionário
+        </h1>
+
+        <p class="login-subtitulo">
+            Entre para acessar o painel da Cafeteria Segura.
+        </p>
+
+
+        <!-- Mensagem de erro -->
+
+        <div
+                class="mensagem-erro"
+                th:if="${erro}"
+                th:text="${erro}">
+
+            E-mail ou senha inválidos.
+
+        </div>
+
+
+        <!-- Formulário -->
+
+        <form
+                th:action="@{/login-funcionario}"
+                method="post">
+
+            <div class="campo-login">
+
+                <label for="email">
+                    E-mail
+                </label>
+
+                <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite seu e-mail"
+                        autocomplete="email"
+                        required>
+
+            </div>
+
+
+            <div class="campo-login">
+
+                <label for="senha">
+                    Senha
+                </label>
+
+                <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required>
+
+            </div>
+
+
+            <button
+                    type="submit"
+                    class="btn-login">
+
+                Entrar
+
+            </button>
+
+        </form>
+
+
+        <div class="voltar">
+
+            <a th:href="@{/}">
+                ← Voltar para a cafeteria
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        &copy; 2026 Cafeteria Segura.
+        Todos os direitos reservados.
+    </p>
+
+</footer>
+
+</body>
+
+</html>
