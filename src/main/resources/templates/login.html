@@ -5,41 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description"
-          content="Login da Cafeteria Segura">
-
-    <meta name="author"
-          content="Lucas Segura">
+    <meta name="description" content="Login da Cafeteria Segura">
+    <meta name="author" content="Lucas Segura">
 
     <title>Login | Cafeteria Segura</title>
 
-    <link rel="stylesheet"
-          th:href="@{/css/login.css}">
-
-  
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 
 <body>
 
-<header>
-    <nav>
-        <a th:href="@{/}">
-            Cafeteria Segura
-        </a>
+<header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
 
-        <a th:href="@{/}">
-            Início
-        </a>
+            <!-- Logo / Home -->
+            <a class="navbar-brand" th:href="@{/}">
+                <span class="navbar-brand-mark">☕</span>
+                Cafeteria Segura
+            </a>
 
-        <a th:href="@{/produtos}">
-            Produtos
-        </a>
+            <div class="collapse navbar-collapse" id="menuPrincipal">
 
-        <a th:href="@{/login}">
-            Login
-        </a>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
+
+                    <!-- Home -->
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:href="@{/}">
+                            Home
+                        </a>
+                    </li>
+
+                    <!-- Produtos -->
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:href="@{/produtos}">
+                            Produtos
+                        </a>
+                    </li>
+
+                    <!-- Pedidos -->
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:href="@{/pedidos}">
+                            Pedidos
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
     </nav>
 </header>
+
 
 <main class="login-container">
 
@@ -51,6 +72,7 @@
             Acesse sua conta para realizar seus pedidos.
         </p>
 
+
         <!-- Mensagem de erro -->
         <div
             class="mensagem-erro"
@@ -59,6 +81,8 @@
             E-mail ou senha inválidos.
         </div>
 
+
+        <!-- Formulário de login -->
         <form
             th:action="@{/login}"
             method="post">
@@ -79,6 +103,7 @@
 
             </div>
 
+
             <div class="campo-login">
 
                 <label for="senha">
@@ -95,6 +120,7 @@
 
             </div>
 
+
             <button
                 type="submit"
                 class="btn-login">
@@ -103,6 +129,8 @@
 
         </form>
 
+
+        <!-- Cadastro -->
         <div class="cadastro-link">
 
             <p>
@@ -118,6 +146,7 @@
     </section>
 
 </main>
+
 
 <footer>
     <p>
