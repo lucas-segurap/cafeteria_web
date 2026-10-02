@@ -30,8 +30,9 @@
 
         <div class="container">
 
+            <!-- LOGO -->
             <a class="navbar-brand"
-               th:href="@{/funcionario}">
+               th:href="@{/funcionarios/painel}">
 
                 <span class="navbar-brand-mark">
                     ☕
@@ -41,6 +42,8 @@
 
             </a>
 
+
+            <!-- MENU -->
             <div class="menu">
 
                 <a class="nav-link"
@@ -49,7 +52,7 @@
                 </a>
 
                 <a class="nav-link sair"
-                   th:href="@{/logout-funcionario}">
+                   th:href="@{/funcionarios/logout}">
                     Sair
                 </a>
 
@@ -64,6 +67,7 @@
 
 <main class="painel-container">
 
+    <!-- CABEÇALHO -->
     <section class="painel-header">
 
         <div>
@@ -83,11 +87,13 @@
 
             <p class="subtitulo">
 
-                Este é o painel de gerenciamento da Cafeteria Segura.
+                Este é o painel de gerenciamento
+                da Cafeteria Segura.
 
             </p>
 
         </div>
+
 
         <div class="icone-funcionario">
             👨‍💼
@@ -96,8 +102,11 @@
     </section>
 
 
+    <!-- CARDS -->
     <section class="cards">
 
+
+        <!-- PRODUTOS -->
         <a class="card"
            th:href="@{/produtos}">
 
@@ -112,7 +121,8 @@
                 </h2>
 
                 <p>
-                    Visualizar os produtos disponíveis na cafeteria.
+                    Visualizar e gerenciar os produtos
+                    disponíveis na cafeteria.
                 </p>
 
             </div>
@@ -120,6 +130,7 @@
         </a>
 
 
+        <!-- PEDIDOS -->
         <a class="card"
            th:href="@{/pedidos}">
 
@@ -134,7 +145,8 @@
                 </h2>
 
                 <p>
-                    Acompanhar os pedidos realizados.
+                    Acompanhar os pedidos realizados
+                    pelos clientes.
                 </p>
 
             </div>
@@ -142,6 +154,7 @@
         </a>
 
 
+        <!-- CLIENTES -->
         <div class="card">
 
             <div class="card-icon">
@@ -155,7 +168,8 @@
                 </h2>
 
                 <p>
-                    Área destinada ao gerenciamento dos clientes.
+                    Gerenciar os clientes cadastrados
+                    na cafeteria.
                 </p>
 
             </div>
@@ -163,6 +177,31 @@
         </div>
 
 
+        <!-- FUNCIONÁRIOS -->
+        <a class="card"
+           th:href="@{/funcionarios}">
+
+            <div class="card-icon">
+                👨‍💼
+            </div>
+
+            <div>
+
+                <h2>
+                    Funcionários
+                </h2>
+
+                <p>
+                    Cadastrar, visualizar e gerenciar
+                    os funcionários.
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <!-- RELATÓRIOS -->
         <div class="card">
 
             <div class="card-icon">
@@ -176,7 +215,8 @@
                 </h2>
 
                 <p>
-                    Visualizar informações e movimentações da cafeteria.
+                    Visualizar informações e movimentações
+                    da cafeteria.
                 </p>
 
             </div>
@@ -186,11 +226,13 @@
     </section>
 
 
+    <!-- INFORMAÇÕES DO FUNCIONÁRIO -->
     <section class="informacoes">
 
         <h2>
             Funcionário conectado
         </h2>
+
 
         <div class="info">
 
@@ -204,6 +246,7 @@
 
         </div>
 
+
         <div class="info">
 
             <strong>
@@ -215,6 +258,20 @@
             </span>
 
         </div>
+
+
+        <div class="info">
+
+            <strong>
+                Cargo:
+            </strong>
+
+            <span th:text="${funcionario.cargo}">
+                Cargo
+            </span>
+
+        </div>
+
 
     </section>
 
@@ -230,6 +287,7 @@
 
 </footer>
 
+
 </body>
 
-</html>      
+</html>
