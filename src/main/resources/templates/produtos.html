@@ -17,24 +17,35 @@
 
     <title>Produtos | Cafeteria Segura</title>
 
-    <!-- Bootstrap -->
+
+    <!-- ===================================================== -->
+    <!-- BOOTSTRAP -->
+    <!-- ===================================================== -->
+
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
             crossorigin="anonymous">
 
-    <!-- CSS do projeto -->
-   <link rel="stylesheet" th:href="@{/css/produtos.css}">
+
+    <!-- ===================================================== -->
+    <!-- CSS DO PROJETO -->
+    <!-- ===================================================== -->
 
     <link
             rel="stylesheet"
-            th:href="@{./css/style.css}">
+            th:href="@{/css/style.css}">
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/produtos.css}">
 
 </head>
 
 
 <body>
+
 
 <!-- ===================================================== -->
 <!-- HEADER -->
@@ -46,17 +57,20 @@
 
         <div class="container">
 
-            <a class="navbar-brand"
-               th:href="@{/}">
+            <a
+                    class="navbar-brand"
+                    th:href="@{/}">
 
-                <span class="navbar-brand-mark">☕</span>
+                <span class="navbar-brand-mark">
+                    ☕
+                </span>
 
                 Cafeteria Segura
 
             </a>
 
 
-            <!-- Botão mobile -->
+            <!-- BOTÃO MOBILE -->
 
             <button
                     class="navbar-toggler"
@@ -82,6 +96,8 @@
                         class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
 
 
+                    <!-- HOME -->
+
                     <li class="nav-item">
 
                         <a
@@ -94,6 +110,8 @@
 
                     </li>
 
+
+                    <!-- PRODUTOS -->
 
                     <li class="nav-item">
 
@@ -108,6 +126,8 @@
 
                     </li>
 
+
+                    <!-- PEDIDOS -->
 
                     <li class="nav-item">
 
@@ -172,7 +192,9 @@
                     class="produtos-hero-selo"
                     aria-hidden="true">
 
-                <span>☕</span>
+                <span>
+                    ☕
+                </span>
 
                 <small>
                     feito para<br>
@@ -197,7 +219,9 @@
 
                 <strong
                         th:text="${#lists.size(produtos)}">
+
                     0
+
                 </strong>
 
                 opções no cardápio
@@ -330,7 +354,7 @@
 
 
             <!-- ================================================= -->
-            <!-- CADA PRODUTO VEM DO BANCO -->
+            <!-- PRODUTO -->
             <!-- ================================================= -->
 
             <article
@@ -339,16 +363,20 @@
                     th:attr="data-categoria=${produto.categoria}">
 
 
-                <!-- IMAGEM -->
+                <!-- ================================================= -->
+                <!-- IMAGEM VINDO DO MYSQL -->
+                <!-- ================================================= -->
 
                 <img
                         class="produto-imagem"
-                        th:src="${produto.imagem}"
+                        th:src="@{/produtos/imagem/{id}(id=${produto.id})}"
                         th:alt="${produto.nome}"
                         loading="lazy">
 
 
+                <!-- ================================================= -->
                 <!-- CONTEÚDO -->
+                <!-- ================================================= -->
 
                 <div class="produto-conteudo">
 
@@ -358,7 +386,9 @@
                     <span
                             class="produto-categoria"
                             th:text="${produto.categoria}">
+
                         CATEGORIA
+
                     </span>
 
 
@@ -366,7 +396,9 @@
 
                     <h2
                             th:text="${produto.nome}">
+
                         Produto
+
                     </h2>
 
 
@@ -374,7 +406,9 @@
 
                     <p
                             th:text="${produto.descricao}">
+
                         Descrição do produto.
+
                     </p>
 
 
@@ -383,7 +417,9 @@
                     <strong
                             class="produto-preco"
                             th:text="${'R$ ' + #numbers.formatDecimal(produto.preco, 1, 2).replace('.', ',')}">
+
                         R$ 0,00
+
                     </strong>
 
 
@@ -403,7 +439,7 @@
 
 
             <!-- ================================================= -->
-            <!-- CASO NÃO EXISTAM PRODUTOS -->
+            <!-- NENHUM PRODUTO -->
             <!-- ================================================= -->
 
             <div
@@ -441,8 +477,10 @@
         </strong>
 
         <small>
+
             &copy; 2026 Cafeteria Segura.
             Todos os direitos reservados.
+
         </small>
 
     </div>
@@ -451,7 +489,7 @@
 
 
 <!-- ===================================================== -->
-<!-- BOOTSTRAP -->
+<!-- BOOTSTRAP JS -->
 <!-- ===================================================== -->
 
 <script
@@ -459,7 +497,16 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYjR8ZK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous">
 </script>
-<script src="/src/main/resources/static/js/produtos.js"></script>
+
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT DO PROJETO -->
+<!-- ===================================================== -->
+
+<script
+        th:src="@{/js/produtos.js}">
+</script>
+
 
 </body>
 

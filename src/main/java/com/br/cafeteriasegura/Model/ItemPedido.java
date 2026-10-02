@@ -1,6 +1,7 @@
 package com.br.cafeteriasegura.Model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "itens_pedido")
@@ -12,7 +13,7 @@ public class ItemPedido {
 
     private Integer quantidade;
 
-    private Double preco;
+    private BigDecimal preco;
 
     @ManyToOne
     @JoinColumn(name = "pedido_id", nullable = false)
@@ -28,7 +29,7 @@ public class ItemPedido {
     public ItemPedido(
             Produto produto,
             Integer quantidade,
-            Double preco,
+            BigDecimal preco,
             Pedido pedido) {
 
         this.produto = produto;
@@ -49,11 +50,11 @@ public class ItemPedido {
         this.quantidade = quantidade;
     }
 
-    public Double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(Double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 

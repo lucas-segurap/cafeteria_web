@@ -1,6 +1,7 @@
 package com.br.cafeteriasegura.Model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Pedido {
 
     private LocalDateTime data;
 
-    private Double total;
+    private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
@@ -51,11 +52,11 @@ public class Pedido {
         return data;
     }
 
-    public Double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 

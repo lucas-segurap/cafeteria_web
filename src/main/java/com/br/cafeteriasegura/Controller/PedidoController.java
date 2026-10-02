@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -89,6 +90,10 @@ public class PedidoController {
         pedido.setCliente(cliente);
         pedido.setTipoAtendimento(tipoAtendimento);
 
+        // ==========================================
+        // ATENDIMENTO NA MESA
+        // ==========================================
+
         if (tipoAtendimento == TipoAtendimento.MESA) {
 
             if (numeroMesa == null ||
@@ -103,6 +108,10 @@ public class PedidoController {
             pedido.setNumeroMesa(numeroMesa);
         }
 
+        // ==========================================
+        // ENTREGA
+        // ==========================================
+
         if (tipoAtendimento == TipoAtendimento.ENTREGA) {
 
             if (enderecoEntrega == null ||
@@ -116,14 +125,23 @@ public class PedidoController {
             pedido.setEnderecoEntrega(enderecoEntrega);
         }
 
-        double total = 0;
+        // ==========================================
+        // TOTAL DO PEDIDO
+        // ==========================================
+
+        BigDecimal total = BigDecimal.ZERO;
+
+        // ==========================================
+        // PRODUTOS
+        // ==========================================
 
         for (int i = 0; i < produtos.size(); i++) {
 
             Produto produto =
                     produtoService.buscarPorId(produtos.get(i));
 
-            int quantidade = quantidades.get(i);
+            int quantidade =
+                    quantidades.get(i);
 
             if (quantidade < 1 || quantidade > 10) {
 
@@ -132,7 +150,24 @@ public class PedidoController {
                 );
             }
 
-            double preco = produto.getPreco();
+            BigDecimal preco =
+                    produto.getPreco();
+
+            // ======================================
+            // SUBTOTAL
+            // ======================================
+
+            BigDecimal subtotal =
+                    preco.multiply(
+                            BigDecimal.valueOf(quantidade)
+                    );
+
+            // Soma o subtotal ao total
+            total = total.add(subtotal);
+
+            // ======================================
+            // ITEM DO PEDIDO
+            // ======================================
 
             ItemPedido item =
                     new ItemPedido(
@@ -143,9 +178,11 @@ public class PedidoController {
                     );
 
             pedido.getItens().add(item);
-
-            total += preco * quantidade;
         }
+
+        // ==========================================
+        // VERIFICAÇÃO
+        // ==========================================
 
         if (pedido.getItens().isEmpty()) {
 
@@ -154,7 +191,15 @@ public class PedidoController {
             );
         }
 
+        // ==========================================
+        // TOTAL FINAL
+        // ==========================================
+
         pedido.setTotal(total);
+
+        // ==========================================
+        // SALVAR
+        // ==========================================
 
         pedidoService.salvar(pedido);
 
