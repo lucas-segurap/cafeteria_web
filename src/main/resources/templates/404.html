@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>404 - Página não encontrada | Cafeteria Segura</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    rgba(8, 8, 8, 0.94),
+                    rgba(17, 17, 17, 0.97)
+                );
+
+            color: #ffffff;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+        .erro-container {
+            width: 90%;
+            max-width: 650px;
+
+            text-align: center;
+
+            padding: 50px 30px;
+
+            border: 1px solid #333;
+
+            border-radius: 20px;
+
+            background: #111111;
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .erro-numero {
+            font-size: clamp(80px, 18vw, 150px);
+
+            font-weight: 800;
+
+            line-height: 1;
+
+            color: #d4af37;
+
+            margin-bottom: 20px;
+        }
+
+        .erro-titulo {
+            font-size: 30px;
+
+            margin-bottom: 15px;
+        }
+
+        .erro-texto {
+            color: #cccccc;
+
+            font-size: 17px;
+
+            line-height: 1.6;
+
+            margin-bottom: 30px;
+        }
+
+        .btn-inicio {
+            display: inline-block;
+
+            padding: 13px 28px;
+
+            border-radius: 8px;
+
+            background: #d4af37;
+
+            color: #080808;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .btn-inicio:hover {
+            background: #f0d56a;
+
+            transform: translateY(-2px);
+        }
+
+        .logo {
+            margin-top: 25px;
+
+            color: #cccccc;
+
+            font-size: 14px;
+        }
+
+        .logo strong {
+            color: #d4af37;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+
+
+<main class="erro-container">
+
+    <div class="erro-numero">
+        404
+    </div>
+
+    <h1 class="erro-titulo">
+        Página não encontrada
+    </h1>
+
+    <p class="erro-texto">
+        Parece que esse endereço não existe ou foi removido.
+        Volte para a página inicial e continue navegando pela
+        Cafeteria Segura.
+    </p>
+
+    <a href="/" class="btn-inicio">
+        Voltar para o início
+    </a>
+
+    <div class="logo">
+        ☕ <strong>Cafeteria Segura</strong>
+    </div>
+
+</main>
+
+
+</body>
+
+</html>
