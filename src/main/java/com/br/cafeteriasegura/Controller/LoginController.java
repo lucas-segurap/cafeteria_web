@@ -85,6 +85,12 @@ public class LoginController {
         }
     }
 
+    @GetMapping("/admin")
+    public String login_admin() {
+        return "login-admin";
+
+    }
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
 
