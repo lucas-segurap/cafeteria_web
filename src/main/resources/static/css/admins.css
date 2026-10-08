@@ -1,0 +1,518 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    background: #080808;
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ============================= */
+/* TOPO */
+/* ============================= */
+
+.topo {
+    width: 100%;
+
+    padding: 20px 6%;
+
+    background: #111111;
+
+    border-bottom: 1px solid #222222;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* LOGO */
+
+.logo {
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: #ffffff;
+}
+
+.logo strong {
+    color: #d4af37;
+}
+
+
+/* USUÁRIO */
+
+.usuario-logado {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    color: #cccccc;
+}
+
+.usuario-logado strong {
+    color: #d4af37;
+}
+
+
+/* SAIR */
+
+.btn-sair {
+    padding: 9px 18px;
+
+    border: 1px solid #d4af37;
+    border-radius: 6px;
+
+    color: #d4af37;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.btn-sair:hover {
+    background: #d4af37;
+    color: #080808;
+}
+
+
+/* ============================= */
+/* CONTAINER */
+/* ============================= */
+
+.container {
+    width: 90%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 45px 0;
+
+    flex: 1;
+}
+
+
+/* ============================= */
+/* CABEÇALHO */
+/* ============================= */
+
+.cabecalho {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 30px;
+}
+
+.cabecalho h1 {
+    margin-top: 12px;
+
+    font-size: 36px;
+}
+
+.cabecalho p {
+    margin-top: 10px;
+
+    color: #999999;
+}
+
+
+/* VOLTAR */
+
+.voltar {
+    color: #d4af37;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+.voltar:hover {
+    text-decoration: underline;
+}
+
+
+/* ============================= */
+/* BOTÃO PRINCIPAL */
+/* ============================= */
+
+.btn-principal {
+    display: inline-block;
+
+    padding: 13px 22px;
+
+    background: #d4af37;
+
+    color: #080808;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.btn-principal:hover {
+    background: #f0d56a;
+
+    transform: translateY(-1px);
+}
+
+
+/* ============================= */
+/* CARD */
+/* ============================= */
+
+.card {
+    background: #111111;
+
+    border: 1px solid #222222;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+
+/* CABEÇALHO DO CARD */
+
+.card-topo {
+    padding: 25px 30px;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid #222222;
+}
+
+.card-topo h2 {
+    font-size: 20px;
+}
+
+.card-topo p {
+    margin-top: 6px;
+
+    color: #888888;
+
+    font-size: 14px;
+}
+
+
+/* CONTADOR */
+
+.contador {
+    min-width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #222222;
+
+    border: 1px solid #d4af37;
+
+    border-radius: 50%;
+
+    color: #d4af37;
+
+    font-weight: bold;
+}
+
+
+/* ============================= */
+/* TABELA */
+/* ============================= */
+
+.tabela-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+thead {
+    background: #161616;
+}
+
+th {
+    padding: 18px 20px;
+
+    text-align: left;
+
+    color: #d4af37;
+
+    font-size: 13px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 18px 20px;
+
+    border-top: 1px solid #222222;
+
+    color: #cccccc;
+
+    font-size: 14px;
+}
+
+tbody tr {
+    transition: 0.2s;
+}
+
+tbody tr:hover {
+    background: #161616;
+}
+
+
+/* ============================= */
+/* ADMIN */
+/* ============================= */
+
+.nome-admin {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.nome-admin strong {
+    color: #ffffff;
+}
+
+
+/* AVATAR */
+
+.avatar {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: #222222;
+
+    border: 1px solid #d4af37;
+
+    color: #d4af37;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+}
+
+
+/* ID */
+
+.id {
+    color: #777777;
+
+    font-family: monospace;
+}
+
+
+/* USUÁRIO */
+
+.usuario {
+    color: #d4af37;
+}
+
+
+/* ============================= */
+/* STATUS */
+/* ============================= */
+
+.status {
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+.status.ativo {
+    background: #18351f;
+
+    color: #6ee58a;
+}
+
+.status.inativo {
+    background: #351818;
+
+    color: #e57373;
+}
+
+
+/* ============================= */
+/* AÇÕES */
+/* ============================= */
+
+.acoes {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.btn-excluir {
+    padding: 7px 13px;
+
+    border: 1px solid #a33a3a;
+
+    border-radius: 5px;
+
+    color: #e57373;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+}
+
+.btn-excluir:hover {
+    background: #a33a3a;
+
+    color: #ffffff;
+}
+
+
+/* PRÓPRIA CONTA */
+
+.propria-conta {
+    color: #777777;
+
+    font-size: 12px;
+
+    font-style: italic;
+}
+
+
+/* ============================= */
+/* SEM REGISTROS */
+/* ============================= */
+
+.sem-registros {
+    padding: 80px 30px;
+
+    text-align: center;
+}
+
+.sem-registros .icone {
+    font-size: 45px;
+
+    margin-bottom: 15px;
+}
+
+.sem-registros h3 {
+    font-size: 20px;
+}
+
+.sem-registros p {
+    margin: 10px 0 25px;
+
+    color: #888888;
+}
+
+
+/* ============================= */
+/* FOOTER */
+/* ============================= */
+
+footer {
+    padding: 20px;
+
+    background: #111111;
+
+    border-top: 1px solid #222222;
+
+    text-align: center;
+
+    color: #666666;
+
+    font-size: 13px;
+}
+
+
+/* ============================= */
+/* RESPONSIVO */
+/* ============================= */
+
+@media (max-width: 800px) {
+
+    .topo {
+        padding: 18px 5%;
+    }
+
+    .usuario-logado span {
+        display: none;
+    }
+
+    .container {
+        width: 94%;
+
+        padding: 30px 0;
+    }
+
+    .cabecalho {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .cabecalho h1 {
+        font-size: 30px;
+    }
+
+    .btn-principal {
+        width: 100%;
+
+        text-align: center;
+    }
+
+    .card-topo {
+        padding: 20px;
+    }
+
+    th,
+    td {
+        padding: 14px;
+    }
+
+}
+

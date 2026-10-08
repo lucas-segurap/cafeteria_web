@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Gerenciamento de administradores da Cafeteria Segura">
+
+    <meta name="author"
+          content="Lucas Segura">
+
+    <title>Administradores | Cafeteria Segura</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/admins.css}">
+
+</head>
+
+<body>
+
+<header class="topo">
+
+    <div class="logo">
+        <span>Cafeteria</span>
+        <strong>Segura</strong>
+    </div>
+
+    <div class="usuario-logado">
+
+        <span>
+            Olá,
+            <strong th:text="${admin.nome}">
+                Administrador
+            </strong>
+        </span>
+
+        <a th:href="@{/admin/logout}"
+           class="btn-sair">
+            Sair
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <!-- CABEÇALHO -->
+
+    <section class="cabecalho">
+
+        <div>
+
+            <a th:href="@{/admin}"
+               class="voltar">
+                ← Voltar ao painel
+            </a>
+
+            <h1>Administradores</h1>
+
+            <p>
+                Gerencie os administradores que possuem
+                acesso ao sistema da Cafeteria Segura.
+            </p>
+
+        </div>
+
+        <a th:href="@{/admin/admins/novo}"
+           class="btn-principal">
+            + Novo administrador
+        </a>
+
+    </section>
+
+
+    <!-- LISTA -->
+
+    <section class="card">
+
+        <div class="card-topo">
+
+            <div>
+                <h2>Administradores cadastrados</h2>
+
+                <p>
+                    Contas com acesso ao painel administrativo.
+                </p>
+            </div>
+
+            <span class="contador"
+                  th:text="${#lists.size(admins)}">
+                0
+            </span>
+
+        </div>
+
+
+        <!-- QUANDO NÃO EXISTIR ADMINISTRADOR -->
+
+        <div class="sem-registros"
+             th:if="${#lists.isEmpty(admins)}">
+
+            <div class="icone">
+                👤
+            </div>
+
+            <h3>Nenhum administrador encontrado</h3>
+
+            <p>
+                Cadastre o primeiro administrador para
+                começar a utilizar o painel.
+            </p>
+
+            <a th:href="@{/admin/admins/novo}"
+               class="btn-principal">
+                Criar administrador
+            </a>
+
+        </div>
+
+
+        <!-- TABELA -->
+
+        <div class="tabela-container"
+             th:unless="${#lists.isEmpty(admins)}">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Nome</th>
+
+                    <th>Usuário</th>
+
+                    <th>E-mail</th>
+
+                    <th>Status</th>
+
+                    <th>Ações</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="adm : ${admins}">
+
+                    <!-- ID -->
+
+                    <td>
+
+                        <span class="id"
+                              th:text="'#' + ${adm.id}">
+                            #1
+                        </span>
+
+                    </td>
+
+
+                    <!-- NOME -->
+
+                    <td>
+
+                        <div class="nome-admin">
+
+                            <div class="avatar"
+                                 th:text="${#strings.substring(adm.nome, 0, 1).toUpperCase()}">
+                                A
+                            </div>
+
+                            <strong th:text="${adm.nome}">
+                                Administrador
+                            </strong>
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- USUÁRIO -->
+
+                    <td>
+
+                        <span class="usuario"
+                              th:text="${adm.usuario}">
+                            admin
+                        </span>
+
+                    </td>
+
+
+                    <!-- E-MAIL -->
+
+                    <td>
+
+                        <span th:text="${adm.email}">
+                            admin@email.com
+                        </span>
+
+                    </td>
+
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        <span th:if="${adm.ativo}"
+                              class="status ativo">
+                            Ativo
+                        </span>
+
+                        <span th:unless="${adm.ativo}"
+                              class="status inativo">
+                            Inativo
+                        </span>
+
+                    </td>
+
+
+                    <!-- AÇÕES -->
+
+                    <td>
+
+                        <div class="acoes">
+
+                            <!-- PRÓPRIA CONTA -->
+
+                            <span th:if="${admin.id == adm.id}"
+                                  class="propria-conta">
+                                Sua conta
+                            </span>
+
+
+                            <!-- EXCLUIR OUTRO ADMIN -->
+
+                            <a th:unless="${admin.id == adm.id}"
+                               th:href="@{/admin/admins/excluir/{id}(id=${adm.id})}"
+                               class="btn-excluir"
+                               onclick="return confirmarExclusao();">
+                                Excluir
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 Cafeteria Segura.
+        Todos os direitos reservados.
+    </p>
+
+</footer>
+
+
+<script>
+
+    function confirmarExclusao() {
+
+        return confirm(
+            "Tem certeza que deseja excluir este administrador?"
+        );
+
+    }
+
+</script>
+
+</body>
+
+</html>
+

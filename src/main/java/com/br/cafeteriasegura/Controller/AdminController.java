@@ -91,7 +91,6 @@ public class AdminController {
                 .buscarPorUsuario(usuario)
                 .orElse(null);
 
-
         if (admin == null) {
 
             model.addAttribute(
@@ -107,7 +106,6 @@ public class AdminController {
             return "login-admin";
         }
 
-
         if (!Boolean.TRUE.equals(admin.getAtivo())) {
 
             model.addAttribute(
@@ -122,7 +120,6 @@ public class AdminController {
 
             return "login-admin";
         }
-
 
         boolean senhaCorreta =
                 adminService.verificarSenha(
@@ -144,7 +141,6 @@ public class AdminController {
 
             return "login-admin";
         }
-
 
         session.setAttribute(
                 "adminLogado",
@@ -207,7 +203,7 @@ public class AdminController {
 
 
     // =========================================================
-    // ADMINISTRADORES
+    // ADMINISTRADORES - LISTAR
     // =========================================================
 
     @GetMapping("/admins")
@@ -237,7 +233,7 @@ public class AdminController {
 
 
     // =========================================================
-    // NOVO ADMINISTRADOR
+    // ADMINISTRADORES - NOVO
     // =========================================================
 
     @GetMapping("/admins/novo")
@@ -272,7 +268,7 @@ public class AdminController {
 
 
     // =========================================================
-    // SALVAR ADMINISTRADOR
+    // ADMINISTRADORES - SALVAR
     // =========================================================
 
     @PostMapping("/admins/salvar")
@@ -434,17 +430,20 @@ public class AdminController {
         adminService.salvar(novoAdmin);
 
 
+        // Primeiro administrador
         if (primeiroAdmin) {
 
             return "redirect:/admin/login";
         }
 
+
+        // Administrador criado por outro administrador
         return "redirect:/admin/admins";
     }
 
 
     // =========================================================
-    // ERRO NO FORMULÁRIO DE ADMIN
+    // ERRO NO FORMULÁRIO
     // =========================================================
 
     private String voltarComErro(
@@ -488,10 +487,10 @@ public class AdminController {
 
 
     // =========================================================
-    // EXCLUIR ADMINISTRADOR
+    // ADMINISTRADORES - EXCLUIR
     // =========================================================
 
-    @GetMapping("/admins/excluir/{id}")
+    @PostMapping("/admins/excluir/{id}")
     public String excluirAdmin(
             @PathVariable Long id,
             HttpSession session) {
@@ -505,12 +504,14 @@ public class AdminController {
         }
 
 
-        // Não deixa o administrador excluir a própria conta
+        // Não permite excluir a própria conta
 
-        if (adminLogado.getId().equals(id)) {
+        if (adminLogado.getId() != null &&
+                adminLogado.getId().equals(id)) {
 
             return "redirect:/admin/admins";
         }
+
 
         adminService.excluir(id);
 
@@ -523,7 +524,8 @@ public class AdminController {
     // =========================================================
 
     @GetMapping("/funcionarios")
-    public String funcionarios(HttpSession session) {
+    public String funcionarios(
+            HttpSession session) {
 
         if (!adminLogado(session)) {
 
@@ -773,7 +775,6 @@ public class AdminController {
             return "redirect:/admin/login";
         }
 
-
         model.addAttribute(
                 "admin",
                 admin
@@ -889,3 +890,4 @@ public class AdminController {
         return "redirect:/admin/login";
     }
 }
+
