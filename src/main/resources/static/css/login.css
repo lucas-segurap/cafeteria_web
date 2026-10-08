@@ -1,9 +1,38 @@
-/* =========================================================
-   CAFETERIA SEGURA - ESTILO PRINCIPAL
-   Autor: Lucas Segura
-   ========================================================= */
 
-/* ---------- RESET ---------- */
+/* =========================================
+   LOGIN — CAFETERIA SEGURA
+   Estilo baseado no HTML fornecido
+========================================= */
+
+
+/* =========================================
+   VARIÁVEIS
+========================================= */
+
+:root {
+    --cafe-900: #1b120d;
+    --cafe-800: #2b1b12;
+    --cafe-700: #382318;
+    --cafe-600: #4a3020;
+
+    --dourado-500: #dca63d;
+    --dourado-400: #efc76f;
+    --dourado-300: #f5d991;
+
+    --branco: #ffffff;
+    --cinza-100: #f5f5f5;
+    --cinza-300: #d8d1cc;
+    --cinza-500: #99918b;
+
+    --borda: rgba(239, 199, 111, 0.28);
+
+    --transicao: 0.25s ease;
+}
+
+
+/* =========================================
+   RESET
+========================================= */
 
 * {
     margin: 0;
@@ -17,272 +46,399 @@ html {
 
 body {
     min-height: 100vh;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background:
-        linear-gradient(
-            rgba(44, 28, 20, 0.82),
-            rgba(44, 28, 20, 0.82)
-        ),
-        linear-gradient(135deg, #f5e6d3, #d7b899);
-
-    color: #3b261c;
 
     display: flex;
     flex-direction: column;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(239, 199, 111, 0.10),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            var(--cafe-900),
+            var(--cafe-800) 50%,
+            #17100c
+        );
+
+    color: var(--branco);
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    line-height: 1.5;
 }
 
 
-/* =========================================================
+/* =========================================
    HEADER
-   ========================================================= */
+========================================= */
 
-header {
-    width: 100%;
-    background: rgba(55, 32, 22, 0.97);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
-    position: relative;
-    z-index: 10;
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1040;
+    background: rgba(27, 18, 13, 0.92);
+    border-bottom: 1px solid rgba(239, 199, 111, 0.4);
+    backdrop-filter: blur(10px);
+}
+.navbar {
+    min-height: 78px;
+    background: transparent !important;
 }
 
-nav {
-    width: 90%;
-    max-width: 1200px;
-    min-height: 75px;
-    margin: auto;
-
-    display: flex;
+.navbar-brand {
+    display: inline-flex;
     align-items: center;
-    gap: 35px;
+    gap: 0.45rem;
+    color: #fff !important;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    transition: var(--transicao);
 }
 
-/* Nome da cafeteria */
-
-nav a:first-child {
-    margin-right: auto;
-
-    color: #f4d19b;
-    font-size: 1.45rem;
-    font-weight: 700;
-    text-decoration: none;
-
-    letter-spacing: 0.5px;
-
-    transition: 0.3s ease;
-}
-
-nav a:first-child:hover {
-    color: #ffffff;
+.navbar-brand:hover {
+    color: var(--dourado-400) !important;
     transform: translateY(-1px);
 }
 
-/* Links */
+.navbar-brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(220, 166, 61, 0.18);
+    color: var(--dourado-400);
+    font-size: 1.2rem;
+}
 
-nav a:not(:first-child) {
+.navbar-nav .nav-link {
     position: relative;
+    padding: 0.7rem 0.9rem !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    font-weight: 600;
+    transition: var(--transicao);
+}
 
-    color: #f8eee5;
+.navbar-nav .nav-link::after {
+    position: absolute;
+    right: 0.9rem;
+    bottom: 0.25rem;
+    left: 0.9rem;
+    height: 2px;
+    background: var(--dourado-400);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: var(--transicao);
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #fff !important;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(239, 199, 111, 0.35);
+}
+
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.navbar-brand {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 0.45rem;
+
+    color: #fff !important;
+
+    font-size: 1.1rem;
+    font-weight: 800;
+
+    letter-spacing: 0.2px;
+
     text-decoration: none;
 
-    font-size: 1rem;
-    font-weight: 500;
-
-    padding: 10px 2px;
-
-    transition: 0.3s ease;
+    transition: var(--transicao);
 }
 
-nav a:not(:first-child)::after {
-    content: "";
+.navbar-brand:hover {
+    color: var(--dourado-400) !important;
 
+    transform: translateY(-1px);
+}
+
+
+/* Ícone da xícara */
+
+.navbar-brand-mark {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(220, 166, 61, 0.18);
+
+    color: var(--dourado-400);
+
+    font-size: 1.2rem;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(239, 199, 111, 0.12);
+}
+
+
+/* =========================================
+   MENU
+========================================= */
+
+.navbar-nav {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    list-style: none;
+}
+
+.navbar-nav .nav-item {
+    list-style: none;
+}
+
+.navbar-nav .nav-link {
+    position: relative;
+
+    display: block;
+
+    padding: 0.7rem 0.9rem;
+
+    color:
+        rgba(255, 255, 255, 0.82) !important;
+
+    font-size: 0.92rem;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: var(--transicao);
+}
+
+
+/* Linha dourada */
+
+.navbar-nav .nav-link::after {
     position: absolute;
-    left: 0;
-    bottom: 3px;
 
-    width: 0;
+    right: 0.9rem;
+    bottom: 0.25rem;
+    left: 0.9rem;
+
     height: 2px;
 
-    background: #d9a441;
+    background: var(--dourado-400);
 
-    transition: width 0.3s ease;
+    content: "";
+
+    transform: scaleX(0);
+
+    transform-origin: center;
+
+    transition: var(--transicao);
 }
 
-nav a:not(:first-child):hover {
-    color: #e6b85c;
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #fff !important;
 }
 
-nav a:not(:first-child):hover::after {
-    width: 100%;
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    transform: scaleX(1);
 }
 
 
-/* =========================================================
+/* =========================================
    ÁREA PRINCIPAL
-   ========================================================= */
+========================================= */
 
 .login-container {
     flex: 1;
 
-    width: 100%;
-    padding: 70px 20px;
-
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    position: relative;
-}
+    width: 100%;
 
-/* Detalhe decorativo */
-
-.login-container::before {
-    content: "☕";
-
-    position: absolute;
-
-    top: 45px;
-    left: 8%;
-
-    font-size: 4rem;
-
-    opacity: 0.12;
-
-    transform: rotate(-15deg);
-}
-
-.login-container::after {
-    content: "☕";
-
-    position: absolute;
-
-    right: 8%;
-    bottom: 45px;
-
-    font-size: 4rem;
-
-    opacity: 0.12;
-
-    transform: rotate(15deg);
+    padding: 60px 20px;
 }
 
 
-/* =========================================================
+/* =========================================
    CARD DE LOGIN
-   ========================================================= */
+========================================= */
 
 .login-card {
+    position: relative;
+
     width: 100%;
-    max-width: 440px;
+    max-width: 430px;
 
-    padding: 42px 40px;
+    padding: 40px;
 
-    background: rgba(255, 248, 239, 0.97);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(58, 38, 25, 0.97),
+            rgba(35, 23, 16, 0.98)
+        );
 
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border:
+        1px solid var(--borda);
 
-    border-radius: 20px;
+    border-radius: 18px;
 
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.30),
-        0 5px 15px rgba(0, 0, 0, 0.12);
+        0 20px 50px rgba(0, 0, 0, 0.38),
+        0 5px 20px rgba(0, 0, 0, 0.18);
 
-    position: relative;
-    z-index: 2;
+    overflow: hidden;
 
-    animation: aparecer 0.6s ease;
+    animation:
+        entrada-card 0.5s ease;
 }
 
 
-/* Animação do card */
-
-@keyframes aparecer {
-
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* Linha decorativa superior */
+/* Linha dourada superior */
 
 .login-card::before {
-    content: "";
-
     position: absolute;
 
     top: 0;
-    left: 50%;
+    left: 0;
 
-    transform: translateX(-50%);
+    width: 100%;
+    height: 3px;
 
-    width: 80px;
-    height: 5px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--dourado-500),
+            var(--dourado-400),
+            var(--dourado-500),
+            transparent
+        );
 
-    background: #c58b3a;
-
-    border-radius: 0 0 10px 10px;
+    content: "";
 }
 
 
-/* =========================================================
+/* =========================================
    TÍTULO
-   ========================================================= */
+========================================= */
 
 .login-card h1 {
+    margin: 0;
+
+    color: #fff;
+
+    font-size: 2rem;
+
+    font-weight: 800;
+
     text-align: center;
-
-    color: #4a2e20;
-
-    font-size: 2.1rem;
-
-    margin-bottom: 10px;
-
-    font-weight: 700;
 }
+
+
+/* =========================================
+   SUBTÍTULO
+========================================= */
 
 .login-subtitulo {
-    text-align: center;
-
-    color: #80695b;
-
-    font-size: 0.95rem;
-
-    line-height: 1.6;
-
+    margin-top: 8px;
     margin-bottom: 30px;
+
+    color:
+        rgba(255, 255, 255, 0.62);
+
+    font-size: 0.92rem;
+
+    text-align: center;
 }
 
 
-/* =========================================================
+/* =========================================
    MENSAGEM DE ERRO
-   ========================================================= */
+========================================= */
 
 .mensagem-erro {
-    padding: 12px 15px;
-
     margin-bottom: 22px;
+
+    padding: 12px 14px;
+
+    border:
+        1px solid rgba(220, 80, 80, 0.35);
 
     border-radius: 10px;
 
-    background: #fbe4e1;
-    border: 1px solid #e7aaa3;
+    background:
+        rgba(180, 40, 40, 0.13);
 
-    color: #9b3028;
+    color: #ffb7b7;
 
-    font-size: 0.9rem;
+    font-size: 0.87rem;
 
     text-align: center;
 }
 
 
-/* =========================================================
+/* =========================================
    CAMPOS
-   ========================================================= */
+========================================= */
 
 .campo-login {
     margin-bottom: 20px;
@@ -291,217 +447,262 @@ nav a:not(:first-child):hover::after {
 .campo-login label {
     display: block;
 
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 
-    color: #4a2e20;
+    color:
+        rgba(255, 255, 255, 0.90);
 
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 
-    font-weight: 600;
+    font-weight: 700;
 }
+
+
+/* =========================================
+   INPUT
+========================================= */
 
 .campo-login input {
     width: 100%;
+    height: 49px;
 
-    height: 52px;
+    padding: 0 14px;
 
-    padding: 0 16px;
+    border:
+        1px solid rgba(239, 199, 111, 0.20);
 
-    border: 1px solid #d7c1ae;
+    border-radius: 9px;
 
-    border-radius: 10px;
+    background:
+        rgba(20, 13, 9, 0.65);
 
-    background: #fffdf9;
+    color: #fff;
 
-    color: #3b261c;
+    font-family: inherit;
 
-    font-size: 0.95rem;
+    font-size: 0.92rem;
 
     outline: none;
 
     transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease,
-        background 0.3s ease;
+        border-color var(--transicao),
+        background var(--transicao),
+        box-shadow var(--transicao);
 }
+
+
+/* Placeholder */
 
 .campo-login input::placeholder {
-    color: #a8978a;
+    color:
+        rgba(255, 255, 255, 0.36);
 }
+
+
+/* Hover */
 
 .campo-login input:hover {
-    border-color: #c59a6b;
+    border-color:
+        rgba(239, 199, 111, 0.42);
 }
+
+
+/* Foco */
 
 .campo-login input:focus {
-    border-color: #a86f32;
+    border-color:
+        var(--dourado-400);
 
-    background: #ffffff;
+    background:
+        rgba(20, 13, 9, 0.85);
 
     box-shadow:
-        0 0 0 3px rgba(168, 111, 50, 0.14);
+        0 0 0 3px
+        rgba(239, 199, 111, 0.12);
 }
 
 
-/* =========================================================
-   BOTÃO LOGIN
-   ========================================================= */
+/* =========================================
+   BOTÃO ENTRAR
+========================================= */
 
 .btn-login {
     width: 100%;
 
-    height: 52px;
+    min-height: 50px;
 
-    margin-top: 8px;
+    margin-top: 5px;
 
     border: none;
-    border-radius: 10px;
 
-    background: linear-gradient(
-        135deg,
-        #6b3f28,
-        #4a2e20
-    );
+    border-radius: 9px;
 
-    color: #ffffff;
+    background:
+        linear-gradient(
+            135deg,
+            var(--dourado-500),
+            var(--dourado-400)
+        );
 
-    font-size: 1rem;
-    font-weight: 700;
+    color: #2b1b12;
+
+    font-family: inherit;
+
+    font-size: 0.95rem;
+
+    font-weight: 800;
 
     cursor: pointer;
 
     box-shadow:
-        0 7px 15px rgba(74, 46, 32, 0.25);
+        0 7px 18px
+        rgba(220, 166, 61, 0.18);
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.3s ease;
+        transform var(--transicao),
+        box-shadow var(--transicao),
+        filter var(--transicao);
 }
+
+
+/* Hover */
 
 .btn-login:hover {
-    background: linear-gradient(
-        135deg,
-        #805035,
-        #5a3827
-    );
-
     transform: translateY(-2px);
 
+    filter: brightness(1.06);
+
     box-shadow:
-        0 10px 20px rgba(74, 46, 32, 0.32);
+        0 10px 25px
+        rgba(220, 166, 61, 0.28);
 }
+
+
+/* Clique */
 
 .btn-login:active {
     transform: translateY(0);
 
     box-shadow:
-        0 4px 10px rgba(74, 46, 32, 0.25);
+        0 5px 12px
+        rgba(220, 166, 61, 0.18);
 }
 
 
-/* =========================================================
-   LINK DE CADASTRO
-   ========================================================= */
+/* =========================================
+   ÁREA DE CADASTRO
+========================================= */
 
 .cadastro-link {
-    margin-top: 28px;
+    margin-top: 27px;
 
     padding-top: 22px;
 
-    border-top: 1px solid #e3d5c8;
+    border-top:
+        1px solid rgba(255, 255, 255, 0.10);
 
     text-align: center;
 }
 
 .cadastro-link p {
-    color: #80695b;
+    margin: 0 0 7px;
 
-    font-size: 0.9rem;
+    color:
+        rgba(255, 255, 255, 0.53);
 
-    margin-bottom: 8px;
+    font-size: 0.84rem;
 }
 
 .cadastro-link a {
-    color: #9a642d;
+    color: var(--dourado-400);
 
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 
     font-weight: 700;
 
     text-decoration: none;
 
-    transition: 0.3s ease;
+    transition: var(--transicao);
 }
 
 .cadastro-link a:hover {
-    color: #5c3825;
+    color: #fff;
 
-    text-decoration: underline;
+    text-shadow:
+        0 0 12px
+        rgba(239, 199, 111, 0.35);
 }
 
 
-/* =========================================================
+/* =========================================
    FOOTER
-   ========================================================= */
+========================================= */
 
 footer {
-    width: 100%;
-
     padding: 20px;
 
-    background: #2f1d15;
+    background: var(--cafe-900);
 
-    color: #cdbbad;
+    border-top:
+        1px solid rgba(239, 199, 111, 0.20);
 
     text-align: center;
-
-    font-size: 0.85rem;
 }
 
 footer p {
     margin: 0;
+
+    color:
+        rgba(255, 255, 255, 0.45);
+
+    font-size: 0.78rem;
 }
 
 
-/* =========================================================
+/* =========================================
+   ANIMAÇÃO DO CARD
+========================================= */
+
+@keyframes entrada-card {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================
    RESPONSIVIDADE
-   ========================================================= */
+========================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 767px) {
 
-    nav {
-        min-height: auto;
-
-        padding: 18px 0;
-
-        flex-wrap: wrap;
-
-        justify-content: center;
-
-        gap: 18px;
+    .navbar {
+        min-height: 70px;
     }
 
-    nav a:first-child {
-        width: 100%;
-
-        margin-right: 0;
-
-        text-align: center;
-
-        margin-bottom: 5px;
-    }
-
-    nav a:not(:first-child) {
-        font-size: 0.9rem;
+    .container {
+        padding: 0 16px;
     }
 
     .login-container {
-        padding: 45px 15px;
+        padding: 40px 16px;
     }
 
     .login-card {
-        padding: 35px 25px;
+        max-width: 420px;
+
+        padding: 32px 26px;
 
         border-radius: 16px;
     }
@@ -509,38 +710,93 @@ footer p {
     .login-card h1 {
         font-size: 1.8rem;
     }
-
-    .login-container::before,
-    .login-container::after {
-        display: none;
-    }
 }
 
 
-/* =========================================================
-   CELULARES PEQUENOS
-   ========================================================= */
+/* =========================================
+   CELULAR
+========================================= */
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+
+    .login-container {
+        padding: 30px 14px;
+    }
 
     .login-card {
         padding: 30px 20px;
+
+        border-radius: 14px;
     }
 
     .login-card h1 {
-        font-size: 1.6rem;
+        font-size: 1.65rem;
     }
 
     .login-subtitulo {
-        font-size: 0.88rem;
+        font-size: 0.86rem;
     }
 
-    .campo-login input,
+    .navbar-brand {
+        font-size: 0.95rem;
+    }
+
+    .navbar-brand-mark {
+        width: 30px;
+        height: 30px;
+
+        font-size: 1rem;
+    }
+
+    .navbar-nav {
+        gap: 2px;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.55rem 0.65rem !important;
+
+        font-size: 0.84rem;
+    }
+
+    .campo-login input {
+        height: 47px;
+    }
+
     .btn-login {
-        height: 48px;
-    }
-
-    footer {
-        font-size: 0.75rem;
+        min-height: 48px;
     }
 }
+
+
+/* =========================================
+   ACESSIBILIDADE
+========================================= */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline:
+        3px solid
+        rgba(239, 199, 111, 0.65);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================
+   REDUÇÃO DE MOVIMENTO
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .login-card,
+    .navbar-brand,
+    .nav-link,
+    .btn-login,
+    .campo-login input,
+    .cadastro-link a {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
