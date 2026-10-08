@@ -1,0 +1,251 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #080808;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.admin-agendamentos-page {
+    min-height: 100vh;
+    max-width: 1300px;
+    margin: auto;
+    padding: 35px;
+}
+
+.pagina-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    margin-bottom: 35px;
+}
+
+.voltar {
+    display: inline-block;
+    margin-bottom: 25px;
+    color: #888;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.voltar:hover {
+    color: #d4af37;
+}
+
+.tag {
+    display: block;
+    color: #d4af37;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.pagina-header h1 {
+    margin: 8px 0;
+    font-size: 30px;
+}
+
+.pagina-header p {
+    margin: 0;
+    color: #777;
+}
+
+.admin-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #111;
+    border: 1px solid #252525;
+    border-radius: 8px;
+}
+
+.resumo {
+    margin-bottom: 25px;
+}
+
+.resumo-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: fit-content;
+    min-width: 230px;
+    padding: 18px 22px;
+    background: #111;
+    border: 1px solid #252525;
+    border-radius: 10px;
+}
+
+.icone {
+    font-size: 25px;
+}
+
+.resumo-card small {
+    display: block;
+    color: #777;
+    font-size: 11px;
+}
+
+.resumo-card strong {
+    display: block;
+    margin-top: 4px;
+    color: #d4af37;
+    font-size: 22px;
+}
+
+.lista-agendamentos {
+    display: grid;
+    gap: 18px;
+}
+
+.agendamento-card,
+.sem-agendamentos {
+    background: #111;
+    border: 1px solid #252525;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.agendamento-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #252525;
+}
+
+.agendamento-topo small {
+    color: #d4af37;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.agendamento-topo h2 {
+    margin: 5px 0 0;
+}
+
+.status {
+    padding: 7px 12px;
+    border-radius: 20px;
+    background: rgba(212, 175, 55, 0.10);
+    color: #d4af37;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.dados {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 22px 0;
+}
+
+.dados small,
+.observacao small {
+    display: block;
+    color: #777;
+    font-size: 11px;
+    margin-bottom: 6px;
+}
+
+.dados strong {
+    color: #ddd;
+}
+
+.observacao {
+    padding-top: 16px;
+    border-top: 1px solid #252525;
+}
+
+.observacao p {
+    color: #bbb;
+    margin-bottom: 0;
+}
+
+.acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 9px 13px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.confirmar {
+    background: #d4af37;
+    color: #080808;
+}
+
+.concluir {
+    background: #315f3b;
+    color: #dff5e2;
+}
+
+.cancelar {
+    color: #ff9999;
+    border: 1px solid rgba(255, 100, 100, 0.2);
+}
+
+.excluir {
+    color: #aaa;
+    border: 1px solid #333;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+.sem-agendamentos {
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.icone-vazio {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.sem-agendamentos p {
+    color: #777;
+}
+
+@media (max-width: 800px) {
+
+    .admin-agendamentos-page {
+        padding: 20px 15px;
+    }
+
+    .pagina-header {
+        flex-direction: column;
+    }
+
+    .dados {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+
+    .dados {
+        grid-template-columns: 1fr;
+    }
+
+    .acoes {
+        flex-direction: column;
+    }
+
+    .btn {
+        text-align: center;
+    }
+}

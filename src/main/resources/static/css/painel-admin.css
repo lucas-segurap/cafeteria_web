@@ -1,36 +1,6 @@
-/* =========================================================
-   PAINEL ADMINISTRATIVO
-   CAFETERIA SEGURA
-========================================================= */
-
-
-/* =========================================================
-   VARIÁVEIS
-========================================================= */
-
-:root {
-    --preto: #080808;
-    --preto-2: #0e0e0e;
-    --preto-3: #151515;
-    --preto-4: #1b1b1b;
-
-    --cafe: #24170f;
-    --cafe-2: #352116;
-
-    --dourado: #d4af37;
-    --dourado-claro: #f0d56a;
-
-    --branco: #ffffff;
-    --cinza: #b8b8b8;
-    --cinza-escuro: #777777;
-
-    --borda: rgba(212, 175, 55, 0.18);
-}
-
-
-/* =========================================================
+/* =========================================
    RESET
-========================================================= */
+========================================= */
 
 * {
     margin: 0;
@@ -38,140 +8,114 @@
     box-sizing: border-box;
 }
 
-html {
-    width: 100%;
-    min-height: 100%;
-}
-
 body {
-    width: 100%;
-    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080808;
+    color: #ffffff;
+}
 
-    font-family:
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            rgba(212, 175, 55, 0.08),
-            transparent 35%
-        ),
-        linear-gradient(
-            135deg,
-            #080808,
-            #111111 50%,
-            #080808
-        );
-
-    color: var(--branco);
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 
-/* =========================================================
-   PAINEL PRINCIPAL
-========================================================= */
+/* =========================================
+   PAINEL
+========================================= */
 
 .painel-admin {
-    width: 100%;
     min-height: 100vh;
 
     display: flex;
     flex-direction: column;
 
-    position: relative;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(212, 175, 55, 0.08),
+            transparent 35%
+        ),
+        #080808;
 }
 
 
-/* =========================================================
-   CABEÇALHO
-========================================================= */
+/* =========================================
+   HEADER
+========================================= */
 
 .painel-header {
-    width: 100%;
-    min-height: 76px;
+    min-height: 82px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 15px 6%;
+    padding: 16px 6%;
 
-    background: rgba(10, 10, 10, 0.92);
+    background: #111111;
 
-    border-bottom: 1px solid var(--borda);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.22);
 
-    backdrop-filter: blur(15px);
-
-    position: relative;
-    z-index: 10;
+    gap: 20px;
 }
 
 
-/* =========================================================
-   MARCA
-========================================================= */
+/* MARCA */
 
 .painel-marca {
     display: flex;
     align-items: center;
-    gap: 12px;
+
+    gap: 14px;
 }
 
-.painel-marca .logo-icon {
-    width: 45px;
-    height: 45px;
+.logo-icon {
+    width: 48px;
+    height: 48px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 13px;
+    border-radius: 12px;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--dourado-claro),
-            var(--dourado)
-        );
+    background: rgba(212, 175, 55, 0.10);
 
-    color: #111;
+    border: 1px solid rgba(212, 175, 55, 0.35);
 
-    font-size: 22px;
+    color: #d4af37;
 
-    box-shadow:
-        0 8px 25px
-        rgba(212, 175, 55, 0.18);
+    font-size: 24px;
 }
 
-.painel-marca > div:last-child {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
+.painel-marca h1 {
+    margin: 0;
 
-.painel-marca strong {
-    color: var(--branco);
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 18px;
+
+    color: #ffffff;
 }
 
 .painel-marca span {
-    color: var(--dourado);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 2px;
+    display: block;
+
+    margin-top: 3px;
+
+    color: #d4af37;
+
+    font-size: 11px;
+
+    letter-spacing: 0.8px;
 }
 
 
-/* =========================================================
-   INFORMAÇÕES DO ADMINISTRADOR
-========================================================= */
+/* ADMIN INFO */
 
 .admin-info {
     display: flex;
     align-items: center;
+
     gap: 11px;
 }
 
@@ -185,155 +129,114 @@ body {
 
     border-radius: 50%;
 
-    background:
-        rgba(212, 175, 55, 0.08);
+    background: #d4af37;
 
-    border: 1px solid
-        rgba(212, 175, 55, 0.20);
+    color: #080808;
 
-    font-size: 17px;
+    font-weight: 800;
 }
 
-.admin-info > div:nth-child(2) {
+.admin-dados {
     display: flex;
     flex-direction: column;
-    gap: 2px;
 }
 
-.admin-info strong {
-    color: var(--branco);
+.admin-label {
+    color: #777777;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.8px;
+}
+
+.admin-dados strong {
+    color: #eeeeee;
+
     font-size: 13px;
 }
 
-.admin-info small {
-    color: var(--cinza-escuro);
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   BOTÃO SAIR
-========================================================= */
-
 .btn-sair {
-    margin-left: 12px;
+    margin-left: 7px;
 
-    padding: 8px 14px;
+    padding: 8px 15px;
 
-    border: 1px solid
-        rgba(212, 175, 55, 0.25);
+    border: 1px solid #333333;
 
     border-radius: 8px;
 
-    background:
-        rgba(212, 175, 55, 0.05);
-
-    color: var(--cinza);
-
-    text-decoration: none;
+    color: #cccccc;
 
     font-size: 12px;
-    font-weight: 600;
 
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
+    transition: 0.2s;
 }
 
 .btn-sair:hover {
-    background:
-        rgba(212, 175, 55, 0.10);
+    border-color: #d4af37;
 
-    border-color: var(--dourado);
-
-    color: var(--dourado-claro);
-
-    transform: translateY(-1px);
+    color: #d4af37;
 }
 
 
-/* =========================================================
+/* =========================================
    CONTEÚDO
-========================================================= */
+========================================= */
 
 .painel-conteudo {
-    width: 100%;
-    max-width: 1250px;
+    width: min(1150px, 92%);
 
     margin: 0 auto;
 
-    padding:
-        65px 30px
-        70px;
+    flex: 1;
+
+    padding: 48px 0 70px;
 }
 
 
-/* =========================================================
+/* =========================================
    TÍTULO
-========================================================= */
+========================================= */
 
 .painel-titulo {
-    margin-bottom: 42px;
-}
-
-.painel-titulo .login-tag {
-    width: fit-content;
-
     display: flex;
-    align-items: center;
-    gap: 8px;
+    align-items: flex-end;
+    justify-content: space-between;
 
-    margin-bottom: 18px;
+    gap: 25px;
 
-    padding: 7px 13px;
-
-    border-radius: 30px;
-
-    border: 1px solid
-        rgba(212, 175, 55, 0.20);
-
-    background:
-        rgba(212, 175, 55, 0.06);
-
-    color: var(--dourado-claro);
-
-    font-size: 10px;
-    font-weight: 700;
-
-    letter-spacing: 1.6px;
+    margin-bottom: 35px;
 }
 
-.status-dot {
-    width: 7px;
-    height: 7px;
+.login-tag {
+    display: inline-block;
 
-    flex-shrink: 0;
-
-    border-radius: 50%;
-
-    background: var(--dourado);
-
-    box-shadow:
-        0 0 10px
-        rgba(212, 175, 55, 0.8);
-}
-
-.painel-titulo h1 {
     margin-bottom: 8px;
 
-    color: var(--branco);
+    color: #d4af37;
 
-    font-size: clamp(30px, 4vw, 42px);
+    font-size: 10px;
 
-    font-weight: 700;
+    font-weight: 800;
 
-    letter-spacing: -1px;
+    letter-spacing: 1.8px;
+}
+
+.painel-titulo h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(28px, 4vw, 40px);
 }
 
 .painel-titulo p {
-    color: var(--cinza);
+    max-width: 650px;
+
+    margin-top: 9px;
+
+    color: #888888;
 
     font-size: 14px;
 
@@ -341,328 +244,413 @@ body {
 }
 
 
-/* =========================================================
-   MENU
-========================================================= */
+/* SISTEMA ONLINE */
 
-.menu-admin {
-    width: 100%;
+.status-dot {
+    display: flex;
+    align-items: center;
 
+    gap: 8px;
+
+    padding: 9px 13px;
+
+    background: #101010;
+
+    border: 1px solid #252525;
+
+    border-radius: 30px;
+
+    color: #888888;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+}
+
+.status-dot span {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #55c98a;
+
+    box-shadow: 0 0 8px rgba(85, 201, 138, 0.5);
+}
+
+
+/* =========================================
+   ÁREAS
+========================================= */
+
+.areas-admin {
     display: grid;
 
     grid-template-columns:
         repeat(2, minmax(0, 1fr));
 
-    gap: 20px;
+    gap: 22px;
+}
+
+.area-admin {
+    padding: 25px;
+
+    background: #111111;
+
+    border: 1px solid #252525;
+
+    border-radius: 16px;
+
+    transition: 0.2s;
+}
+
+.area-admin:hover {
+    border-color: rgba(212, 175, 55, 0.38);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
 
-/* =========================================================
-   CARD
-========================================================= */
+/* CABEÇALHO DA ÁREA */
 
-.card-admin {
-    min-height: 220px;
-
+.area-admin-cabecalho {
     display: flex;
+
     align-items: flex-start;
 
-    gap: 20px;
+    gap: 15px;
 
-    padding: 28px;
-
-    border: 1px solid
-        rgba(212, 175, 55, 0.13);
-
-    border-radius: 17px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(25, 25, 25, 0.96),
-            rgba(13, 13, 13, 0.96)
-        );
-
-    color: var(--branco);
-
-    text-decoration: none;
-
-    box-shadow:
-        0 15px 40px
-        rgba(0, 0, 0, 0.28);
-
-    transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease;
+    margin-bottom: 25px;
 }
 
-.card-admin:hover {
-    transform: translateY(-5px);
+.area-admin-icone {
+    width: 46px;
+    height: 46px;
 
-    border-color:
-        rgba(212, 175, 55, 0.45);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(31, 31, 31, 0.98),
-            rgba(17, 17, 17, 0.98)
-        );
-
-    box-shadow:
-        0 20px 50px
-        rgba(0, 0, 0, 0.45),
-
-        0 0 30px
-        rgba(212, 175, 55, 0.05);
-}
-
-
-/* =========================================================
-   ÍCONE DO CARD
-========================================================= */
-
-.card-admin-icone {
-    width: 58px;
-    height: 58px;
-
-    flex-shrink: 0;
+    flex: 0 0 auto;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 15px;
+    border-radius: 12px;
 
-    background:
-        rgba(212, 175, 55, 0.08);
+    background: rgba(212, 175, 55, 0.09);
 
-    border: 1px solid
-        rgba(212, 175, 55, 0.20);
+    border: 1px solid rgba(212, 175, 55, 0.23);
 
-    font-size: 25px;
-
-    transition:
-        background 0.25s ease,
-        transform 0.25s ease;
+    font-size: 21px;
 }
 
-.card-admin:hover .card-admin-icone {
-    background:
-        rgba(212, 175, 55, 0.14);
+.area-admin-tag {
+    color: #d4af37;
 
-    transform: scale(1.05);
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.4px;
+}
+
+.area-admin-cabecalho h3 {
+    margin-top: 3px;
+
+    color: #eeeeee;
+
+    font-size: 20px;
+}
+
+.area-admin-cabecalho p {
+    margin-top: 6px;
+
+    color: #777777;
+
+    font-size: 12px;
+
+    line-height: 1.5;
 }
 
 
-/* =========================================================
-   CONTEÚDO DO CARD
-========================================================= */
+/* =========================================
+   BOTÕES ADMIN
+========================================= */
 
-.card-admin-conteudo {
+.area-admin-acoes {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.botao-admin {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 14px;
+
+    background: #151515;
+
+    border: 1px solid #252525;
+
+    border-radius: 10px;
+
+    transition: 0.2s;
+}
+
+.botao-admin:hover {
+    background: #191919;
+
+    border-color: #d4af37;
+
+    transform: translateY(-1px);
+}
+
+.botao-icone {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    border-radius: 8px;
+
+    background: rgba(212, 175, 55, 0.08);
+
+    color: #d4af37;
+
+    font-size: 16px;
+}
+
+.botao-texto {
+    display: flex;
+
+    flex-direction: column;
+
     flex: 1;
+
     min-width: 0;
 }
 
-.card-admin-conteudo h2 {
-    margin-bottom: 9px;
-
-    color: var(--branco);
-
-    font-size: 21px;
-
-    font-weight: 700;
-}
-
-.card-admin-conteudo p {
-    margin-bottom: 22px;
-
-    color: var(--cinza-escuro);
+.botao-texto strong {
+    color: #eeeeee;
 
     font-size: 13px;
-
-    line-height: 1.6;
 }
 
-.card-link {
-    display: inline-flex;
-    align-items: center;
+.botao-texto span {
+    margin-top: 2px;
 
-    color: var(--dourado);
+    color: #777777;
 
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 11px;
 
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
+    line-height: 1.4;
 }
 
-.card-admin:hover .card-link {
-    color: var(--dourado-claro);
+.botao-seta {
+    color: #666666;
+
+    font-size: 18px;
+
+    transition: 0.2s;
+}
+
+.botao-admin:hover .botao-seta {
+    color: #d4af37;
 
     transform: translateX(3px);
 }
 
 
-/* =========================================================
+/* =========================================
+   ACESSO RÁPIDO
+========================================= */
+
+.acesso-rapido {
+    margin-top: 22px;
+
+    padding: 25px;
+
+    background: #111111;
+
+    border: 1px solid #252525;
+
+    border-radius: 16px;
+}
+
+.acesso-rapido-topo {
+    margin-bottom: 20px;
+}
+
+.acesso-rapido-topo h3 {
+    margin-top: 4px;
+
+    color: #eeeeee;
+
+    font-size: 19px;
+}
+
+.acesso-rapido-botoes {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+.atalho-admin {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 14px;
+
+    background: #151515;
+
+    border: 1px solid #252525;
+
+    border-radius: 10px;
+
+    color: #bbbbbb;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+}
+
+.atalho-admin:hover {
+    border-color: #d4af37;
+
+    color: #eeeeee;
+}
+
+.atalho-icone {
+    color: #d4af37;
+
+    font-size: 17px;
+}
+
+.atalho-seta {
+    margin-left: auto;
+
+    color: #666666;
+}
+
+.atalho-admin:hover .atalho-seta {
+    color: #d4af37;
+}
+
+
+/* =========================================
    RODAPÉ
-========================================================= */
+========================================= */
 
 .painel-footer {
-    width: 100%;
-
-    margin-top: auto;
-
-    padding:
-        24px 30px;
-
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     gap: 8px;
 
-    border-top: 1px solid #202020;
+    padding: 22px;
 
-    background:
-        rgba(8, 8, 8, 0.80);
+    border-top: 1px solid #1f1f1f;
 
-    color: #666;
-}
-
-.painel-footer span {
-    font-size: 16px;
-}
-
-.painel-footer p {
-    margin: 0;
+    color: #555555;
 
     font-size: 11px;
 }
 
+.painel-footer span:last-child {
+    color: #3f3f3f;
+}
 
-/* =========================================================
+
+/* =========================================
    RESPONSIVIDADE
-========================================================= */
+========================================= */
 
 @media (max-width: 850px) {
 
-    .painel-header {
-        padding: 14px 25px;
-    }
-
-    .painel-conteudo {
-        padding:
-            45px 22px
-            55px;
-    }
-
-    .menu-admin {
+    .areas-admin {
         grid-template-columns: 1fr;
     }
+
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
 
     .painel-header {
-        align-items: flex-start;
-
-        gap: 18px;
-
-        flex-direction: column;
+        padding: 14px 4%;
     }
 
-    .admin-info {
-        width: 100%;
-    }
-
-    .btn-sair {
-        margin-left: auto;
+    .admin-dados {
+        display: none;
     }
 
     .painel-conteudo {
-        padding:
-            35px 16px
-            45px;
+        width: 92%;
+
+        padding-top: 32px;
     }
 
     .painel-titulo {
-        margin-bottom: 30px;
-    }
+        align-items: flex-start;
 
-    .painel-titulo h1 {
-        font-size: 29px;
-    }
-
-    .card-admin {
-        min-height: auto;
-
-        padding: 22px;
-
-        gap: 15px;
-    }
-
-    .card-admin-icone {
-        width: 50px;
-        height: 50px;
-
-        font-size: 21px;
-    }
-
-    .card-admin-conteudo h2 {
-        font-size: 18px;
-    }
-
-    .card-admin-conteudo p {
-        font-size: 12px;
-    }
-}
-
-
-@media (max-width: 430px) {
-
-    .painel-marca strong {
-        font-size: 14px;
-    }
-
-    .painel-marca span {
-        font-size: 8px;
-        letter-spacing: 1.5px;
-    }
-
-    .admin-info {
-        flex-wrap: wrap;
-    }
-
-    .admin-info > div:nth-child(2) {
-        flex: 1;
-    }
-
-    .btn-sair {
-        margin-left: 0;
-    }
-
-    .card-admin {
         flex-direction: column;
     }
 
-    .card-admin-icone {
-        width: 52px;
-        height: 52px;
+    .status-dot {
+        align-self: flex-start;
     }
+
+    .acesso-rapido-botoes {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 
-/* =========================================================
-   ACESSIBILIDADE
-========================================================= */
+@media (max-width: 450px) {
 
-.card-admin:focus-visible,
-.btn-sair:focus-visible {
-    outline: 2px solid var(--dourado);
-    outline-offset: 3px;
+    .painel-marca h1 {
+        font-size: 15px;
+    }
+
+    .painel-marca span {
+        font-size: 9px;
+    }
+
+    .logo-icon {
+        width: 42px;
+        height: 42px;
+
+        font-size: 20px;
+    }
+
+    .btn-sair {
+        padding: 8px 11px;
+    }
+
+    .area-admin {
+        padding: 19px;
+    }
+
+    .acesso-rapido {
+        padding: 19px;
+    }
+
 }

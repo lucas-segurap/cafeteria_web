@@ -12,28 +12,23 @@
     <meta name="description"
           content="Painel administrativo da Cafeteria Segura">
 
-    <title>Painel Administrativo | Cafeteria Segura</title>
+    <meta name="author"
+          content="Lucas Segura">
 
-    <!-- Bootstrap -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <title>Cafeteria Segura - Painel Administrativo</title>
 
-    <!-- CSS do login administrativo -->
     <link
-        rel="stylesheet"
-        th:href="@{/css/admin.css}">
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet">
 
-    <!-- CSS do painel administrativo -->
-    <link
-        rel="stylesheet"
-        th:href="@{/css/painel-admin.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/painel-admin.css}">
 
 </head>
 
 <body>
 
-<main class="painel-admin">
+<div class="painel-admin">
 
     <!-- =====================================================
          CABEÇALHO
@@ -49,12 +44,12 @@
 
             <div>
 
-                <strong>
+                <h1>
                     Cafeteria Segura
-                </strong>
+                </h1>
 
                 <span>
-                    PAINEL ADMINISTRATIVO
+                    Painel Administrativo
                 </span>
 
             </div>
@@ -62,28 +57,32 @@
         </div>
 
 
+        <!-- ADMIN LOGADO -->
+
         <div class="admin-info">
 
-            <div class="admin-avatar">
-                👤
+            <div class="admin-avatar"
+                 th:text="${admin != null && admin.nome != null
+                    ? #strings.substring(admin.nome, 0, 1).toUpperCase()
+                    : 'A'}">
+                A
             </div>
 
-            <div>
+            <div class="admin-dados">
+
+                <span class="admin-label">
+                    Administrador
+                </span>
 
                 <strong
-                    th:text="${admin.nome}">
-                    Administrador
+                        th:text="${admin != null ? admin.nome : 'Admin'}">
+                    Admin
                 </strong>
-
-                <small>
-                    Administrador
-                </small>
 
             </div>
 
-            <a
-                th:href="@{/admin/logout}"
-                class="btn-sair">
+            <a th:href="@{/admin/logout}"
+               class="btn-sair">
 
                 Sair
 
@@ -98,160 +97,314 @@
          CONTEÚDO
     ====================================================== -->
 
-    <section class="painel-conteudo">
+    <main class="painel-conteudo">
 
-        <div class="painel-titulo">
 
-            <span class="login-tag">
-                <span class="status-dot"></span>
-                ÁREA ADMINISTRATIVA
-            </span>
+        <!-- CABEÇALHO DA PÁGINA -->
 
-            <h1>
-                Bem-vindo,
-                <span th:text="${admin.nome}">
-                    Administrador
+        <section class="painel-titulo">
+
+            <div>
+
+                <span class="login-tag">
+                    ÁREA RESTRITA
                 </span>
-            </h1>
 
-            <p>
-                Gerencie os principais recursos
-                da Cafeteria Segura.
-            </p>
+                <h2>
+                    Painel de controle
+                </h2>
 
-        </div>
+                <p>
+                    Gerencie administradores, funcionários e
+                    acompanhe os pedidos da Cafeteria Segura.
+                </p>
 
+            </div>
 
-        <!-- =================================================
-             MENU ADMINISTRATIVO
-        ================================================== -->
+            <div class="status-dot">
 
-        <section class="menu-admin">
+                <span></span>
 
+                Sistema online
 
-            <!-- ADMINISTRADORES -->
-
-            <a
-                th:href="@{/admin/admins}"
-                class="card-admin">
-
-                <div class="card-admin-icone">
-                    👤
-                </div>
-
-                <div class="card-admin-conteudo">
-
-                    <h2>
-                        Administradores
-                    </h2>
-
-                    <p>
-                        Cadastre, visualize e gerencie
-                        os administradores do sistema.
-                    </p>
-
-                    <span class="card-link">
-                        Gerenciar administradores →
-                    </span>
-
-                </div>
-
-            </a>
-
-
-            <!-- FUNCIONÁRIOS -->
-
-            <a
-                th:href="@{/funcionario}"
-                class="card-admin">
-
-                <div class="card-admin-icone">
-                    👨‍💼
-                </div>
-
-                <div class="card-admin-conteudo">
-
-                    <h2>
-                        Funcionários
-                    </h2>
-
-                    <p>
-                        Cadastre e gerencie os funcionários
-                        da Cafeteria Segura.
-                    </p>
-
-                    <span class="card-link">
-                        Gerenciar funcionários →
-                    </span>
-
-                </div>
-
-            </a>
-
-
-            <!-- AGENDAMENTOS -->
-
-            <a
-                th:href="@{/admin/agendamentos}"
-                class="card-admin">
-
-                <div class="card-admin-icone">
-                    📅
-                </div>
-
-                <div class="card-admin-conteudo">
-
-                    <h2>
-                        Agendamentos
-                    </h2>
-
-                    <p>
-                        Visualize e gerencie os agendamentos
-                        realizados pelos clientes.
-                    </p>
-
-                    <span class="card-link">
-                        Gerenciar agendamentos →
-                    </span>
-
-                </div>
-
-            </a>
-
-
-            <!-- PEDIDOS -->
-
-            <a
-                th:href="@{/pedidos}"
-                class="card-admin">
-
-                <div class="card-admin-icone">
-                    🛒
-                </div>
-
-                <div class="card-admin-conteudo">
-
-                    <h2>
-                        Pedidos
-                    </h2>
-
-                    <p>
-                        Acompanhe os pedidos realizados
-                        pelos clientes.
-                    </p>
-
-                    <span class="card-link">
-                        Gerenciar pedidos →
-                    </span>
-
-                </div>
-
-            </a>
-
+            </div>
 
         </section>
 
-    </section>
+
+        <!-- =================================================
+             ÁREAS
+        ================================================== -->
+
+        <section class="areas-admin">
+
+
+            <!-- =================================================
+                 ADMIN
+            ================================================== -->
+
+            <div class="area-admin">
+
+                <div class="area-admin-cabecalho">
+
+                    <div class="area-admin-icone">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <span class="area-admin-tag">
+                            ADMIN
+                        </span>
+
+                        <h3>
+                            Administração
+                        </h3>
+
+                        <p>
+                            Gerencie os usuários responsáveis
+                            pelo sistema e a equipe da cafeteria.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AÇÕES -->
+
+                <div class="area-admin-acoes">
+
+
+                    <!-- ADMINISTRADORES -->
+
+                    <a th:href="@{/admin/admins}"
+                       class="botao-admin">
+
+                        <div class="botao-icone">
+                            👤
+                        </div>
+
+                        <div class="botao-texto">
+
+                            <strong>
+                                Administradores
+                            </strong>
+
+                            <span>
+                                Gerenciar administradores
+                            </span>
+
+                        </div>
+
+                        <div class="botao-seta">
+                            →
+                        </div>
+
+                    </a>
+
+
+                    <!-- FUNCIONÁRIOS -->
+
+                    <a th:href="@{/funcionarios}"
+                       class="botao-admin">
+
+                        <div class="botao-icone">
+                            👥
+                        </div>
+
+                        <div class="botao-texto">
+
+                            <strong>
+                                Funcionários
+                            </strong>
+
+                            <span>
+                                Gerenciar funcionários
+                            </span>
+
+                        </div>
+
+                        <div class="botao-seta">
+                            →
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 GESTÃO
+            ================================================== -->
+
+            <div class="area-admin">
+
+                <div class="area-admin-cabecalho">
+
+                    <div class="area-admin-icone">
+                        📋
+                    </div>
+
+                    <div>
+
+                        <span class="area-admin-tag">
+                            GESTÃO
+                        </span>
+
+                        <h3>
+                            Pedidos
+                        </h3>
+
+                        <p>
+                            Acompanhe e atualize o andamento dos
+                            pedidos realizados na cafeteria.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AÇÕES -->
+
+                <div class="area-admin-acoes">
+
+
+                    <!-- EM ATENDIMENTO -->
+
+                    <a th:href="@{/admin/pedidos/em-atendimento}"
+                       class="botao-admin botao-atendimento">
+
+                        <div class="botao-icone">
+                            ◷
+                        </div>
+
+                        <div class="botao-texto">
+
+                            <strong>
+                                Em Atendimento
+                            </strong>
+
+                            <span>
+                                Pedidos sendo preparados ou atendidos
+                            </span>
+
+                        </div>
+
+                        <div class="botao-seta">
+                            →
+                        </div>
+
+                    </a>
+
+
+                    <!-- FINALIZADOS -->
+
+                    <a th:href="@{/admin/pedidos/finalizados}"
+                       class="botao-admin botao-finalizados">
+
+                        <div class="botao-icone">
+                            ✓
+                        </div>
+
+                        <div class="botao-texto">
+
+                            <strong>
+                                Finalizados
+                            </strong>
+
+                            <span>
+                                Pedidos já concluídos
+                            </span>
+
+                        </div>
+
+                        <div class="botao-seta">
+                            →
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ACESSO RÁPIDO
+        ================================================== -->
+
+        <section class="acesso-rapido">
+
+            <div class="acesso-rapido-topo">
+
+                <div>
+
+                    <span class="area-admin-tag">
+                        ACESSO RÁPIDO
+                    </span>
+
+                    <h3>
+                        Outras funções
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="acesso-rapido-botoes">
+
+
+                <!-- TODOS OS PEDIDOS -->
+
+                <a th:href="@{/admin/pedidos}"
+                   class="atalho-admin">
+
+                    <span class="atalho-icone">
+                        📋
+                    </span>
+
+                    <span>
+                        Todos os pedidos
+                    </span>
+
+                    <span class="atalho-seta">
+                        →
+                    </span>
+
+                </a>
+
+
+                <!-- AGENDAMENTOS -->
+
+                <a th:href="@{/admin/agendamentos}"
+                   class="atalho-admin">
+
+                    <span class="atalho-icone">
+                        📅
+                    </span>
+
+                    <span>
+                        Agendamentos
+                    </span>
+
+                    <span class="atalho-seta">
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
 
 
     <!-- =====================================================
@@ -261,17 +414,21 @@
     <footer class="painel-footer">
 
         <span>
-            ☕
+            © 2026 Cafeteria Segura
         </span>
 
-        <p>
-            Cafeteria Segura —
-            Painel Administrativo
-        </p>
+        <span>
+            Sistema de gerenciamento
+        </span>
 
     </footer>
 
-</main>
+</div>
+
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
 
 </body>
 

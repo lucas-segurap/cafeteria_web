@@ -1,0 +1,970 @@
+/* =========================================
+   CONFIGURAÇÕES GERAIS
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080808;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.pagina-pedidos {
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(212, 175, 55, 0.08),
+            transparent 35%
+        ),
+        #080808;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.pedidos-header {
+    width: 100%;
+    min-height: 82px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 6%;
+
+    background: #111111;
+
+    border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+
+/* LOGO */
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo-icone {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: rgba(212, 175, 55, 0.1);
+
+    border: 1px solid rgba(212, 175, 55, 0.35);
+
+    color: #d4af37;
+
+    font-size: 24px;
+}
+
+.logo-texto {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-principal {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.logo-secundario {
+    color: #d4af37;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+
+/* HEADER DIREITA */
+
+.header-direita {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.admin-logado {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-avatar {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #d4af37;
+
+    color: #080808;
+
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.admin-dados {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-label {
+    font-size: 11px;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.admin-nome {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+
+/* BOTÃO SAIR */
+
+.btn-sair {
+    padding: 9px 16px;
+
+    border-radius: 8px;
+
+    border: 1px solid #333333;
+
+    color: #dddddd;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+}
+
+.btn-sair:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+}
+
+
+/* =========================================
+   CONTEÚDO
+========================================= */
+
+.pedidos-conteudo {
+    width: min(1200px, 92%);
+
+    margin: 0 auto;
+
+    padding: 45px 0 70px;
+}
+
+
+/* =========================================
+   TÍTULO
+========================================= */
+
+.titulo-section {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-bottom: 30px;
+}
+
+.titulo-tag {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: #d4af37;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1.8px;
+}
+
+.titulo-section h1 {
+    margin: 0;
+
+    font-size: clamp(28px, 4vw, 42px);
+
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+.titulo-section p {
+    margin-top: 8px;
+
+    max-width: 700px;
+
+    color: #999999;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+}
+
+
+/* BOTÃO VOLTAR */
+
+.btn-voltar {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 150px;
+
+    padding: 11px 17px;
+
+    border-radius: 9px;
+
+    border: 1px solid #333333;
+
+    color: #dddddd;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+}
+
+.btn-voltar:hover {
+    background: #161616;
+
+    border-color: #d4af37;
+
+    color: #d4af37;
+}
+
+
+/* =========================================
+   FILTROS
+========================================= */
+
+.filtros-pedidos {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-bottom: 28px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #222222;
+}
+
+.filtro {
+    padding: 10px 18px;
+
+    border-radius: 8px;
+
+    background: #111111;
+
+    border: 1px solid #292929;
+
+    color: #aaaaaa;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+.filtro:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+}
+
+.filtro.ativo {
+    background: rgba(212, 175, 55, 0.1);
+
+    border-color: #d4af37;
+
+    color: #d4af37;
+}
+
+
+/* =========================================
+   LISTA DE PEDIDOS
+========================================= */
+
+.lista-pedidos {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.pedido-card {
+    background: #111111;
+
+    border: 1px solid #252525;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    transition: 0.2s;
+}
+
+.pedido-card:hover {
+    border-color: rgba(212, 175, 55, 0.45);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================
+   TOPO DO CARD
+========================================= */
+
+.pedido-topo {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 21px 24px;
+
+    background: #151515;
+
+    border-bottom: 1px solid #242424;
+}
+
+.pedido-label {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #888888;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+.pedido-identificacao h2 {
+    margin: 0;
+
+    font-size: 25px;
+
+    color: #d4af37;
+
+    font-weight: 800;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.status-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 135px;
+
+    padding: 8px 12px;
+
+    border-radius: 100px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.6px;
+}
+
+
+/* RECEBIDO */
+
+.status-recebido {
+    background: rgba(255, 193, 7, 0.12);
+
+    border: 1px solid rgba(255, 193, 7, 0.3);
+
+    color: #ffc107;
+}
+
+
+/* EM ATENDIMENTO */
+
+.status-em_atendimento {
+    background: rgba(13, 202, 240, 0.12);
+
+    border: 1px solid rgba(13, 202, 240, 0.3);
+
+    color: #0dcaf0;
+}
+
+
+/* FINALIZADO */
+
+.status-finalizado {
+    background: rgba(25, 135, 84, 0.12);
+
+    border: 1px solid rgba(25, 135, 84, 0.3);
+
+    color: #63d49a;
+}
+
+
+/* CANCELADO */
+
+.status-cancelado {
+    background: rgba(220, 53, 69, 0.12);
+
+    border: 1px solid rgba(220, 53, 69, 0.3);
+
+    color: #ff6978;
+}
+
+
+/* =========================================
+   INFORMAÇÕES
+========================================= */
+
+.pedido-informacoes {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 15px;
+
+    padding: 22px 24px;
+}
+
+.informacao {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+.info-titulo {
+    margin-bottom: 5px;
+
+    color: #777777;
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+.info-valor {
+    color: #eeeeee;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+.informacao-endereco {
+    grid-column: span 2;
+}
+
+
+/* =========================================
+   ITENS
+========================================= */
+
+.pedido-itens {
+    padding: 0 24px 22px;
+}
+
+.itens-titulo {
+    margin-bottom: 13px;
+
+    color: #d4af37;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.item-pedido {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 11px 0;
+
+    border-top: 1px solid #202020;
+
+    gap: 15px;
+}
+
+.item-esquerda {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+}
+
+.item-quantidade {
+    flex: 0 0 auto;
+
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: #1e1e1e;
+
+    border: 1px solid #303030;
+
+    color: #d4af37;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+.item-nome {
+    color: #dddddd;
+
+    font-size: 14px;
+
+    word-break: break-word;
+}
+
+.item-preco {
+    flex: 0 0 auto;
+
+    color: #aaaaaa;
+
+    font-size: 13px;
+}
+
+.sem-itens {
+    padding: 15px 0;
+
+    color: #777777;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   TOTAL
+========================================= */
+
+.pedido-total {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 24px;
+
+    background: #151515;
+
+    border-top: 1px solid #252525;
+
+    border-bottom: 1px solid #252525;
+}
+
+.pedido-total > span {
+    color: #999999;
+
+    font-size: 13px;
+}
+
+.pedido-total strong {
+    color: #d4af37;
+
+    font-size: 23px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================
+   AÇÕES
+========================================= */
+
+.pedido-acoes {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding: 18px 24px;
+}
+
+.btn-acao {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: 0.2s;
+}
+
+
+/* INICIAR */
+
+.btn-iniciar {
+    background: #d4af37;
+
+    color: #080808;
+}
+
+.btn-iniciar:hover {
+    background: #f0d56a;
+
+    color: #080808;
+
+    transform: translateY(-1px);
+}
+
+
+/* FINALIZAR */
+
+.btn-finalizar {
+    background: rgba(25, 135, 84, 0.12);
+
+    border: 1px solid rgba(25, 135, 84, 0.4);
+
+    color: #63d49a;
+}
+
+.btn-finalizar:hover {
+    background: rgba(25, 135, 84, 0.2);
+
+    color: #63d49a;
+}
+
+
+/* CANCELAR */
+
+.btn-cancelar {
+    background: transparent;
+
+    border: 1px solid rgba(220, 53, 69, 0.35);
+
+    color: #ff6978;
+}
+
+.btn-cancelar:hover {
+    background: rgba(220, 53, 69, 0.1);
+
+    color: #ff6978;
+}
+
+
+/* FINALIZADO */
+
+.pedido-concluido {
+    color: #63d49a;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* CANCELADO */
+
+.pedido-cancelado {
+    color: #ff6978;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   SEM PEDIDOS
+========================================= */
+
+.sem-pedidos {
+    min-height: 330px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    background: #111111;
+
+    border: 1px dashed #2c2c2c;
+
+    border-radius: 16px;
+}
+
+.sem-pedidos-icone {
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 18px;
+
+    border-radius: 50%;
+
+    background: rgba(212, 175, 55, 0.08);
+
+    border: 1px solid rgba(212, 175, 55, 0.2);
+
+    color: #d4af37;
+
+    font-size: 30px;
+}
+
+.sem-pedidos h2 {
+    margin-bottom: 8px;
+
+    color: #eeeeee;
+
+    font-size: 21px;
+}
+
+.sem-pedidos p {
+    margin-bottom: 20px;
+
+    color: #777777;
+
+    font-size: 14px;
+}
+
+.btn-voltar-vazio {
+    padding: 11px 18px;
+
+    border-radius: 8px;
+
+    background: #d4af37;
+
+    color: #080808;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.btn-voltar-vazio:hover {
+    background: #f0d56a;
+
+    color: #080808;
+}
+
+
+/* =========================================
+   RODAPÉ
+========================================= */
+
+.pedidos-footer {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 22px;
+
+    border-top: 1px solid #1f1f1f;
+
+    color: #666666;
+
+    font-size: 11px;
+}
+
+.pedidos-footer p {
+    margin: 0;
+}
+
+.pedidos-footer span {
+    color: #444444;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .pedido-informacoes {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .informacao-endereco {
+        grid-column: span 2;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .pedidos-header {
+        padding: 14px 4%;
+    }
+
+    .admin-dados {
+        display: none;
+    }
+
+    .pedidos-conteudo {
+        width: 92%;
+
+        padding-top: 30px;
+    }
+
+    .titulo-section {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .btn-voltar {
+        width: 100%;
+    }
+
+    .pedido-topo {
+        padding: 18px;
+    }
+
+    .pedido-informacoes {
+        grid-template-columns: 1fr;
+
+        padding: 20px 18px;
+    }
+
+    .informacao-endereco {
+        grid-column: span 1;
+    }
+
+    .pedido-itens {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .pedido-total {
+        padding: 16px 18px;
+    }
+
+    .pedido-acoes {
+        padding: 16px 18px;
+    }
+
+    .btn-acao {
+        width: 100%;
+    }
+
+    .status-badge {
+        min-width: auto;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .logo-secundario {
+        display: none;
+    }
+
+    .header-direita {
+        gap: 8px;
+    }
+
+    .btn-sair {
+        padding: 8px 11px;
+    }
+
+    .pedido-topo {
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+    .pedido-identificacao h2 {
+        font-size: 22px;
+    }
+
+    .status-badge {
+        padding: 7px 9px;
+
+        font-size: 9px;
+    }
+
+}

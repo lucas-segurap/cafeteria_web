@@ -1,4 +1,3 @@
-<script>
 
     function mostrarSenha(id, botao) {
 
@@ -169,4 +168,3 @@
 
     }
 
-</script>

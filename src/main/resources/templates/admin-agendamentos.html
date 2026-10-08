@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Agendamentos | Cafeteria Segura</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/admin-agendamentos.css}">
+
+</head>
+
+<body>
+
+<main class="admin-agendamentos-page">
+
+    <header class="pagina-header">
+
+        <div>
+
+            <a th:href="@{/admin}"
+               class="voltar">
+                ← Voltar ao painel
+            </a>
+
+            <span class="tag">
+                CAFETERIA SEGURA
+            </span>
+
+            <h1>Agendamentos</h1>
+
+            <p>
+                Gerencie os agendamentos realizados pelos clientes.
+            </p>
+
+        </div>
+
+        <div class="admin-info">
+
+            <span>👤</span>
+
+            <strong th:text="${admin.nome}">
+                Administrador
+            </strong>
+
+        </div>
+
+    </header>
+
+
+    <section class="resumo">
+
+        <div class="resumo-card">
+
+            <span class="icone">
+                📅
+            </span>
+
+            <div>
+
+                <small>
+                    Total de agendamentos
+                </small>
+
+                <strong th:text="${agendamentos.size()}">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="lista-agendamentos">
+
+        <div th:if="${agendamentos == null || agendamentos.isEmpty()}"
+             class="sem-agendamentos">
+
+            <div class="icone-vazio">
+                📅
+            </div>
+
+            <h2>
+                Nenhum agendamento
+            </h2>
+
+            <p>
+                Ainda não existem agendamentos registrados.
+            </p>
+
+        </div>
+
+
+        <article class="agendamento-card"
+                 th:each="agendamento : ${agendamentos}">
+
+            <div class="agendamento-topo">
+
+                <div>
+
+                    <small>
+                        AGENDAMENTO
+                    </small>
+
+                    <h2>
+                        #
+                        <span th:text="${agendamento.id}">
+                            1
+                        </span>
+                    </h2>
+
+                </div>
+
+
+                <span class="status"
+                      th:text="${agendamento.status}">
+                    PENDENTE
+                </span>
+
+            </div>
+
+
+            <div class="dados">
+
+                <div>
+
+                    <small>
+                        Cliente
+                    </small>
+
+                    <strong
+                        th:text="${agendamento.cliente.nome}">
+                        Cliente
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <small>
+                        Data
+                    </small>
+
+                    <strong
+                        th:text="${agendamento.data}">
+                        08/10/2026
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <small>
+                        Horário
+                    </small>
+
+                    <strong
+                        th:text="${agendamento.horario}">
+                        15:00
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <small>
+                        Pessoas
+                    </small>
+
+                    <strong
+                        th:text="${agendamento.pessoas}">
+                        2
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="observacao"
+                 th:if="${agendamento.observacao != null
+                         && !agendamento.observacao.isEmpty()}">
+
+                <small>
+                    Observação
+                </small>
+
+                <p th:text="${agendamento.observacao}">
+                </p>
+
+            </div>
+
+
+            <div class="acoes">
+
+                <a th:if="${agendamento.status.name() == 'PENDENTE'}"
+                   th:href="@{/admin/agendamentos/confirmar/{id}(id=${agendamento.id})}"
+                   class="btn confirmar">
+
+                    Confirmar
+
+                </a>
+
+
+                <a th:if="${agendamento.status.name() == 'CONFIRMADO'}"
+                   th:href="@{/admin/agendamentos/concluir/{id}(id=${agendamento.id})}"
+                   class="btn concluir">
+
+                    Concluir
+
+                </a>
+
+
+                <a th:if="${agendamento.status.name() == 'PENDENTE'
+                            || agendamento.status.name() == 'CONFIRMADO'}"
+                   th:href="@{/admin/agendamentos/cancelar/{id}(id=${agendamento.id})}"
+                   class="btn cancelar"
+                   onclick="return confirm('Deseja cancelar este agendamento?');">
+
+                    Cancelar
+
+                </a>
+
+
+                <a th:href="@{/admin/agendamentos/excluir/{id}(id=${agendamento.id})}"
+                   class="btn excluir"
+                   onclick="return confirm('Deseja excluir este agendamento permanentemente?');">
+
+                    Excluir
+
+                </a>
+
+            </div>
+
+        </article>
+
+    </section>
+
+</main>
+
+</body>
+</html>

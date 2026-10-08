@@ -2,23 +2,17 @@ package com.br.cafeteriasegura.Service;
 
 import com.br.cafeteriasegura.Model.Funcionario;
 import com.br.cafeteriasegura.Repository.FuncionarioRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder =
-            new BCryptPasswordEncoder();
-
-    public FuncionarioService(
-            FuncionarioRepository funcionarioRepository) {
-
+    public FuncionarioService(FuncionarioRepository funcionarioRepository) {
         this.funcionarioRepository = funcionarioRepository;
     }
 
@@ -27,20 +21,25 @@ public class FuncionarioService {
     // LISTAR TODOS
     // =========================================================
 
+    @Transactional(readOnly = true)
     public List<Funcionario> listarTodos() {
-
         return funcionarioRepository.findAll();
     }
 
 
     // =========================================================
-    // BUSCAR POR NOME
+    // PESQUISAR POR NOME
     // =========================================================
 
-    public List<Funcionario> buscarPorNome(String nome) {
+    @Transactional(readOnly = true)
+    public List<Funcionario> pesquisarPorNome(String nome) {
+
+        if (nome == null || nome.trim().isEmpty()) {
+            return listarTodos();
+        }
 
         return funcionarioRepository
-                .findByNomeContainingIgnoreCase(nome);
+                .findByNomeContainingIgnoreCase(nome.trim());
     }
 
 
@@ -48,44 +47,38 @@ public class FuncionarioService {
     // BUSCAR POR ID
     // =========================================================
 
-    public Optional<Funcionario> buscarPorId(Long id) {
+    @Transactional(readOnly = true)
+    public Funcionario buscarPorId(Long id) {
 
-        return funcionarioRepository.findById(id);
+        if (id == null) {
+            throw new IllegalArgumentException(
+                    "ID do funcionário inválido."
+            );
+        }
+
+        return funcionarioRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Funcionário não encontrado."
+                        )
+                );
     }
 
 
     // =========================================================
-    // SALVAR NOVO FUNCIONÁRIO
+    // SALVAR
     // =========================================================
 
+    @Transactional
     public Funcionario salvar(Funcionario funcionario) {
 
-        validarDados(funcionario);
-
-        if (funcionario.getId() == null) {
-
-            if (funcionarioRepository
-                    .existsByEmail(funcionario.getEmail())) {
-
-                throw new RuntimeException(
-                        "Este e-mail já está cadastrado."
-                );
-            }
-
-            if (funcionarioRepository
-                    .existsByCpf(funcionario.getCpf())) {
-
-                throw new RuntimeException(
-                        "Este CPF já está cadastrado."
-                );
-            }
-
-            funcionario.setSenha(
-                    passwordEncoder.encode(
-                            funcionario.getSenha()
-                    )
+        if (funcionario == null) {
+            throw new IllegalArgumentException(
+                    "Funcionário inválido."
             );
         }
+
+        validarDados(funcionario);
 
         return funcionarioRepository.save(funcionario);
     }
@@ -95,137 +88,96 @@ public class FuncionarioService {
     // CADASTRAR
     // =========================================================
 
-    public Funcionario cadastrar(
-            Funcionario funcionario) {
+    @Transactional
+    public Funcionario cadastrar(Funcionario funcionario) {
+
+        if (funcionario == null) {
+            throw new IllegalArgumentException(
+                    "Funcionário inválido."
+            );
+        }
 
         validarDados(funcionario);
 
-        if (funcionarioRepository
-                .existsByEmail(funcionario.getEmail())) {
+        if (funcionario.getCpf() != null &&
+                funcionarioRepository.existsByCpf(
+                        funcionario.getCpf())) {
 
-            throw new RuntimeException(
-                    "Este e-mail já está cadastrado."
+            throw new IllegalArgumentException(
+                    "Esse CPF já está cadastrado."
             );
         }
 
-        if (funcionarioRepository
-                .existsByCpf(funcionario.getCpf())) {
+        if (funcionario.getEmail() != null &&
+                funcionarioRepository.existsByEmail(
+                        funcionario.getEmail())) {
 
-            throw new RuntimeException(
-                    "Este CPF já está cadastrado."
+            throw new IllegalArgumentException(
+                    "Esse e-mail já está cadastrado."
             );
         }
 
-        funcionario.setSenha(
-                passwordEncoder.encode(
-                        funcionario.getSenha()
-                )
-        );
-
-        return funcionarioRepository.save(
-                funcionario
-        );
+        return funcionarioRepository.save(funcionario);
     }
 
 
     // =========================================================
-    // LOGIN
+    // ATUALIZAR
     // =========================================================
 
-    public Funcionario login(
-            String email,
-            String senha) {
-
-        if (email == null ||
-                email.isBlank() ||
-                senha == null ||
-                senha.isBlank()) {
-
-            return null;
-        }
-
-        Funcionario funcionario =
-                funcionarioRepository
-                        .findByEmail(email)
-                        .orElse(null);
-
-        if (funcionario == null) {
-
-            return null;
-        }
-
-        if (!passwordEncoder.matches(
-                senha,
-                funcionario.getSenha())) {
-
-            return null;
-        }
-
-        return funcionario;
-    }
-
-
-    // =========================================================
-    // ATUALIZAR FUNCIONÁRIO
-    // =========================================================
-
+    @Transactional
     public Funcionario atualizar(
             Long id,
             Funcionario dados) {
 
         Funcionario funcionario =
-                funcionarioRepository
-                        .findById(id)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "Funcionário não encontrado."
-                                )
-                        );
+                buscarPorId(id);
 
-        funcionario.setNome(
-                dados.getNome()
-        );
+        validarDados(dados);
 
-        funcionario.setCpf(
-                dados.getCpf()
-        );
+        if (dados.getCpf() != null) {
 
-        funcionario.setTelefone(
-                dados.getTelefone()
-        );
+            funcionarioRepository.findByCpf(dados.getCpf())
+                    .ifPresent(existente -> {
 
-        funcionario.setEmail(
-                dados.getEmail()
-        );
+                        if (!existente.getId().equals(id)) {
 
-        funcionario.setCargo(
-                dados.getCargo()
-        );
-
-        funcionario.setSalario(
-                dados.getSalario()
-        );
-
-        /*
-         * Se uma nova senha foi informada,
-         * atualiza a senha.
-         *
-         * Se estiver vazia, mantém a senha atual.
-         */
-
-        if (dados.getSenha() != null &&
-                !dados.getSenha().isBlank()) {
-
-            funcionario.setSenha(
-                    passwordEncoder.encode(
-                            dados.getSenha()
-                    )
-            );
+                            throw new IllegalArgumentException(
+                                    "Esse CPF já está cadastrado."
+                            );
+                        }
+                    });
         }
 
-        return funcionarioRepository.save(
-                funcionario
-        );
+        if (dados.getEmail() != null) {
+
+            funcionarioRepository.findByEmail(dados.getEmail())
+                    .ifPresent(existente -> {
+
+                        if (!existente.getId().equals(id)) {
+
+                            throw new IllegalArgumentException(
+                                    "Esse e-mail já está cadastrado."
+                            );
+                        }
+                    });
+        }
+
+        funcionario.setNome(dados.getNome());
+        funcionario.setCpf(dados.getCpf());
+        funcionario.setTelefone(dados.getTelefone());
+        funcionario.setEmail(dados.getEmail());
+        funcionario.setCargo(dados.getCargo());
+        funcionario.setSalario(dados.getSalario());
+
+        // Só altera a senha se uma nova senha foi informada
+        if (dados.getSenha() != null &&
+                !dados.getSenha().trim().isEmpty()) {
+
+            funcionario.setSenha(dados.getSenha());
+        }
+
+        return funcionarioRepository.save(funcionario);
     }
 
 
@@ -233,11 +185,17 @@ public class FuncionarioService {
     // EXCLUIR
     // =========================================================
 
+    @Transactional
     public void excluir(Long id) {
 
-        if (!funcionarioRepository.existsById(id)) {
+        if (id == null) {
+            throw new IllegalArgumentException(
+                    "ID do funcionário inválido."
+            );
+        }
 
-            throw new RuntimeException(
+        if (!funcionarioRepository.existsById(id)) {
+            throw new IllegalArgumentException(
                     "Funcionário não encontrado."
             );
         }
@@ -247,75 +205,47 @@ public class FuncionarioService {
 
 
     // =========================================================
-    // VERIFICAR E-MAIL
-    // =========================================================
-
-    public boolean emailExiste(String email) {
-
-        return funcionarioRepository
-                .existsByEmail(email);
-    }
-
-
-    // =========================================================
     // VALIDAÇÃO
     // =========================================================
 
-    private void validarDados(
-            Funcionario funcionario) {
+    private void validarDados(Funcionario funcionario) {
 
         if (funcionario.getNome() == null ||
-                funcionario.getNome().isBlank()) {
+                funcionario.getNome().trim().isEmpty()) {
 
-            throw new RuntimeException(
-                    "O nome é obrigatório."
+            throw new IllegalArgumentException(
+                    "Informe o nome do funcionário."
             );
         }
 
         if (funcionario.getCpf() == null ||
-                funcionario.getCpf().isBlank()) {
+                funcionario.getCpf().trim().isEmpty()) {
 
-            throw new RuntimeException(
-                    "O CPF é obrigatório."
-            );
-        }
-
-        if (funcionario.getTelefone() == null ||
-                funcionario.getTelefone().isBlank()) {
-
-            throw new RuntimeException(
-                    "O telefone é obrigatório."
+            throw new IllegalArgumentException(
+                    "Informe o CPF do funcionário."
             );
         }
 
         if (funcionario.getEmail() == null ||
-                funcionario.getEmail().isBlank()) {
+                funcionario.getEmail().trim().isEmpty()) {
 
-            throw new RuntimeException(
-                    "O e-mail é obrigatório."
+            throw new IllegalArgumentException(
+                    "Informe o e-mail do funcionário."
             );
         }
 
         if (funcionario.getCargo() == null ||
-                funcionario.getCargo().isBlank()) {
+                funcionario.getCargo().trim().isEmpty()) {
 
-            throw new RuntimeException(
-                    "O cargo é obrigatório."
+            throw new IllegalArgumentException(
+                    "Informe o cargo do funcionário."
             );
         }
 
         if (funcionario.getSalario() == null) {
 
-            throw new RuntimeException(
-                    "O salário é obrigatório."
-            );
-        }
-
-        if (funcionario.getSenha() == null ||
-                funcionario.getSenha().isBlank()) {
-
-            throw new RuntimeException(
-                    "A senha é obrigatória."
+            throw new IllegalArgumentException(
+                    "Informe o salário do funcionário."
             );
         }
     }
