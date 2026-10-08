@@ -20,7 +20,7 @@ public class FuncionarioController {
 
 
     // =========================================================
-    // VERIFICAR ADMIN
+    // VERIFICAR ADMIN LOGADO
     // =========================================================
 
     private Admin obterAdminLogado(HttpSession session) {
@@ -47,23 +47,25 @@ public class FuncionarioController {
 
         model.addAttribute("admin", admin);
 
-        if (nome != null && !nome.trim().isEmpty()) {
+        if (nome == null || nome.trim().isEmpty()) {
 
             model.addAttribute(
                     "funcionarios",
-                    funcionarioService.pesquisarPorNome(nome)
+                    funcionarioService.listarTodos()
             );
 
         } else {
 
             model.addAttribute(
                     "funcionarios",
-                    funcionarioService.listarTodos()
+                    funcionarioService.pesquisarPorNome(nome)
             );
         }
 
+        // IMPORTANTE:
+        // O HTML usa ${nomeBusca}
         model.addAttribute(
-                "nomePesquisa",
+                "nomeBusca",
                 nome
         );
 
@@ -87,6 +89,7 @@ public class FuncionarioController {
         }
 
         model.addAttribute("admin", admin);
+
         model.addAttribute(
                 "funcionario",
                 new Funcionario()
@@ -117,8 +120,15 @@ public class FuncionarioController {
             Funcionario funcionario =
                     funcionarioService.buscarPorId(id);
 
-            model.addAttribute("admin", admin);
-            model.addAttribute("funcionario", funcionario);
+            model.addAttribute(
+                    "admin",
+                    admin
+            );
+
+            model.addAttribute(
+                    "funcionario",
+                    funcionario
+            );
 
             return "funcionario-form";
 
@@ -137,7 +147,8 @@ public class FuncionarioController {
     public String salvarFuncionario(
             @ModelAttribute("funcionario")
             Funcionario funcionario,
-            HttpSession session) {
+            HttpSession session,
+            Model model) {
 
         Admin admin = obterAdminLogado(session);
 
@@ -159,12 +170,22 @@ public class FuncionarioController {
                 );
             }
 
+            return "redirect:/funcionarios";
+
         } catch (IllegalArgumentException e) {
 
-            return "redirect:/funcionarios/novo";
-        }
+            model.addAttribute(
+                    "admin",
+                    admin
+            );
 
-        return "redirect:/funcionarios";
+            model.addAttribute(
+                    "erro",
+                    e.getMessage()
+            );
+
+            return "funcionario-form";
+        }
     }
 
 
@@ -188,6 +209,7 @@ public class FuncionarioController {
             funcionarioService.excluir(id);
 
         } catch (IllegalArgumentException ignored) {
+            // Retorna para a lista mesmo se o funcionário não existir
         }
 
         return "redirect:/funcionarios";
