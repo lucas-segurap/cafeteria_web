@@ -1,4 +1,5 @@
-package com.br.cafeteriasegura.Service;
+
+        package com.br.cafeteriasegura.Service;
 
 import com.br.cafeteriasegura.Model.Pedido;
 import com.br.cafeteriasegura.Repository.PedidoRepository;
@@ -147,6 +148,147 @@ public class PedidoService {
 
 
     // =========================================================
+    // INICIAR ATENDIMENTO
+    // RECEBIDO -> EM_ATENDIMENTO
+    // =========================================================
+
+    @Transactional
+    public void iniciarAtendimento(Long id) {
+
+        if (id == null) {
+
+            throw new IllegalArgumentException(
+                    "ID do pedido inválido."
+            );
+        }
+
+        Pedido pedido = pedidoRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Pedido não encontrado."
+                        )
+                );
+
+        if (pedido.getStatus() == null) {
+
+            throw new IllegalStateException(
+                    "O pedido não possui status."
+            );
+        }
+
+        if (!"RECEBIDO".equals(
+                pedido.getStatus().name())) {
+
+            throw new IllegalStateException(
+                    "Somente pedidos recebidos podem iniciar atendimento."
+            );
+        }
+
+        pedido.setStatus(
+                com.br.cafeteriasegura.Model.StatusPedido.EM_ATENDIMENTO
+        );
+
+        pedidoRepository.save(pedido);
+    }
+
+
+    // =========================================================
+    // FINALIZAR PEDIDO
+    // EM_ATENDIMENTO -> FINALIZADO
+    // =========================================================
+
+    @Transactional
+    public void finalizarPedido(Long id) {
+
+        if (id == null) {
+
+            throw new IllegalArgumentException(
+                    "ID do pedido inválido."
+            );
+        }
+
+        Pedido pedido = pedidoRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Pedido não encontrado."
+                        )
+                );
+
+        if (pedido.getStatus() == null) {
+
+            throw new IllegalStateException(
+                    "O pedido não possui status."
+            );
+        }
+
+        if (!"EM_ATENDIMENTO".equals(
+                pedido.getStatus().name())) {
+
+            throw new IllegalStateException(
+                    "Somente pedidos em atendimento podem ser finalizados."
+            );
+        }
+
+        pedido.setStatus(
+                com.br.cafeteriasegura.Model.StatusPedido.FINALIZADO
+        );
+
+        pedidoRepository.save(pedido);
+    }
+
+
+    // =========================================================
+    // CANCELAR PEDIDO
+    // RECEBIDO ou EM_ATENDIMENTO -> CANCELADO
+    // =========================================================
+
+    @Transactional
+    public void cancelarPedido(Long id) {
+
+        if (id == null) {
+
+            throw new IllegalArgumentException(
+                    "ID do pedido inválido."
+            );
+        }
+
+        Pedido pedido = pedidoRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Pedido não encontrado."
+                        )
+                );
+
+        if (pedido.getStatus() == null) {
+
+            throw new IllegalStateException(
+                    "O pedido não possui status."
+            );
+        }
+
+        String statusAtual =
+                pedido.getStatus().name();
+
+        if (!"RECEBIDO".equals(statusAtual)
+                && !"EM_ATENDIMENTO".equals(statusAtual)) {
+
+            throw new IllegalStateException(
+                    "Este pedido não pode ser cancelado."
+            );
+        }
+
+        pedido.setStatus(
+                com.br.cafeteriasegura.Model.StatusPedido.CANCELADO
+        );
+
+        pedidoRepository.save(pedido);
+    }
+
+
+    // =========================================================
     // SALVAR PEDIDO
     // =========================================================
 
@@ -191,3 +333,4 @@ public class PedidoService {
         pedidoRepository.deleteById(id);
     }
 }
+
