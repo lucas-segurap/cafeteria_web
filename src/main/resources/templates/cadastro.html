@@ -24,25 +24,29 @@
 
 <body>
 
-<header>
-    <nav>
-        <a th:href="@{/}">
-            Cafeteria Segura
-        </a>
-
-        <a th:href="@{/}">
-            Início
-        </a>
-
-        <a th:href="@{/produtos}">
-            Produtos
-        </a>
-
-        <a th:href="@{/login}">
-            Login
-        </a>
-    </nav>
-</header>
+<header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/}">
+                    <span class="navbar-brand-mark">☕</span>
+                    Cafeteria Segura
+                </a>
+                <div class="collapse navbar-collapse" id="menuPrincipal">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/produtos}">Produtos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/pedidos}">Pedidos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
 <main class="cadastro-container">
 

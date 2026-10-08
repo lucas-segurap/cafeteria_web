@@ -1,241 +1,335 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('formPedido');
-    if (!form) return;
+document.addEventListener("DOMContentLoaded", function () {
 
-    const checkboxes = Array.from(form.querySelectorAll('.produto-selecao'));
-    const listaResumo = document.getElementById('listaResumo');
-    const valorSubtotal = document.getElementById('valorSubtotal');
-    const valorTotal = document.getElementById('valorTotal');
-    const mensagem = document.getElementById('mensagemConfirmacao');
-    const botaoEnviar = form.querySelector('.order-submit');
+    const form = document.getElementById("formPedido");
 
-    const formatarPreco = (valor) =>
-        valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-    function itensSelecionados() {
-        return checkboxes
-            .filter((chk) => chk.checked)
-            .map((chk) => {
-                const card = chk.closest('.produto-checkbox');
-                const qtdInput = card.querySelector('.quantidade-produto');
-                const quantidade = Math.max(1, parseInt(qtdInput.value, 10) || 1);
-                const preco = parseFloat(chk.dataset.preco);
-
-                return {
-                    valor: chk.value,
-                    nome: chk.dataset.nome,
-                    quantidade,
-                    preco,
-                    subtotal: preco * quantidade,
-                };
-            });
+    if (!form) {
+        return;
     }
 
+    // =========================================================
+    // ELEMENTOS
+    // =========================================================
+
+    const checkboxes =
+        Array.from(form.querySelectorAll(".produto-selecao"));
+
+    const listaResumo =
+        document.getElementById("listaResumo");
+
+    const valorSubtotal =
+        document.getElementById("valorSubtotal");
+
+    const valorTotal =
+        document.getElementById("valorTotal");
+
+    const mensagem =
+        document.getElementById("mensagemConfirmacao");
+
+    const botaoEnviar =
+        form.querySelector(".order-submit");
+
+
+    // =========================================================
+    // FORMATAÇÃO DE PREÇO
+    // =========================================================
+
+    function formatarPreco(valor) {
+
+        return valor.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+
+    }
+
+
+    // =========================================================
+    // PRODUTOS SELECIONADOS
+    // =========================================================
+
+    function itensSelecionados() {
+
+        return checkboxes
+            .filter(function (checkbox) {
+                return checkbox.checked;
+            })
+            .map(function (checkbox) {
+
+                const card =
+                    checkbox.closest(".produto-checkbox");
+
+                const quantidadeInput =
+                    card.querySelector(".quantidade-produto");
+
+                let quantidade =
+                    parseInt(quantidadeInput.value, 10);
+
+                if (Number.isNaN(quantidade) || quantidade < 1) {
+                    quantidade = 1;
+                }
+
+                if (quantidade > 10) {
+                    quantidade = 10;
+                }
+
+                quantidadeInput.value = quantidade;
+
+                const preco =
+                    parseFloat(checkbox.dataset.preco);
+
+                return {
+                    valor: checkbox.value,
+                    nome: checkbox.dataset.nome,
+                    quantidade: quantidade,
+                    preco: preco,
+                    subtotal: preco * quantidade
+                };
+
+            });
+
+    }
+
+
+    // =========================================================
+    // ATUALIZAR RESUMO DO PEDIDO
+    // =========================================================
+
     function atualizarResumo() {
-        const itens = itensSelecionados();
+
+        const itens =
+            itensSelecionados();
+
+
+        // -----------------------------------------------------
+        // PEDIDO VAZIO
+        // -----------------------------------------------------
 
         if (itens.length === 0) {
+
             listaResumo.innerHTML = `
                 <div class="summary-empty">
                     <span>☕</span>
                     <p>Seu pedido está vazio.</p>
                     <small>Escolha um produto para começar.</small>
-                </div>`;
-            valorSubtotal.textContent = formatarPreco(0);
-            valorTotal.textContent = formatarPreco(0);
-            botaoEnviar.disabled = true;
-            return;
-        }
+                </div>
+            `;
 
-        listaResumo.innerHTML = itens
-            .map(
-                (item) => `
-                <div class="summary-item">
-                    <div>
-                        <strong>${item.nome}</strong>
-                        <small>${item.quantidade}x ${formatarPreco(item.preco)}</small>
-                    </div>
-                    <div class="summary-item-actions">
-                        <span>${formatarPreco(item.subtotal)}</span>
-                        <button type="button" class="btn-remover-item" data-remover="${item.valor}"
-                            aria-label="Remover ${item.nome} do pedido">&times;</button>
-                    </div>
-                </div>`
-            )
-            .join('');
-
-        const subtotal = itens.reduce((soma, item) => soma + item.subtotal, 0);
-        valorSubtotal.textContent = formatarPreco(subtotal);
-        valorTotal.textContent = formatarPreco(subtotal);
-        botaoEnviar.disabled = false;
-
-        listaResumo.querySelectorAll('[data-remover]').forEach((botao) => {
-            botao.addEventListener('click', () => {
-                const chk = checkboxes.find((c) => c.value === botao.dataset.remover);
-                if (!chk) return;
-                chk.checked = false;
-                chk.dispatchEvent(new Event('change'));
-            });
-        });
-    }
-
-    checkboxes.forEach((chk) => {
-        chk.addEventListener('change', () => {
-            const card = chk.closest('.produto-checkbox');
-            const qtdInput = card.querySelector('.quantidade-produto');
-            qtdInput.disabled = !chk.checked;
-
-            if (chk.checked) {
-                qtdInput.value = qtdInput.value || 1;
-                qtdInput.focus();
+            if (valorSubtotal) {
+                valorSubtotal.textContent =
+                    formatarPreco(0);
             }
 
-            atualizarResumo();
-        });
-    });
+            if (valorTotal) {
+                valorTotal.textContent =
+                    formatarPreco(0);
+            }
 
-    form.querySelectorAll('.quantidade-produto').forEach((input) => {
-        input.addEventListener('input', () => {
-            let valor = parseInt(input.value, 10);
-            if (Number.isNaN(valor) || valor < 1) valor = 1;
-            if (valor > 10) valor = 10;
-            input.value = valor;
-            atualizarResumo();
-        });
+            if (botaoEnviar) {
+                botaoEnviar.disabled = true;
+            }
 
-        input.addEventListener('click', (evento) => evento.stopPropagation());
-    });
-
-    form.addEventListener('submit', (evento) => {
-        evento.preventDefault();
-
-        const itens = itensSelecionados();
-        mensagem.classList.remove('mensagem-sucesso', 'mensagem-erro');
-
-        if (itens.length === 0) {
-            mensagem.textContent = 'Selecione ao menos um produto antes de confirmar.';
-            mensagem.classList.add('mensagem-erro');
-            mensagem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             return;
         }
 
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
+
+        // -----------------------------------------------------
+        // MOSTRAR ITENS
+        // -----------------------------------------------------
+
+        listaResumo.innerHTML =
+            itens.map(function (item) {
+
+                return `
+                    <div class="summary-item">
+
+                        <div>
+                            <strong>${item.nome}</strong>
+
+                            <small>
+                                ${item.quantidade}x
+                                ${formatarPreco(item.preco)}
+                            </small>
+                        </div>
+
+                        <div class="summary-item-actions">
+
+                            <span>
+                                ${formatarPreco(item.subtotal)}
+                            </span>
+
+                            <button
+                                type="button"
+                                class="btn-remover-item"
+                                data-remover="${item.valor}"
+                                aria-label="Remover ${item.nome} do pedido">
+
+                                &times;
+
+                            </button>
+
+                        </div>
+
+                    </div>
+                `;
+
+            }).join("");
+
+
+        // -----------------------------------------------------
+        // TOTAL
+        // -----------------------------------------------------
+
+        const subtotal =
+            itens.reduce(function (soma, item) {
+                return soma + item.subtotal;
+            }, 0);
+
+
+        if (valorSubtotal) {
+            valorSubtotal.textContent =
+                formatarPreco(subtotal);
         }
 
-        botaoEnviar.disabled = true;
-        botaoEnviar.classList.add('is-loading');
-        botaoEnviar.textContent = 'Enviando...';
+        if (valorTotal) {
+            valorTotal.textContent =
+                formatarPreco(subtotal);
+        }
 
-        // Simulação local do envio. Troque este bloco pela chamada real
-        // ao backend (fetch/AJAX) quando o endpoint estiver pronto.
-        window.setTimeout(() => {
-            mensagem.textContent = 'Pedido confirmado! Em breve entraremos em contato para combinar a entrega.';
-            mensagem.classList.add('mensagem-sucesso');
 
-            form.reset();
-            checkboxes.forEach((chk) => {
-                chk.closest('.produto-checkbox').querySelector('.quantidade-produto').disabled = true;
+        if (botaoEnviar) {
+            botaoEnviar.disabled = false;
+        }
+
+
+        // -----------------------------------------------------
+        // BOTÃO REMOVER
+        // -----------------------------------------------------
+
+        listaResumo
+            .querySelectorAll("[data-remover]")
+            .forEach(function (botao) {
+
+                botao.addEventListener("click", function () {
+
+                    const checkbox =
+                        checkboxes.find(function (item) {
+                            return item.value === botao.dataset.remover;
+                        });
+
+                    if (!checkbox) {
+                        return;
+                    }
+
+                    checkbox.checked = false;
+
+                    checkbox.dispatchEvent(
+                        new Event("change")
+                    );
+
+                });
+
             });
 
-            botaoEnviar.classList.remove('is-loading');
-            botaoEnviar.textContent = 'Confirmar pedido';
+    }
 
-            atualizarResumo();
-            mensagem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 900);
+
+    // =========================================================
+    // SELEÇÃO DOS PRODUTOS
+    // =========================================================
+
+    checkboxes.forEach(function (checkbox) {
+
+        checkbox.addEventListener(
+            "change",
+            function () {
+
+                const card =
+                    checkbox.closest(".produto-checkbox");
+
+                const quantidadeInput =
+                    card.querySelector(".quantidade-produto");
+
+
+                quantidadeInput.disabled =
+                    !checkbox.checked;
+
+
+                if (checkbox.checked) {
+
+                    if (!quantidadeInput.value) {
+                        quantidadeInput.value = 1;
+                    }
+
+                } else {
+
+                    quantidadeInput.value = 1;
+
+                }
+
+
+                atualizarResumo();
+
+            }
+        );
+
     });
 
-    atualizarResumo();
-});
 
-document.addEventListener("DOMContentLoaded", function () {
+    // =========================================================
+    // QUANTIDADE
+    // =========================================================
 
-    const produtos = document.querySelectorAll(".produto-selecao");
+    form.querySelectorAll(
+        ".quantidade-produto"
+    ).forEach(function (input) {
 
-    function atualizarResumo() {
+        input.addEventListener(
+            "input",
+            function () {
 
-        let subtotal = 0;
-        let quantidadeTotal = 0;
+                let quantidade =
+                    parseInt(input.value, 10);
 
-        produtos.forEach(function (produto) {
 
-            const quantidadeInput =
-                produto.closest(".produto-checkbox")
-                    .querySelector(".quantidade-produto");
-
-            if (produto.checked) {
-
-                quantidadeInput.disabled = false;
-
-                let quantidade = parseInt(quantidadeInput.value) || 1;
-
-                if (quantidade < 1) {
+                if (Number.isNaN(quantidade) || quantidade < 1) {
                     quantidade = 1;
-                    quantidadeInput.value = 1;
                 }
+
 
                 if (quantidade > 10) {
                     quantidade = 10;
-                    quantidadeInput.value = 10;
                 }
 
-                const preco = parseFloat(produto.dataset.preco);
 
-                subtotal += preco * quantidade;
-                quantidadeTotal += quantidade;
+                input.value = quantidade;
 
-            } else {
+                atualizarResumo();
 
-                quantidadeInput.disabled = true;
-                quantidadeInput.value = 1;
             }
-        });
-
-        const subtotalElemento =
-            document.getElementById("subtotal");
-
-        const totalElemento =
-            document.getElementById("total");
-
-        if (subtotalElemento) {
-            subtotalElemento.textContent =
-                "R$ " + subtotal.toFixed(2).replace(".", ",");
-        }
-
-        if (totalElemento) {
-            totalElemento.textContent =
-                "R$ " + subtotal.toFixed(2).replace(".", ",");
-        }
-    }
-
-
-    produtos.forEach(function (produto) {
-
-        produto.addEventListener("change", atualizarResumo);
-
-        const quantidadeInput =
-            produto.closest(".produto-checkbox")
-                .querySelector(".quantidade-produto");
-
-        quantidadeInput.addEventListener(
-            "input",
-            atualizarResumo
         );
+
+
+        input.addEventListener(
+            "click",
+            function (evento) {
+
+                evento.stopPropagation();
+
+            }
+        );
+
     });
 
 
-    atualizarResumo();
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
+    // =========================================================
+    // TIPO DE ATENDIMENTO
+    // =========================================================
 
     const opcoesAtendimento =
         document.querySelectorAll(
             'input[name="tipoAtendimento"]'
         );
+
 
     const campoMesa =
         document.getElementById("campoMesa");
@@ -243,8 +337,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const campoEntrega =
         document.getElementById("campoEntrega");
 
+
     const numeroMesa =
         document.getElementById("numeroMesa");
+
 
     const enderecoEntrega =
         document.getElementById("enderecoEntrega");
@@ -258,12 +354,24 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-        campoMesa.style.display = "none";
-        campoEntrega.style.display = "none";
+        if (campoMesa) {
+            campoMesa.style.display = "none";
+        }
 
 
-        numeroMesa.required = false;
-        enderecoEntrega.required = false;
+        if (campoEntrega) {
+            campoEntrega.style.display = "none";
+        }
+
+
+        if (numeroMesa) {
+            numeroMesa.required = false;
+        }
+
+
+        if (enderecoEntrega) {
+            enderecoEntrega.required = false;
+        }
 
 
         if (!selecionado) {
@@ -271,20 +379,40 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        if (selecionado.value === "MESA") {
+        // -----------------------------------------------------
+        // MESA
+        // -----------------------------------------------------
 
-            campoMesa.style.display = "block";
+        if (
+            selecionado.value === "MESA"
+        ) {
 
-            numeroMesa.required = true;
+            if (campoMesa) {
+                campoMesa.style.display = "block";
+            }
+
+            if (numeroMesa) {
+                numeroMesa.required = true;
+            }
 
         }
 
 
-        if (selecionado.value === "ENTREGA") {
+        // -----------------------------------------------------
+        // ENTREGA
+        // -----------------------------------------------------
 
-            campoEntrega.style.display = "block";
+        if (
+            selecionado.value === "ENTREGA"
+        ) {
 
-            enderecoEntrega.required = true;
+            if (campoEntrega) {
+                campoEntrega.style.display = "block";
+            }
+
+            if (enderecoEntrega) {
+                enderecoEntrega.required = true;
+            }
 
         }
 
@@ -300,6 +428,120 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
+
+    // =========================================================
+    // ENVIO REAL DO PEDIDO
+    // =========================================================
+
+    form.addEventListener(
+        "submit",
+        function (evento) {
+
+            const itens =
+                itensSelecionados();
+
+
+            // -------------------------------------------------
+            // NENHUM PRODUTO
+            // -------------------------------------------------
+
+            if (itens.length === 0) {
+
+                evento.preventDefault();
+
+                if (mensagem) {
+
+                    mensagem.textContent =
+                        "Selecione ao menos um produto antes de confirmar.";
+
+                    mensagem.classList.remove(
+                        "mensagem-sucesso"
+                    );
+
+                    mensagem.classList.add(
+                        "mensagem-erro"
+                    );
+
+                    mensagem.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest"
+                    });
+
+                }
+
+                return;
+            }
+
+
+            // -------------------------------------------------
+            // VALIDAÇÃO DO FORMULÁRIO
+            // -------------------------------------------------
+
+            if (!form.checkValidity()) {
+
+                evento.preventDefault();
+
+                form.reportValidity();
+
+                return;
+            }
+
+
+            // -------------------------------------------------
+            // ENVIO
+            // -------------------------------------------------
+
+            /*
+             * IMPORTANTE:
+             *
+             * NÃO usamos preventDefault() aqui.
+             *
+             * O navegador irá enviar normalmente:
+             *
+             * POST /pedidos
+             *
+             * para o PedidoController.
+             */
+
+            if (botaoEnviar) {
+
+                botaoEnviar.disabled = true;
+
+                botaoEnviar.classList.add(
+                    "is-loading"
+                );
+
+                botaoEnviar.textContent =
+                    "Enviando...";
+
+            }
+
+        }
+    );
+
+
+    // =========================================================
+    // INICIALIZAÇÃO
+    // =========================================================
+
+    checkboxes.forEach(function (checkbox) {
+
+        const card =
+            checkbox.closest(".produto-checkbox");
+
+        const quantidadeInput =
+            card.querySelector(".quantidade-produto");
+
+
+        quantidadeInput.disabled =
+            !checkbox.checked;
+
+
+    });
+
+
+    atualizarAtendimento();
+
+    atualizarResumo();
+
 });
-
-

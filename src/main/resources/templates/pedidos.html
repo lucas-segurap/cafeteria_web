@@ -37,13 +37,13 @@
                 <div class="collapse navbar-collapse" id="menuPrincipal">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+                            <a class="nav-link " aria-current="page" th:href="@{/}">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/produtos}">Produtos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pedidos}">Pedidos</a>
+                            <a class="nav-link active" th:href="@{/pedidos}">Pedidos</a>
                         </li>
                     </ul>
                 </div>
@@ -624,7 +624,7 @@
                         <!-- CONFIRMAR -->
                         <!-- ================================================== -->
 
-                        <button class="order-submit" type="submit" disabled>
+                        <button class="order-submit" type="submit">
 
                             Confirmar pedido
 
@@ -800,7 +800,7 @@
         </div>
 
     </footer>
-
+   
 
     <!-- ================================================== -->
     <!-- SCRIPTS -->
@@ -810,17 +810,17 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYjR8ZK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
         </script>
 
+    <script th:src="@{/js/pedidos.js}"></script>
 
     <script th:src="@{/js/script.js}"></script>
 
-    <script th:src="@{/js/pedidos.js}"></script>
 
 
     <!-- ================================================== -->
     <!-- CONTROLE DO TIPO DE ATENDIMENTO -->
     <!-- ================================================== -->
 
-
+    
 
 </body>
 

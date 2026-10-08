@@ -2,7 +2,6 @@ package com.br.cafeteriasegura.Model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +14,24 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "data")
     private LocalDateTime data;
 
+    @Column(name = "total")
     private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private StatusPedido status;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_atendimento")
     private TipoAtendimento tipoAtendimento;
 
+    @Column(name = "numero_mesa")
     private Integer numeroMesa;
 
+    @Column(name = "endereco_entrega")
     private String enderecoEntrega;
 
     @ManyToOne

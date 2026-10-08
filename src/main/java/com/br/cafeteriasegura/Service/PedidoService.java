@@ -3,6 +3,7 @@ package com.br.cafeteriasegura.Service;
 import com.br.cafeteriasegura.Model.Pedido;
 import com.br.cafeteriasegura.Repository.PedidoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,10 +20,12 @@ public class PedidoService {
         return pedidoRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Pedido> listarPorCliente(Long clienteId) {
         return pedidoRepository.findByClienteId(clienteId);
     }
 
+    @Transactional
     public Pedido salvar(Pedido pedido) {
         return pedidoRepository.save(pedido);
     }

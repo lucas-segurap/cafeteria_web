@@ -1,338 +1,367 @@
-/* =========================================================
-   CADASTRO
-   ========================================================= */
+
+/* =========================================
+   CADASTRO — CAFETERIA SEGURA
+  
+========================================= */
+
+
+/* =========================================
+   VARIÁVEIS
+========================================= */
+
+:root {
+    --cafe-900: #1b120d;
+    --cafe-800: #2b1b12;
+    --cafe-700: #382318;
+    --cafe-600: #4a3020;
+
+    --dourado-500: #dca63d;
+    --dourado-400: #efc76f;
+    --dourado-300: #f5d991;
+
+    --branco: #ffffff;
+
+    --borda-dourada:
+        rgba(239, 199, 111, 0.28);
+
+    --transicao: 0.25s ease;
+}
+
+
+/* =========================================
+   ÁREA PRINCIPAL
+========================================= */
 
 .cadastro-container {
     flex: 1;
 
     width: 100%;
-    padding: 60px 20px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    position: relative;
+    padding: 55px 20px;
+
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(239, 199, 111, 0.10),
+            transparent 38%),
+        linear-gradient(135deg,
+            var(--cafe-900),
+            var(--cafe-800) 50%,
+            #17100c);
 }
 
 
-/* Detalhes decorativos */
-
-.cadastro-container::before {
-    content: "☕";
-
-    position: absolute;
-
-    top: 40px;
-    left: 8%;
-
-    font-size: 4rem;
-
-    opacity: 0.12;
-
-    transform: rotate(-15deg);
-}
-
-.cadastro-container::after {
-    content: "☕";
-
-    position: absolute;
-
-    right: 8%;
-    bottom: 40px;
-
-    font-size: 4rem;
-
-    opacity: 0.12;
-
-    transform: rotate(15deg);
-}
-
-
-/* =========================================================
+/* =========================================
    CARD DE CADASTRO
-   ========================================================= */
+========================================= */
 
 .cadastro-card {
+    position: relative;
+
     width: 100%;
     max-width: 500px;
 
-    padding: 42px 40px;
+    padding: 38px 40px;
 
-    background: rgba(255, 248, 239, 0.97);
+    border:
+        1px solid var(--borda-dourada);
 
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 18px;
 
-    border-radius: 20px;
+    background:
+        linear-gradient(145deg,
+            rgba(58, 38, 25, 0.97),
+            rgba(35, 23, 16, 0.98));
 
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.30),
-        0 5px 15px rgba(0, 0, 0, 0.12);
+        0 20px 50px rgba(0, 0, 0, 0.38),
+        0 5px 20px rgba(0, 0, 0, 0.18);
 
-    position: relative;
-    z-index: 2;
+    overflow: hidden;
 
-    animation: cadastroAparecer 0.6s ease;
+    animation:
+        cadastroEntrada 0.5s ease;
 }
 
 
-/* Animação */
-
-@keyframes cadastroAparecer {
-
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* Barra decorativa */
+/* =========================================
+   DETALHE DOURADO
+========================================= */
 
 .cadastro-card::before {
-    content: "";
-
     position: absolute;
 
     top: 0;
-    left: 50%;
+    left: 0;
 
-    transform: translateX(-50%);
+    width: 100%;
+    height: 3px;
 
-    width: 80px;
-    height: 5px;
+    background:
+        linear-gradient(90deg,
+            transparent,
+            var(--dourado-500),
+            var(--dourado-400),
+            var(--dourado-500),
+            transparent);
 
-    background: #c58b3a;
-
-    border-radius: 0 0 10px 10px;
+    content: "";
 }
 
 
-/* =========================================================
+/* =========================================
    TÍTULO
-   ========================================================= */
+========================================= */
 
 .cadastro-card h1 {
+    margin: 0;
+
+    color: var(--branco);
+
+    font-size: 2rem;
+
+    font-weight: 800;
+
     text-align: center;
-
-    color: #4a2e20;
-
-    font-size: 2.1rem;
-
-    margin-bottom: 10px;
-
-    font-weight: 700;
 }
+
+
+/* =========================================
+   SUBTÍTULO
+========================================= */
 
 .cadastro-subtitulo {
+    margin: 8px 0 28px;
+
+    color:
+        rgba(255, 255, 255, 0.62);
+
+    font-size: 0.92rem;
+
+    line-height: 1.5;
+
     text-align: center;
-
-    color: #80695b;
-
-    font-size: 0.95rem;
-
-    line-height: 1.6;
-
-    margin-bottom: 28px;
 }
 
 
-/* =========================================================
+/* =========================================
    MENSAGEM DE ERRO
-   ========================================================= */
+========================================= */
 
 .cadastro-card .mensagem-erro {
-    padding: 12px 15px;
+    margin-bottom: 20px;
 
-    margin-bottom: 22px;
+    padding: 12px 14px;
+
+    border:
+        1px solid rgba(220, 80, 80, 0.35);
 
     border-radius: 10px;
 
-    background: #fbe4e1;
+    background:
+        rgba(180, 40, 40, 0.13);
 
-    border: 1px solid #e7aaa3;
+    color: #ffb7b7;
 
-    color: #9b3028;
-
-    font-size: 0.9rem;
+    font-size: 0.87rem;
 
     text-align: center;
 }
 
 
-/* =========================================================
-   CAMPOS DO CADASTRO
-   ========================================================= */
+/* =========================================
+   CAMPOS
+========================================= */
 
 .campo-cadastro {
     margin-bottom: 18px;
 }
+
+
+/* =========================================
+   LABEL
+========================================= */
 
 .campo-cadastro label {
     display: block;
 
     margin-bottom: 7px;
 
-    color: #4a2e20;
+    color:
+        rgba(255, 255, 255, 0.90);
 
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 
-    font-weight: 600;
+    font-weight: 700;
 }
 
 
-/* Inputs */
+/* =========================================
+   INPUTS
+========================================= */
 
 .campo-cadastro input {
     width: 100%;
+    height: 48px;
 
-    height: 50px;
+    padding: 0 14px;
 
-    padding: 0 15px;
+    border:
+        1px solid rgba(239, 199, 111, 0.20);
 
-    border: 1px solid #d7c1ae;
+    border-radius: 9px;
 
-    border-radius: 10px;
+    background:
+        rgba(20, 13, 9, 0.65);
 
-    background: #fffdf9;
-
-    color: #3b261c;
+    color: #fff;
 
     font-family: inherit;
 
-    font-size: 0.95rem;
+    font-size: 0.92rem;
 
     outline: none;
 
     transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease,
-        background 0.3s ease;
+        border-color var(--transicao),
+        background var(--transicao),
+        box-shadow var(--transicao);
 }
 
 
-/* Textarea */
+/* =========================================
+   TEXTAREA
+========================================= */
 
 .campo-cadastro textarea {
     width: 100%;
 
-    min-height: 90px;
+    min-height: 95px;
 
-    padding: 13px 15px;
+    padding: 12px 14px;
 
-    border: 1px solid #d7c1ae;
+    resize: vertical;
 
-    border-radius: 10px;
+    border:
+        1px solid rgba(239, 199, 111, 0.20);
 
-    background: #fffdf9;
+    border-radius: 9px;
 
-    color: #3b261c;
+    background:
+        rgba(20, 13, 9, 0.65);
+
+    color: #fff;
+
+    font-family: inherit;
+
+    font-size: 0.92rem;
+
+    line-height: 1.5;
+
+    outline: none;
+
+    transition:
+        border-color var(--transicao),
+        background var(--transicao),
+        box-shadow var(--transicao);
+}
+
+
+/* =========================================
+   PLACEHOLDER
+========================================= */
+
+.campo-cadastro input::placeholder,
+.campo-cadastro textarea::placeholder {
+    color:
+        rgba(255, 255, 255, 0.36);
+}
+
+
+/* =========================================
+   HOVER
+========================================= */
+
+.campo-cadastro input:hover,
+.campo-cadastro textarea:hover {
+    border-color:
+        rgba(239, 199, 111, 0.42);
+}
+
+
+/* =========================================
+   FOCO
+========================================= */
+
+.campo-cadastro input:focus,
+.campo-cadastro textarea:focus {
+    border-color:
+        var(--dourado-400);
+
+    background:
+        rgba(20, 13, 9, 0.85);
+
+    box-shadow:
+        0 0 0 3px rgba(239, 199, 111, 0.12);
+}
+
+
+/* =========================================
+   BOTÃO CADASTRO
+========================================= */
+
+.btn-cadastro {
+    width: 100%;
+
+    min-height: 50px;
+
+    margin-top: 5px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(135deg,
+            var(--dourado-500),
+            var(--dourado-400));
+
+    color:
+        #2b1b12;
 
     font-family: inherit;
 
     font-size: 0.95rem;
 
-    line-height: 1.5;
-
-    resize: vertical;
-
-    outline: none;
-
-    transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease,
-        background 0.3s ease;
-}
-
-
-/* Placeholder */
-
-.campo-cadastro input::placeholder,
-.campo-cadastro textarea::placeholder {
-    color: #a8978a;
-}
-
-
-/* Hover */
-
-.campo-cadastro input:hover,
-.campo-cadastro textarea:hover {
-    border-color: #c59a6b;
-}
-
-
-/* Focus */
-
-.campo-cadastro input:focus,
-.campo-cadastro textarea:focus {
-    border-color: #a86f32;
-
-    background: #ffffff;
-
-    box-shadow:
-        0 0 0 3px rgba(168, 111, 50, 0.14);
-}
-
-
-/* =========================================================
-   BOTÃO CADASTRO
-   ========================================================= */
-
-.btn-cadastro {
-    width: 100%;
-
-    height: 52px;
-
-    margin-top: 7px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background: linear-gradient(
-        135deg,
-        #6b3f28,
-        #4a2e20
-    );
-
-    color: #ffffff;
-
-    font-family: inherit;
-
-    font-size: 1rem;
-
-    font-weight: 700;
+    font-weight: 800;
 
     cursor: pointer;
 
     box-shadow:
-        0 7px 15px rgba(74, 46, 32, 0.25);
+        0 7px 18px rgba(220, 166, 61, 0.18);
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.3s ease;
+        transform var(--transicao),
+        box-shadow var(--transicao),
+        filter var(--transicao);
 }
 
 
 /* Hover */
 
 .btn-cadastro:hover {
-    background: linear-gradient(
-        135deg,
-        #805035,
-        #5a3827
-    );
-
     transform: translateY(-2px);
 
+    filter: brightness(1.06);
+
     box-shadow:
-        0 10px 20px rgba(74, 46, 32, 0.32);
+        0 10px 25px rgba(220, 166, 61, 0.28);
 }
 
 
@@ -342,63 +371,117 @@
     transform: translateY(0);
 
     box-shadow:
-        0 4px 10px rgba(74, 46, 32, 0.25);
+        0 5px 12px rgba(220, 166, 61, 0.18);
 }
 
 
-/* =========================================================
+/* =========================================
    LINK PARA LOGIN
-   ========================================================= */
+========================================= */
 
 .login-link {
     margin-top: 26px;
 
     padding-top: 22px;
 
-    border-top: 1px solid #e3d5c8;
+    border-top:
+        1px solid rgba(255, 255, 255, 0.10);
 
     text-align: center;
 }
 
 .login-link p {
-    color: #80695b;
+    margin: 0 0 7px;
 
-    font-size: 0.9rem;
+    color:
+        rgba(255, 255, 255, 0.53);
 
-    margin-bottom: 8px;
+    font-size: 0.84rem;
 }
 
 .login-link a {
-    color: #9a642d;
+    color:
+        var(--dourado-400);
 
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 
     font-weight: 700;
 
     text-decoration: none;
 
-    transition: 0.3s ease;
+    transition: var(--transicao);
 }
 
 .login-link a:hover {
-    color: #5c3825;
+    color: #fff;
 
-    text-decoration: underline;
+    text-shadow:
+        0 0 12px rgba(239, 199, 111, 0.35);
 }
 
 
-/* =========================================================
-   RESPONSIVIDADE DO CADASTRO
-   ========================================================= */
+/* =========================================
+   FOOTER
+========================================= */
 
-@media (max-width: 700px) {
+footer {
+    padding: 20px;
+
+    background:
+        var(--cafe-900);
+
+    border-top:
+        1px solid rgba(239, 199, 111, 0.20);
+
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+
+    color:
+        rgba(255, 255, 255, 0.45);
+
+    font-size: 0.78rem;
+}
+
+
+/* =========================================
+   ANIMAÇÃO
+========================================= */
+
+@keyframes cadastroEntrada {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 767px) {
 
     .cadastro-container {
-        padding: 45px 15px;
+        padding: 40px 16px;
     }
 
     .cadastro-card {
-        padding: 35px 25px;
+        max-width: 460px;
+
+        padding: 32px 26px;
 
         border-radius: 16px;
     }
@@ -406,41 +489,79 @@
     .cadastro-card h1 {
         font-size: 1.8rem;
     }
+}
 
-    .cadastro-container::before,
-    .cadastro-container::after {
-        display: none;
+
+/* =========================================
+   CELULAR
+========================================= */
+
+@media (max-width: 480px) {
+
+    .cadastro-container {
+        padding: 30px 14px;
+    }
+
+    .cadastro-card {
+        padding: 30px 20px;
+
+        border-radius: 14px;
+    }
+
+    .cadastro-card h1 {
+        font-size: 1.65rem;
+    }
+
+    .cadastro-subtitulo {
+        font-size: 0.86rem;
+    }
+
+    .campo-cadastro {
+        margin-bottom: 16px;
+    }
+
+    .campo-cadastro input {
+        height: 47px;
+    }
+
+    .campo-cadastro textarea {
+        min-height: 85px;
+    }
+
+    .btn-cadastro {
+        min-height: 48px;
     }
 }
 
 
-/* =========================================================
-   CELULARES PEQUENOS
-   ========================================================= */
+/* =========================================
+   ACESSIBILIDADE
+========================================= */
 
-@media (max-width: 400px) {
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline:
+        3px solid rgba(239, 199, 111, 0.65);
 
-    .cadastro-card {
-        padding: 30px 20px;
-    }
+    outline-offset: 3px;
+}
 
-    .cadastro-card h1 {
-        font-size: 1.6rem;
-    }
 
-    .cadastro-subtitulo {
-        font-size: 0.88rem;
-    }
+/* =========================================
+   REDUÇÃO DE MOVIMENTO
+========================================= */
 
-    .campo-cadastro input {
-        height: 48px;
-    }
+@media (prefers-reduced-motion: reduce) {
 
-    .campo-cadastro textarea {
-        min-height: 80px;
-    }
+    .cadastro-card,
+    .btn-cadastro,
+    .campo-cadastro input,
+    .campo-cadastro textarea,
+    .login-link a {
+        animation: none !important;
 
-    .btn-cadastro {
-        height: 48px;
+        transition: none !important;
     }
 }

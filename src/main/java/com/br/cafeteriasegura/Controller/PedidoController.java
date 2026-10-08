@@ -72,10 +72,19 @@ public class PedidoController {
             @RequestParam(required = false) String enderecoEntrega,
             HttpSession session) {
 
+        System.out.println("========================================");
+        System.out.println(">>> POST /pedidos FOI RECEBIDO <<<");
+        System.out.println("========================================");
+
         Cliente cliente =
                 (Cliente) session.getAttribute("cliente");
 
+        // resto do código...
+
+        System.out.println("Cliente da sessão: " + cliente);
+
         if (cliente == null) {
+            System.out.println("ERRO: cliente não está na sessão");
             return "redirect:/login";
         }
 
@@ -89,10 +98,6 @@ public class PedidoController {
 
         pedido.setCliente(cliente);
         pedido.setTipoAtendimento(tipoAtendimento);
-
-        // ==========================================
-        // ATENDIMENTO NA MESA
-        // ==========================================
 
         if (tipoAtendimento == TipoAtendimento.MESA) {
 
@@ -108,10 +113,6 @@ public class PedidoController {
             pedido.setNumeroMesa(numeroMesa);
         }
 
-        // ==========================================
-        // ENTREGA
-        // ==========================================
-
         if (tipoAtendimento == TipoAtendimento.ENTREGA) {
 
             if (enderecoEntrega == null ||
@@ -125,49 +126,34 @@ public class PedidoController {
             pedido.setEnderecoEntrega(enderecoEntrega);
         }
 
-        // ==========================================
-        // TOTAL DO PEDIDO
-        // ==========================================
-
         BigDecimal total = BigDecimal.ZERO;
-
-        // ==========================================
-        // PRODUTOS
-        // ==========================================
 
         for (int i = 0; i < produtos.size(); i++) {
 
             Produto produto =
                     produtoService.buscarPorId(produtos.get(i));
 
+            System.out.println(
+                    "Produto encontrado: " + produto
+            );
+
             int quantidade =
                     quantidades.get(i);
 
             if (quantidade < 1 || quantidade > 10) {
-
                 throw new IllegalArgumentException(
                         "A quantidade deve estar entre 1 e 10."
                 );
             }
 
-            BigDecimal preco =
-                    produto.getPreco();
-
-            // ======================================
-            // SUBTOTAL
-            // ======================================
+            BigDecimal preco = produto.getPreco();
 
             BigDecimal subtotal =
                     preco.multiply(
                             BigDecimal.valueOf(quantidade)
                     );
 
-            // Soma o subtotal ao total
             total = total.add(subtotal);
-
-            // ======================================
-            // ITEM DO PEDIDO
-            // ======================================
 
             ItemPedido item =
                     new ItemPedido(
@@ -180,29 +166,23 @@ public class PedidoController {
             pedido.getItens().add(item);
         }
 
-        // ==========================================
-        // VERIFICAÇÃO
-        // ==========================================
-
         if (pedido.getItens().isEmpty()) {
-
             throw new IllegalArgumentException(
                     "Selecione pelo menos um produto."
             );
         }
 
-        // ==========================================
-        // TOTAL FINAL
-        // ==========================================
-
         pedido.setTotal(total);
 
-        // ==========================================
-        // SALVAR
-        // ==========================================
+        System.out.println("Total: " + total);
+        System.out.println("Itens: " + pedido.getItens().size());
+        System.out.println("SALVANDO PEDIDO...");
 
         pedidoService.salvar(pedido);
 
+        System.out.println("PEDIDO SALVO COM SUCESSO!");
+        System.out.println("ID DO PEDIDO: " + pedido.getId());
+        System.out.println("====================================");
+
         return "redirect:/pedidos";
-    }
-}
+    }}
