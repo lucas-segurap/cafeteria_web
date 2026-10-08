@@ -1,11 +1,13 @@
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
           content="Gerenciamento de funcionários da Cafeteria Segura">
@@ -15,19 +17,33 @@
 
     <title>Funcionários | Cafeteria Segura</title>
 
+
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/funcionarios.css">
+    <link
+        rel="stylesheet"
+        th:href="@{/css/funcionarios.css}">
+
 </head>
 
+
 <body>
+
+
+<!-- =========================================================
+     BARRA SUPERIOR
+========================================================= -->
 
 <header class="topbar">
 
@@ -35,7 +51,13 @@
 
         <div class="topbar-content">
 
-            <a href="/" class="logo">
+
+            <!-- LOGO -->
+
+            <a
+                th:href="@{/admin}"
+                class="logo">
+
                 <span class="logo-icon">
                     <i class="bi bi-cup-hot-fill"></i>
                 </span>
@@ -43,7 +65,11 @@
                 <span>
                     Cafeteria <strong>Segura</strong>
                 </span>
+
             </a>
+
+
+            <!-- ADMIN LOGADO -->
 
             <div class="user-area">
 
@@ -51,14 +77,40 @@
                     <i class="bi bi-person-fill"></i>
                 </div>
 
+
                 <div class="user-info">
-                    <span>Administrador</span>
-                    <small>Gerenciamento</small>
+
+                    <span
+                        th:text="${admin.nome}">
+                        Administrador
+                    </span>
+
+                    <small>
+                        Gerenciamento
+                    </small>
+
                 </div>
 
-                <a href="/" class="btn-home">
-                    <i class="bi bi-house"></i>
-                    Início
+
+                <a
+                    th:href="@{/admin}"
+                    class="btn-home">
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Painel
+
+                </a>
+
+
+                <a
+                    th:href="@{/admin/logout}"
+                    class="btn-home">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    Sair
+
                 </a>
 
             </div>
@@ -70,13 +122,19 @@
 </header>
 
 
+<!-- =========================================================
+     CONTEÚDO
+========================================================= -->
+
 <main class="container-fluid main-content">
 
-    <!-- Cabeçalho -->
+
+    <!-- CABEÇALHO -->
 
     <section class="page-header">
 
         <div>
+
             <span class="page-subtitle">
                 ADMINISTRAÇÃO
             </span>
@@ -86,21 +144,454 @@
             </h1>
 
             <p>
-                Cadastre, consulte, edite e gerencie os funcionários da cafeteria.
+                Cadastre, consulte, edite e gerencie
+                os funcionários da cafeteria.
             </p>
+
         </div>
 
-        <a href="/funcionarios/novo" class="btn-primary-custom">
+
+        <a
+            th:href="@{/funcionarios/novo}"
+            class="btn-primary-custom">
+
             <i class="bi bi-person-plus-fill"></i>
+
             Novo funcionário
+
         </a>
 
     </section>
 
 
-    <!-- Cards -->
+    <!-- =====================================================
+         ESTATÍSTICAS
+    ====================================================== -->
 
     <section class="statistics">
 
+
+        <!-- TOTAL -->
+
         <div class="stat-card">
 
+            <div class="stat-icon">
+                <i class="bi bi-people-fill"></i>
+            </div>
+
+            <div>
+
+                <span>
+                    Total de funcionários
+                </span>
+
+                <strong
+                    th:text="${#lists.size(funcionarios)}">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- FUNCIONÁRIOS ATIVOS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="bi bi-person-check-fill"></i>
+            </div>
+
+            <div>
+
+                <span>
+                    Funcionários cadastrados
+                </span>
+
+                <strong
+                    th:text="${#lists.size(funcionarios)}">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- GERENCIAMENTO -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                <i class="bi bi-shield-check"></i>
+            </div>
+
+            <div>
+
+                <span>
+                    Acesso
+                </span>
+
+                <strong>
+                    ADMIN
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         BUSCA
+    ====================================================== -->
+
+    <section class="search-section">
+
+        <form
+            th:action="@{/funcionarios}"
+            method="get"
+            class="search-form">
+
+            <div class="search-box">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="search"
+                    name="nome"
+                    th:value="${nomeBusca}"
+                    placeholder="Buscar funcionário pelo nome..."
+                    autocomplete="off">
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn-search">
+
+                Buscar
+
+            </button>
+
+
+            <a
+                th:href="@{/funcionarios}"
+                class="btn-clear">
+
+                Limpar
+
+            </a>
+
+        </form>
+
+    </section>
+
+
+    <!-- =====================================================
+         TABELA
+    ====================================================== -->
+
+    <section class="table-card">
+
+
+        <div class="table-header">
+
+            <div>
+
+                <h2>
+                    Funcionários cadastrados
+                </h2>
+
+                <p>
+                    Lista dos funcionários registrados
+                    no sistema.
+                </p>
+
+            </div>
+
+            <span class="total-badge">
+
+                <span
+                    th:text="${#lists.size(funcionarios)}">
+                    0
+                </span>
+
+                funcionários
+
+            </span>
+
+        </div>
+
+
+        <!-- TABELA -->
+
+        <div class="table-responsive">
+
+            <table class="table funcionarios-table">
+
+
+                <thead>
+
+                <tr>
+
+                    <th>
+                        ID
+                    </th>
+
+                    <th>
+                        Funcionário
+                    </th>
+
+                    <th>
+                        CPF
+                    </th>
+
+                    <th>
+                        Telefone
+                    </th>
+
+                    <th>
+                        E-mail
+                    </th>
+
+                    <th>
+                        Cargo
+                    </th>
+
+                    <th>
+                        Salário
+                    </th>
+
+                    <th>
+                        Ações
+                    </th>
+
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                <!-- FUNCIONÁRIOS -->
+
+                <tr
+                    th:each="funcionario : ${funcionarios}">
+
+
+                    <!-- ID -->
+
+                    <td>
+
+                        <strong
+                            th:text="'#' + ${funcionario.id}">
+                            #1
+                        </strong>
+
+                    </td>
+
+
+                    <!-- NOME -->
+
+                    <td>
+
+                        <div class="employee-info">
+
+                            <div class="employee-avatar">
+
+                                <span
+                                    th:text="${#strings.substring(funcionario.nome, 0, 1).toUpperCase()}">
+                                    F
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong
+                                    th:text="${funcionario.nome}">
+                                    Funcionário
+                                </strong>
+
+                                <small>
+                                    Funcionário
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- CPF -->
+
+                    <td
+                        th:text="${funcionario.cpf}">
+                        000.000.000-00
+                    </td>
+
+
+                    <!-- TELEFONE -->
+
+                    <td
+                        th:text="${funcionario.telefone}">
+                        (11) 99999-9999
+                    </td>
+
+
+                    <!-- EMAIL -->
+
+                    <td
+                        th:text="${funcionario.email}">
+                        email@email.com
+                    </td>
+
+
+                    <!-- CARGO -->
+
+                    <td>
+
+                        <span
+                            class="cargo-badge"
+                            th:text="${funcionario.cargo}">
+                            Funcionário
+                        </span>
+
+                    </td>
+
+
+                    <!-- SALÁRIO -->
+
+                    <td>
+
+                        <strong
+                            th:text="${funcionario.salario != null
+                                ? 'R$ ' + #numbers.formatDecimal(funcionario.salario, 1, 'POINT', 2, 'COMMA')
+                                : 'Não informado'}">
+
+                            R$ 0,00
+
+                        </strong>
+
+                    </td>
+
+
+                    <!-- AÇÕES -->
+
+                    <td>
+
+                        <div class="acoes">
+
+
+                            <!-- EDITAR -->
+
+                            <a
+                                th:href="@{/funcionarios/editar/{id}(id=${funcionario.id})}"
+                                class="acao editar"
+                                title="Editar funcionário">
+
+                                <i class="bi bi-pencil-square"></i>
+
+                            </a>
+
+
+                            <!-- EXCLUIR -->
+
+                            <a
+                                th:href="@{/funcionarios/excluir/{id}(id=${funcionario.id})}"
+                                class="acao excluir"
+                                title="Excluir funcionário"
+                                onclick="return confirmarExclusao()">
+
+                                <i class="bi bi-trash3"></i>
+
+                            </a>
+
+
+                        </div>
+
+                    </td>
+
+
+                </tr>
+
+
+                <!-- SEM FUNCIONÁRIOS -->
+
+                <tr
+                    th:if="${#lists.isEmpty(funcionarios)}">
+
+                    <td
+                        colspan="8"
+                        class="sem-funcionarios">
+
+                        <div>
+
+                            <i class="bi bi-person-x"></i>
+
+                            <h3>
+                                Nenhum funcionário encontrado
+                            </h3>
+
+                            <p>
+                                Ainda não existem funcionários
+                                cadastrados no sistema.
+                            </p>
+
+                            <a
+                                th:href="@{/funcionarios/novo}"
+                                class="btn-primary-custom">
+
+                                <i class="bi bi-person-plus-fill"></i>
+
+                                Cadastrar funcionário
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+    function confirmarExclusao() {
+
+        return confirm(
+            "Tem certeza que deseja excluir este funcionário?"
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

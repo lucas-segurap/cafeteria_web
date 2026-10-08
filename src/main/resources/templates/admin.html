@@ -1,85 +1,277 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login Administrativo - EstetickElite</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Painel administrativo da Cafeteria Segura">
+
+    <title>Painel Administrativo | Cafeteria Segura</title>
 
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 
-    <!-- CSS principal -->
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/admin.css">
+    <!-- CSS do login administrativo -->
+    <link
+        rel="stylesheet"
+        th:href="@{/css/admin.css}">
 
-    <!-- CSS do Login Administrativo -->
+    <!-- CSS do painel administrativo -->
+    <link
+        rel="stylesheet"
+        th:href="@{/css/painel-admin.css}">
+
 </head>
 
 <body>
 
-    <main class="login-admin">
+<main class="painel-admin">
 
-        <div class="login-admin-box">
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
 
-            <!-- LOGO -->
-            <span class="navbar-brand-mark">☕</span>
+    <header class="painel-header">
 
-            <!-- IDENTIFICAÇÃO -->
-            <span class="login-tag">
-                ÁREA RESTRITA
-            </span>
+        <div class="painel-marca">
 
-            <h1>
-                Login Administrativo
-            </h1>
+            <div class="logo-icon">
+                ☕
+            </div>
 
-            <p class="descricao-login">
-                Acesse o painel exclusivo da cafeteria segura.
-            </p>
+            <div>
 
-            <!-- FORMULÁRIO -->
-            <form id="loginAdmin">
+                <strong>
+                    Cafeteria Segura
+                </strong>
 
-                <!-- USUÁRIO -->
-                <div class="campo-login">
-                    <label for="usuario">
-                        Usuário
-                    </label>
+                <span>
+                    PAINEL ADMINISTRATIVO
+                </span>
 
-                    <input type="text" id="usuario" placeholder="Digite seu usuário" autocomplete="username" required>
-                </div>
+            </div>
 
-                <!-- SENHA -->
-                <div class="campo-login">
-                    <label for="senha">
-                        Senha
-                    </label>
+        </div>
 
-                    <input type="password" id="senha" placeholder="Digite sua senha" autocomplete="current-password"
-                        required>
-                </div>
 
-                <!-- BOTÃO -->
-                <button type="submit" class="btn-login">
-                    Entrar no painel
-                </button>
+        <div class="admin-info">
 
-                <!-- MENSAGEM -->
-                <p id="mensagemLogin"></p>
+            <div class="admin-avatar">
+                👤
+            </div>
 
-            </form>
+            <div>
 
-            <!-- VOLTAR -->
-            <a href="../index.html" class="voltar-site">
-                Voltar para o site
+                <strong
+                    th:text="${admin.nome}">
+                    Administrador
+                </strong>
+
+                <small>
+                    Administrador
+                </small>
+
+            </div>
+
+            <a
+                th:href="@{/admin/logout}"
+                class="btn-sair">
+
+                Sair
+
             </a>
 
         </div>
 
-    </main>
-    <script src="../static/js/admin.js"></script>
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+
+    <section class="painel-conteudo">
+
+        <div class="painel-titulo">
+
+            <span class="login-tag">
+                <span class="status-dot"></span>
+                ÁREA ADMINISTRATIVA
+            </span>
+
+            <h1>
+                Bem-vindo,
+                <span th:text="${admin.nome}">
+                    Administrador
+                </span>
+            </h1>
+
+            <p>
+                Gerencie os principais recursos
+                da Cafeteria Segura.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             MENU ADMINISTRATIVO
+        ================================================== -->
+
+        <section class="menu-admin">
+
+
+            <!-- ADMINISTRADORES -->
+
+            <a
+                th:href="@{/admin/admins}"
+                class="card-admin">
+
+                <div class="card-admin-icone">
+                    👤
+                </div>
+
+                <div class="card-admin-conteudo">
+
+                    <h2>
+                        Administradores
+                    </h2>
+
+                    <p>
+                        Cadastre, visualize e gerencie
+                        os administradores do sistema.
+                    </p>
+
+                    <span class="card-link">
+                        Gerenciar administradores →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- FUNCIONÁRIOS -->
+
+            <a
+                th:href="@{/funcionario}"
+                class="card-admin">
+
+                <div class="card-admin-icone">
+                    👨‍💼
+                </div>
+
+                <div class="card-admin-conteudo">
+
+                    <h2>
+                        Funcionários
+                    </h2>
+
+                    <p>
+                        Cadastre e gerencie os funcionários
+                        da Cafeteria Segura.
+                    </p>
+
+                    <span class="card-link">
+                        Gerenciar funcionários →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- AGENDAMENTOS -->
+
+            <a
+                th:href="@{/admin/agendamentos}"
+                class="card-admin">
+
+                <div class="card-admin-icone">
+                    📅
+                </div>
+
+                <div class="card-admin-conteudo">
+
+                    <h2>
+                        Agendamentos
+                    </h2>
+
+                    <p>
+                        Visualize e gerencie os agendamentos
+                        realizados pelos clientes.
+                    </p>
+
+                    <span class="card-link">
+                        Gerenciar agendamentos →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- PEDIDOS -->
+
+            <a
+                th:href="@{/pedidos}"
+                class="card-admin">
+
+                <div class="card-admin-icone">
+                    🛒
+                </div>
+
+                <div class="card-admin-conteudo">
+
+                    <h2>
+                        Pedidos
+                    </h2>
+
+                    <p>
+                        Acompanhe os pedidos realizados
+                        pelos clientes.
+                    </p>
+
+                    <span class="card-link">
+                        Gerenciar pedidos →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+        </section>
+
+    </section>
+
+
+    <!-- =====================================================
+         RODAPÉ
+    ====================================================== -->
+
+    <footer class="painel-footer">
+
+        <span>
+            ☕
+        </span>
+
+        <p>
+            Cafeteria Segura —
+            Painel Administrativo
+        </p>
+
+    </footer>
+
+</main>
 
 </body>
 

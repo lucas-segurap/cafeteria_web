@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Administradores | Cafeteria Segura</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/admin-list.css}">
+
+</head>
+
+<body>
+
+<main class="admin-list-page">
+
+    <header class="admin-list-header">
+
+        <a th:href="@{/admin}" class="voltar">
+            ← Painel
+        </a>
+
+        <div>
+            <h1>Administradores</h1>
+            <p>Gerencie os administradores da Cafeteria Segura.</p>
+        </div>
+
+        <a
+            th:href="@{/admin/admins/novo}"
+            class="btn-novo">
+
+            + Novo administrador
+
+        </a>
+
+    </header>
+
+
+    <section class="admin-list-box">
+
+        <div th:if="${admins == null || admins.isEmpty()}"
+             class="sem-admins">
+
+            <div class="icone">
+                👤
+            </div>
+
+            <h2>Nenhum administrador cadastrado</h2>
+
+            <p>
+                Cadastre um administrador para começar.
+            </p>
+
+            <a
+                th:href="@{/admin/admins/novo}"
+                class="btn-novo">
+
+                Criar administrador
+
+            </a>
+
+        </div>
+
+
+        <div
+            th:unless="${admins == null || admins.isEmpty()}"
+            class="tabela-wrapper">
+
+            <table>
+
+                <thead>
+
+                <tr>
+                    <th>Nome</th>
+                    <th>Usuário</th>
+                    <th>E-mail</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="adminItem : ${admins}">
+
+                    <td>
+                        <strong
+                            th:text="${adminItem.nome}">
+                            Administrador
+                        </strong>
+                    </td>
+
+                    <td
+                        th:text="${adminItem.usuario}">
+                        usuario
+                    </td>
+
+                    <td
+                        th:text="${adminItem.email}">
+                        email@email.com
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="status"
+                            th:classappend="${adminItem.ativo} ? ' ativo' : ' inativo'"
+                            th:text="${adminItem.ativo} ? 'Ativo' : 'Inativo'">
+
+                            Ativo
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            th:href="@{/admin/admins/excluir/{id}(id=${adminItem.id})}"
+                            class="btn-excluir"
+                            onclick="return confirm('Deseja realmente excluir este administrador?');">
+
+                            Excluir
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        ☕
+        Cafeteria Segura — Administradores
+
+    </footer>
+
+</main>
+
+</body>
+</html>

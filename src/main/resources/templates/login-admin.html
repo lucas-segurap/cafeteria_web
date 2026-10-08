@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login Administrativo - Cafeteria Segura</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Login administrativo da Cafeteria Segura">
+
+    <meta name="author"
+          content="Cafeteria Segura">
+
+    <title>
+        Login Administrativo - Cafeteria Segura
+    </title>
+
 
     <!-- Bootstrap -->
     <link
@@ -13,53 +26,121 @@
         rel="stylesheet"
     >
 
+
     <!-- CSS principal -->
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link
+        rel="stylesheet"
+        th:href="@{/css/style.css}"
+    >
+
 
     <!-- CSS administrativo -->
-    <link rel="stylesheet" href="../static/css/admin.css">
+    <link
+        rel="stylesheet"
+        th:href="@{/css/admin.css}"
+    >
 
 </head>
 
+
 <body>
 
-    <main class="login-admin">
 
-        <div class="login-admin-box">
+<main class="login-admin">
 
-            <!-- LOGO -->
-            <span class="navbar-brand-mark" aria-label="Cafeteria Segura">
+
+    <!-- =====================================================
+         EFEITOS DE FUNDO
+    ====================================================== -->
+
+    <div class="efeito-fundo efeito-fundo-1"></div>
+
+    <div class="efeito-fundo efeito-fundo-2"></div>
+
+
+    <section class="login-admin-box">
+
+
+        <!-- =================================================
+             LOGO
+        ================================================== -->
+
+        <div class="logo-admin">
+
+            <div class="logo-icon">
                 ☕
-            </span>
+            </div>
+
+            <div class="logo-text">
+
+                <strong>
+                    Cafeteria Segura
+                </strong>
+
+                <span>
+                    ADMIN
+                </span>
+
+            </div>
+
+        </div>
 
 
-            <!-- IDENTIFICAÇÃO -->
-            <span class="login-tag">
-                ÁREA RESTRITA
-            </span>
+        <!-- =================================================
+             IDENTIFICAÇÃO
+        ================================================== -->
+
+        <div class="login-tag">
+
+            <span class="status-dot"></span>
+
+            ÁREA RESTRITA
+
+        </div>
 
 
-            <!-- TÍTULO -->
+        <!-- =================================================
+             CABEÇALHO
+        ================================================== -->
+
+        <header class="login-header">
+
             <h1>
                 Login Administrativo
             </h1>
 
-
-            <!-- DESCRIÇÃO -->
-            <p class="descricao-login">
-                Acesse o painel administrativo da Cafeteria Segura.
+            <p>
+                Acesse o painel administrativo
+                da Cafeteria Segura.
             </p>
 
+        </header>
 
-            <!-- FORMULÁRIO -->
-            <form id="loginAdmin">
 
-                <!-- USUÁRIO -->
-                <div class="campo-login">
+        <!-- =================================================
+             FORMULÁRIO
+        ================================================== -->
 
-                    <label for="usuario">
-                        Usuário
-                    </label>
+        <form
+            id="loginAdmin"
+            th:action="@{/admin/login}"
+            method="post"
+        >
+
+
+            <!-- USUÁRIO -->
+
+            <div class="campo-login">
+
+                <label for="usuario">
+                    Usuário
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">
+                        👤
+                    </span>
 
                     <input
                         type="text"
@@ -72,13 +153,22 @@
 
                 </div>
 
+            </div>
 
-                <!-- SENHA -->
-                <div class="campo-login">
 
-                    <label for="senha">
-                        Senha
-                    </label>
+            <!-- SENHA -->
+
+            <div class="campo-login">
+
+                <label for="senha">
+                    Senha
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">
+                        🔒
+                    </span>
 
                     <input
                         type="password"
@@ -89,39 +179,194 @@
                         required
                     >
 
+                    <button
+                        type="button"
+                        class="mostrar-senha"
+                        onclick="mostrarSenha()"
+                        aria-label="Mostrar senha"
+                    >
+                        👁
+                    </button>
+
                 </div>
 
-
-                <!-- BOTÃO -->
-                <button
-                    type="submit"
-                    class="btn-login"
-                >
-                    Entrar no painel
-                </button>
+            </div>
 
 
-                <!-- MENSAGEM -->
-                <p id="mensagemLogin"></p>
+            <!-- =================================================
+                 ERRO
+            ================================================== -->
 
-            </form>
-
-
-            <!-- VOLTAR -->
-            <a
-                href="../index.html"
-                class="voltar-site"
+            <div
+                th:if="${erro}"
+                class="mensagem-login mensagem-erro"
             >
-                Voltar para o site
+
+                <span>
+                    !
+                </span>
+
+                <p th:text="${erro}">
+                    Usuário ou senha incorretos.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 ENTRAR
+            ================================================== -->
+
+            <button
+                type="submit"
+                class="btn-login"
+            >
+
+                <span>
+                    Entrar no painel
+                </span>
+
+                <span class="btn-arrow">
+                    →
+                </span>
+
+            </button>
+
+
+        </form>
+
+
+        <!-- =================================================
+             PRIMEIRO ADMINISTRADOR
+        ================================================== -->
+
+        <div
+            th:if="${primeiroAdmin}"
+            class="primeiro-cadastro"
+        >
+
+            <div class="primeiro-cadastro-icon">
+                👤
+            </div>
+
+            <div class="primeiro-cadastro-texto">
+
+                <strong>
+                    Primeiro acesso?
+                </strong>
+
+                <p>
+                    Ainda não existe um administrador cadastrado.
+                </p>
+
+            </div>
+
+            <a
+                th:href="@{/admin/primeiro-admin}"
+                class="btn-primeiro-admin"
+            >
+
+                Criar administrador
+
+                <span>
+                    →
+                </span>
+
             </a>
 
         </div>
 
-    </main>
+
+        <!-- =================================================
+             DIVISOR
+        ================================================== -->
+
+        <div class="login-divider">
+
+            <span>
+                Acesso administrativo
+            </span>
+
+        </div>
 
 
-    <!-- JavaScript do administrador -->
-    <script src="../static/js/admin.js"></script>
+        <!-- =================================================
+             VOLTAR PARA O SITE
+        ================================================== -->
+
+        <a
+            th:href="@{/}"
+            class="voltar-site"
+        >
+
+            <span>
+                ←
+            </span>
+
+            Voltar para o site
+
+        </a>
+
+
+        <!-- =================================================
+             RODAPÉ
+        ================================================== -->
+
+        <footer class="login-footer">
+
+            <span>
+                ☕
+            </span>
+
+            <p>
+
+                Cafeteria Segura
+
+                <br>
+
+                <small>
+                    Sistema administrativo
+                </small>
+
+            </p>
+
+        </footer>
+
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+    function mostrarSenha() {
+
+        const campoSenha =
+            document.getElementById("senha");
+
+        const botao =
+            document.querySelector(".mostrar-senha");
+
+        if (campoSenha.type === "password") {
+
+            campoSenha.type = "text";
+
+            botao.textContent = "🙈";
+
+        } else {
+
+            campoSenha.type = "password";
+
+            botao.textContent = "👁";
+
+        }
+
+    }
+
+</script>
+
 
 </body>
 

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Novo Agendamento | Cafeteria Segura</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/agendamentos.css}">
+
+</head>
+
+<body>
+
+<main class="agendamento-page">
+
+    <section class="agendamento-box">
+
+        <a th:href="@{/agendamentos}"
+           class="voltar">
+            ← Voltar
+        </a>
+
+        <div class="titulo">
+
+            <span>CAFETERIA SEGURA</span>
+
+            <h1>Novo agendamento</h1>
+
+            <p>
+                Reserve sua mesa de forma rápida e simples.
+            </p>
+
+        </div>
+
+        <div th:if="${erro}"
+             class="erro"
+             th:text="${erro}">
+        </div>
+
+        <form th:action="@{/agendamentos/salvar}"
+              th:object="${agendamento}"
+              method="post">
+
+            <label for="data">
+                Data
+            </label>
+
+            <input type="date"
+                   id="data"
+                   th:field="*{data}"
+                   required>
+
+
+            <label for="horario">
+                Horário
+            </label>
+
+            <input type="time"
+                   id="horario"
+                   th:field="*{horario}"
+                   required>
+
+
+            <label for="pessoas">
+                Quantidade de pessoas
+            </label>
+
+            <input type="number"
+                   id="pessoas"
+                   th:field="*{pessoas}"
+                   min="1"
+                   max="20"
+                   required>
+
+
+            <label for="observacao">
+                Observação
+            </label>
+
+            <textarea id="observacao"
+                      th:field="*{observacao}"
+                      maxlength="500"
+                      placeholder="Alguma observação?"></textarea>
+
+
+            <button type="submit">
+                Confirmar agendamento →
+            </button>
+
+        </form>
+
+    </section>
+
+</main>
+
+</body>
+</html>

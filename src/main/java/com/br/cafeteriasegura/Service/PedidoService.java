@@ -16,19 +16,49 @@ public class PedidoService {
         this.pedidoRepository = pedidoRepository;
     }
 
+    // =========================================================
+    // LISTAR TODOS OS PEDIDOS
+    // =========================================================
+
     public List<Pedido> listar() {
         return pedidoRepository.findAll();
     }
+
+
+    // =========================================================
+    // LISTAR TODOS PARA O ADMIN
+    // Inclui cliente, itens e produtos
+    // =========================================================
+
+    @Transactional(readOnly = true)
+    public List<Pedido> listarTodosComItens() {
+        return pedidoRepository.findTodosComItens();
+    }
+
+
+    // =========================================================
+    // LISTAR PEDIDOS DO CLIENTE
+    // =========================================================
 
     @Transactional(readOnly = true)
     public List<Pedido> listarPorCliente(Long clienteId) {
         return pedidoRepository.findByClienteId(clienteId);
     }
 
+
+    // =========================================================
+    // SALVAR PEDIDO
+    // =========================================================
+
     @Transactional
     public Pedido salvar(Pedido pedido) {
         return pedidoRepository.save(pedido);
     }
+
+
+    // =========================================================
+    // EXCLUIR PEDIDO
+    // =========================================================
 
     public void excluir(Long id) {
         pedidoRepository.deleteById(id);

@@ -1,5 +1,6 @@
 package com.br.cafeteriasegura.Controller;
 
+import com.br.cafeteriasegura.Model.Admin;
 import com.br.cafeteriasegura.Model.Funcionario;
 import com.br.cafeteriasegura.Service.FuncionarioService;
 import jakarta.servlet.http.HttpSession;
@@ -13,9 +14,22 @@ public class FuncionarioController {
 
     private final FuncionarioService funcionarioService;
 
-    public FuncionarioController(FuncionarioService funcionarioService) {
+    public FuncionarioController(
+            FuncionarioService funcionarioService) {
+
         this.funcionarioService = funcionarioService;
     }
+
+
+    // =========================================================
+    // VERIFICAR ADMIN LOGADO
+    // =========================================================
+
+    private boolean adminLogado(HttpSession session) {
+
+        return session.getAttribute("adminLogado") != null;
+    }
+
 
     // =========================================================
     // LISTAR FUNCIONÁRIOS
@@ -25,25 +39,34 @@ public class FuncionarioController {
     @GetMapping
     public String listar(
             @RequestParam(required = false) String nome,
+            HttpSession session,
             Model model) {
 
-        if (nome != null && !nome.isBlank()) {
-
-            model.addAttribute(
-                    "funcionarios",
-                    funcionarioService.buscarPorNome(nome)
-            );
-
-        } else {
-
-            model.addAttribute(
-                    "funcionarios",
-                    funcionarioService.listarTodos()
-            );
+        if (!adminLogado(session)) {
+            return "redirect:/admin/login";
         }
+
+        Admin admin =
+                (Admin) session.getAttribute("adminLogado");
+
+        model.addAttribute(
+                "admin",
+                admin
+        );
+
+        model.addAttribute(
+                "funcionarios",
+                funcionarioService.buscarPorNome(nome)
+        );
+
+        model.addAttribute(
+                "nomeBusca",
+                nome
+        );
 
         return "funcionarios";
     }
+
 
     // =========================================================
     // NOVO FUNCIONÁRIO
@@ -51,29 +74,109 @@ public class FuncionarioController {
     // =========================================================
 
     @GetMapping("/novo")
-    public String novo(Model model) {
+    public String novo(
+            HttpSession session,
+            Model model) {
+
+        if (!adminLogado(session)) {
+            return "redirect:/admin/login";
+        }
+
+        Admin admin =
+                (Admin) session.getAttribute("adminLogado");
+
+        model.addAttribute(
+                "admin",
+                admin
+        );
 
         model.addAttribute(
                 "funcionario",
                 new Funcionario()
         );
 
+        model.addAttribute(
+                "editar",
+                false
+        );
+
         return "funcionario-form";
     }
 
+
     // =========================================================
-    // SALVAR FUNCIONÁRIO
+    // SALVAR NOVO FUNCIONÁRIO
     // URL: /funcionarios/salvar
     // =========================================================
 
     @PostMapping("/salvar")
     public String salvar(
-            @ModelAttribute Funcionario funcionario) {
+            @ModelAttribute("funcionario")
+            Funcionario funcionario,
 
-        funcionarioService.salvar(funcionario);
+            @RequestParam String confirmarSenha,
 
-        return "redirect:/funcionarios";
+            HttpSession session,
+            Model model) {
+
+        if (!adminLogado(session)) {
+            return "redirect:/admin/login";
+        }
+
+        Admin admin =
+                (Admin) session.getAttribute("adminLogado");
+
+        try {
+
+            if (confirmarSenha == null ||
+                    !funcionario.getSenha()
+                            .equals(confirmarSenha)) {
+
+                model.addAttribute(
+                        "erro",
+                        "As senhas não são iguais."
+                );
+
+                model.addAttribute(
+                        "admin",
+                        admin
+                );
+
+                model.addAttribute(
+                        "editar",
+                        false
+                );
+
+                return "funcionario-form";
+            }
+
+            funcionarioService.cadastrar(
+                    funcionario
+            );
+
+            return "redirect:/funcionarios";
+
+        } catch (RuntimeException e) {
+
+            model.addAttribute(
+                    "erro",
+                    e.getMessage()
+            );
+
+            model.addAttribute(
+                    "admin",
+                    admin
+            );
+
+            model.addAttribute(
+                    "editar",
+                    false
+            );
+
+            return "funcionario-form";
+        }
     }
+
 
     // =========================================================
     // EDITAR FUNCIONÁRIO
@@ -83,24 +186,43 @@ public class FuncionarioController {
     @GetMapping("/editar/{id}")
     public String editar(
             @PathVariable Long id,
+            HttpSession session,
             Model model) {
+
+        if (!adminLogado(session)) {
+            return "redirect:/admin/login";
+        }
+
+        Admin admin =
+                (Admin) session.getAttribute("adminLogado");
 
         Funcionario funcionario =
                 funcionarioService
                         .buscarPorId(id)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "Funcionário não encontrado"
-                                )
-                        );
+                        .orElse(null);
+
+        if (funcionario == null) {
+            return "redirect:/funcionarios";
+        }
+
+        model.addAttribute(
+                "admin",
+                admin
+        );
 
         model.addAttribute(
                 "funcionario",
                 funcionario
         );
 
+        model.addAttribute(
+                "editar",
+                true
+        );
+
         return "funcionario-form";
     }
+
 
     // =========================================================
     // ATUALIZAR FUNCIONÁRIO
@@ -110,32 +232,107 @@ public class FuncionarioController {
     @PostMapping("/atualizar/{id}")
     public String atualizar(
             @PathVariable Long id,
-            @ModelAttribute Funcionario funcionario) {
 
-        funcionarioService.atualizar(
-                id,
-                funcionario
-        );
+            @ModelAttribute("funcionario")
+            Funcionario funcionario,
 
-        return "redirect:/funcionarios";
+            @RequestParam(required = false)
+            String confirmarSenha,
+
+            HttpSession session,
+            Model model) {
+
+        if (!adminLogado(session)) {
+            return "redirect:/admin/login";
+        }
+
+        Admin admin =
+                (Admin) session.getAttribute("adminLogado");
+
+        try {
+
+            /*
+             * Se uma nova senha foi digitada,
+             * verifica a confirmação.
+             */
+
+            if (funcionario.getSenha() != null &&
+                    !funcionario.getSenha().isBlank()) {
+
+                if (confirmarSenha == null ||
+                        !funcionario.getSenha()
+                                .equals(confirmarSenha)) {
+
+                    model.addAttribute(
+                            "erro",
+                            "As senhas não são iguais."
+                    );
+
+                    model.addAttribute(
+                            "admin",
+                            admin
+                    );
+
+                    model.addAttribute(
+                            "editar",
+                            true
+                    );
+
+                    return "funcionario-form";
+                }
+            }
+
+            funcionarioService.atualizar(
+                    id,
+                    funcionario
+            );
+
+            return "redirect:/funcionarios";
+
+        } catch (RuntimeException e) {
+
+            model.addAttribute(
+                    "erro",
+                    e.getMessage()
+            );
+
+            model.addAttribute(
+                    "admin",
+                    admin
+            );
+
+            model.addAttribute(
+                    "editar",
+                    true
+            );
+
+            return "funcionario-form";
+        }
     }
+
 
     // =========================================================
     // EXCLUIR FUNCIONÁRIO
     // URL: /funcionarios/excluir/{id}
     // =========================================================
 
-    @PostMapping("/excluir/{id}")
+    @GetMapping("/excluir/{id}")
     public String excluir(
-            @PathVariable Long id) {
+            @PathVariable Long id,
+            HttpSession session) {
+
+        if (!adminLogado(session)) {
+            return "redirect:/admin/login";
+        }
 
         funcionarioService.excluir(id);
 
         return "redirect:/funcionarios";
     }
 
+
     // =========================================================
-    // LOGIN
+    // LOGIN DO FUNCIONÁRIO
     // URL: /funcionarios/login
     // =========================================================
 
@@ -145,8 +342,9 @@ public class FuncionarioController {
         return "login-funcionario";
     }
 
+
     // =========================================================
-    // PROCESSAR LOGIN
+    // PROCESSAR LOGIN DO FUNCIONÁRIO
     // URL: /funcionarios/login
     // =========================================================
 
@@ -173,7 +371,6 @@ public class FuncionarioController {
             return "login-funcionario";
         }
 
-        // Guarda o funcionário logado na sessão
         session.setAttribute(
                 "funcionario",
                 funcionario
@@ -182,8 +379,9 @@ public class FuncionarioController {
         return "redirect:/funcionarios/painel";
     }
 
+
     // =========================================================
-    // PAINEL
+    // PAINEL DO FUNCIONÁRIO
     // URL: /funcionarios/painel
     // =========================================================
 
@@ -197,9 +395,7 @@ public class FuncionarioController {
                         "funcionario"
                 );
 
-        // Usuário não está logado
         if (funcionario == null) {
-
             return "redirect:/funcionarios/login";
         }
 
@@ -211,60 +407,9 @@ public class FuncionarioController {
         return "funcionario/painel";
     }
 
-    // =========================================================
-    // CADASTRO DO FUNCIONÁRIO
-    // URL: /funcionarios/cadastro
-    // =========================================================
-
-    @GetMapping("/cadastro")
-    public String mostrarCadastroFuncionario(
-            HttpSession session) {
-
-        Funcionario funcionario =
-                (Funcionario) session.getAttribute(
-                        "funcionario"
-                );
-
-        // Se já estiver logado
-        if (funcionario != null) {
-
-            return "redirect:/funcionarios/painel";
-        }
-
-        return "cadastro-funcionario";
-    }
 
     // =========================================================
-    // PROCESSAR CADASTRO
-    // URL: /funcionarios/cadastro
-    // =========================================================
-
-    @PostMapping("/cadastro")
-    public String cadastrarFuncionario(
-            @ModelAttribute Funcionario funcionario,
-            Model model) {
-
-        try {
-
-            funcionarioService.cadastrar(
-                    funcionario
-            );
-
-            return "redirect:/funcionarios/login";
-
-        } catch (RuntimeException e) {
-
-            model.addAttribute(
-                    "erro",
-                    e.getMessage()
-            );
-
-            return "cadastro-funcionario";
-        }
-    }
-
-    // =========================================================
-    // LOGOUT
+    // LOGOUT DO FUNCIONÁRIO
     // URL: /funcionarios/logout
     // =========================================================
 

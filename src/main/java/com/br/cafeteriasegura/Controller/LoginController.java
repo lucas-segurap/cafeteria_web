@@ -18,6 +18,10 @@ public class LoginController {
         this.clienteService = clienteService;
     }
 
+    // ==============================
+    // LOGIN DO CLIENTE
+    // ==============================
+
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -33,6 +37,7 @@ public class LoginController {
         Cliente cliente = clienteService.login(email, senha);
 
         if (cliente == null) {
+
             model.addAttribute(
                     "erro",
                     "E-mail ou senha inválidos."
@@ -45,6 +50,10 @@ public class LoginController {
 
         return "redirect:/pedidos";
     }
+
+    // ==============================
+    // CADASTRO DO CLIENTE
+    // ==============================
 
     @GetMapping("/cadastro")
     public String cadastro() {
@@ -85,11 +94,9 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/admin")
-    public String login_admin() {
-        return "login-admin";
-
-    }
+    // ==============================
+    // LOGOUT DO CLIENTE
+    // ==============================
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

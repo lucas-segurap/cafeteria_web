@@ -1,124 +1,75 @@
-// USUÁRIOS AUTORIZADOS
-const usuariosPermitidos = [
-    {
-        usuario: "Lucasegura",
-        senha: "1234"
-    }
-];
+document.addEventListener("DOMContentLoaded", function () {
 
-// FORMULÁRIO DE LOGIN
-document
-    .getElementById("loginAdmin")
-    .addEventListener("submit", function (event) {
+    const loginAdmin = document.getElementById("loginAdmin");
+    const mensagemLogin = document.getElementById("mensagemLogin");
+    const senha = document.getElementById("senha");
+    const mostrarSenha = document.getElementById("mostrarSenha");
 
-        event.preventDefault();
+    /* =====================================================
+       MOSTRAR / OCULTAR SENHA
+    ===================================================== */
 
-        const usuario =
-            document.getElementById("usuario").value.trim();
+    if (mostrarSenha && senha) {
 
-        const senha =
-            document.getElementById("senha").value;
+        mostrarSenha.addEventListener("click", function () {
 
-        const mensagem =
-            document.getElementById("mensagemLogin");
+            if (senha.type === "password") {
 
+                senha.type = "text";
+                mostrarSenha.textContent = "🙈";
 
-        // VERIFICA USUÁRIO E SENHA
-        const usuarioEncontrado =
-            usuariosPermitidos.find(function (dados) {
+            } else {
 
-                return (
-                    dados.usuario === usuario &&
-                    dados.senha === senha
-                );
+                senha.type = "password";
+                mostrarSenha.textContent = "👁";
 
-            });
+            }
 
+        });
 
-        // LOGIN CORRETO
-        if (usuarioEncontrado) {
-
-            sessionStorage.setItem(
-                "adminLogado",
-                "true"
-            );
-
-            window.location.href =
-                "./admin.html";
-
-        }
-
-
-        // LOGIN INCORRETO
-        else {
-
-            mensagem.textContent =
-                "Usuário ou senha incorretos.";
-
-            mensagem.className =
-                "login-erro";
-
-        }
-
-    });
-const loginAdmin = document.getElementById("loginAdmin");
-const mensagemLogin = document.getElementById("mensagemLogin");
-
-loginAdmin.addEventListener("submit", function (event) {
-
-    event.preventDefault();
-
-    const usuario = document.getElementById("usuario").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-
-    if (usuario === "" || senha === "") {
-
-        mensagemLogin.textContent =
-            "Preencha todos os campos.";
-
-        mensagemLogin.className = "erro";
-
-        return;
     }
 
+    /* =====================================================
+       VALIDAÇÃO DO FORMULÁRIO
+    ===================================================== */
 
-    /*
-     * LOGIN TEMPORÁRIO
-     *
-     * Depois podemos substituir essa parte
-     * pela autenticação do banco de dados.
-     */
+    if (loginAdmin) {
 
-    if (usuario === "admin" && senha === "1234") {
+        loginAdmin.addEventListener("submit", function (event) {
 
-        mensagemLogin.textContent =
-            "Login realizado com sucesso!";
+            const usuario =
+                document.getElementById("usuario").value.trim();
 
-        mensagemLogin.className = "sucesso";
+            const senhaValor =
+                senha.value;
 
+            if (usuario === "" || senhaValor === "") {
 
-        // Salva o acesso administrativo
-        sessionStorage.setItem(
-            "adminLogado",
-            "true"
-        );
+                event.preventDefault();
 
+                mensagemLogin.textContent =
+                    "Preencha todos os campos.";
 
-        // Aguarda a mensagem e entra no painel
-        setTimeout(function () {
+                mensagemLogin.className =
+                    "mensagem-login mensagem-erro";
 
-            window.location.href =
-                "./agendamentos.html";
+                return;
+            }
 
-        }, 700);
+            /*
+             * O LOGIN NÃO É MAIS FEITO PELO JAVASCRIPT.
+             *
+             * O formulário será enviado para:
+             *
+             * POST /admin/login
+             *
+             * O Spring Boot irá verificar:
+             *
+             * usuário → MySQL
+             * senha   → BCrypt
+             */
 
-
-    } else {
-
-        mensagemLogin.textContent =
-            "Usuário ou senha incorretos.";
-
-        mensagemLogin.className = "erro";
+        });
 
     }
 

@@ -17,5 +17,17 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
         WHERE p.cliente.id = :clienteId
         ORDER BY p.data DESC
     """)
-    List<Pedido> findByClienteId(@Param("clienteId") Long clienteId);
+    List<Pedido> findByClienteId(
+            @Param("clienteId") Long clienteId
+    );
+
+    @Query("""
+        SELECT DISTINCT p
+        FROM Pedido p
+        LEFT JOIN FETCH p.cliente
+        LEFT JOIN FETCH p.itens i
+        LEFT JOIN FETCH i.produto
+        ORDER BY p.data DESC
+    """)
+    List<Pedido> findTodosComItens();
 }

@@ -1,600 +1,247 @@
-/* =========================================
-   AGENDAMENTOS - ÁREA ADMINISTRATIVA
-   ========================================= */
+* {
+    box-sizing: border-box;
+}
 
-.admin-agendamentos {
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #080808;
+    color: #fff;
+}
+
+.agendamento-page {
     min-height: 100vh;
-    padding: 45px 5%;
-    background: #f7f3ef;
-    color: #2b1d16;
+    padding: 40px 20px;
 }
 
-
-/* =========================================
-   CABEÇALHO
-   ========================================= */
-
-.admin-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 25px;
-    margin-bottom: 35px;
+.agendamento-box,
+.agendamento-container {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
 }
 
-.admin-tag {
-    display: inline-block;
-    padding: 6px 13px;
-    margin-bottom: 10px;
-
-    background: #e8d8c7;
-    color: #5c3b2e;
-
-    border-radius: 20px;
-
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-}
-
-.admin-header h1 {
-    margin: 0 0 8px;
-
-    font-size: 38px;
-    font-weight: 800;
-    color: #2b1d16;
-}
-
-.admin-header p {
-    margin: 0;
-
-    color: #77716c;
-    font-size: 15px;
-}
-
-.btn-voltar-admin {
-    padding: 12px 18px;
-
-    border: 1px solid #d9c8b7;
-    border-radius: 10px;
-
-    background: white;
-    color: #5c3b2e;
-
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 700;
-
-    transition: 0.2s;
-}
-
-.btn-voltar-admin:hover {
-    background: #5c3b2e;
-    color: white;
-}
-
-
-/* =========================================
-   CARDS DE RESUMO
-   ========================================= */
-
-.resumo-agendamentos {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    margin-bottom: 25px;
-}
-
-.resumo-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-
-    padding: 22px;
-
-    background: white;
-    border: 1px solid #eadfd5;
-    border-radius: 16px;
-
-    box-shadow: 0 5px 18px rgba(60, 40, 25, 0.06);
-}
-
-.resumo-icone {
-    width: 48px;
-    height: 48px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+.agendamento-box {
+    background: #111;
+    border: 1px solid #252525;
     border-radius: 12px;
-
-    background: #f0e4d7;
-
-    font-size: 22px;
+    padding: 35px;
 }
 
-.resumo-card span {
-    display: block;
-
-    margin-bottom: 4px;
-
-    color: #8a817b;
-    font-size: 12px;
+.voltar {
+    color: #888;
+    text-decoration: none;
+    font-size: 13px;
 }
 
-.resumo-card strong {
-    font-size: 25px;
-    color: #3d281e;
+.voltar:hover {
+    color: #d4af37;
 }
 
+.titulo {
+    text-align: center;
+    margin: 30px 0;
+}
 
-/* =========================================
-   FILTROS
-   ========================================= */
+.titulo span,
+.agendamento-header > div > span {
+    color: #d4af37;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
 
-.filtros-agendamentos {
+.titulo h1,
+.agendamento-header h1 {
+    margin: 8px 0;
+    font-size: 28px;
+}
+
+.titulo p,
+.agendamento-header p {
+    color: #888;
+}
+
+form {
     display: flex;
-    align-items: flex-end;
-    gap: 15px;
-
-    padding: 22px;
-
-    margin-bottom: 22px;
-
-    background: white;
-    border: 1px solid #eadfd5;
-    border-radius: 16px;
+    flex-direction: column;
 }
 
-.campo-filtro {
-    flex: 1;
+form label {
+    margin: 15px 0 7px;
+    color: #ddd;
+    font-size: 13px;
+    font-weight: bold;
 }
 
-.campo-filtro.busca {
-    flex: 2;
-}
-
-.campo-filtro label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #4b3930;
-
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.campo-filtro input,
-.campo-filtro select {
+form input,
+form textarea {
     width: 100%;
-    height: 44px;
-
-    padding: 0 13px;
-
-    border: 1px solid #ded3c9;
-    border-radius: 9px;
-
-    background: #fffdfb;
-
+    padding: 12px;
+    background: #181818;
+    color: #fff;
+    border: 1px solid #2d2d2d;
+    border-radius: 7px;
     outline: none;
-
-    color: #3d281e;
 }
 
-.campo-filtro input:focus,
-.campo-filtro select:focus {
-    border-color: #8b5e3c;
-
-    box-shadow: 0 0 0 3px rgba(139, 94, 60, 0.10);
+form input:focus,
+form textarea:focus {
+    border-color: #d4af37;
 }
 
-.btn-limpar-filtros {
-    height: 44px;
-
-    padding: 0 17px;
-
-    border: 1px solid #d8c8ba;
-    border-radius: 9px;
-
-    background: #f8f3ed;
-    color: #5c3b2e;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    cursor: pointer;
+form textarea {
+    min-height: 100px;
+    resize: vertical;
 }
 
-.btn-limpar-filtros:hover {
-    background: #e9ddd0;
-}
-
-
-/* =========================================
-   TABELA
-   ========================================= */
-
-.tabela-container {
-    background: white;
-
-    border: 1px solid #eadfd5;
-    border-radius: 18px;
-
-    overflow: hidden;
-
-    box-shadow: 0 5px 20px rgba(60, 40, 25, 0.06);
-}
-
-.tabela-topo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 25px;
-
-    border-bottom: 1px solid #eee5dd;
-}
-
-.tabela-topo h2 {
-    margin: 0 0 5px;
-
-    font-size: 21px;
-    color: #2b1d16;
-}
-
-.tabela-topo p {
-    margin: 0;
-
-    color: #88817b;
-    font-size: 13px;
-}
-
-.btn-novo-agendamento {
-    padding: 11px 17px;
-
+form button,
+.btn-novo {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 13px 18px;
+    background: #d4af37;
+    color: #080808;
     border: none;
-    border-radius: 9px;
-
-    background: #5c3b2e;
-    color: white;
-
-    font-size: 13px;
-    font-weight: 700;
-
+    border-radius: 7px;
+    font-weight: bold;
+    text-decoration: none;
     cursor: pointer;
-
-    transition: 0.2s;
 }
 
-.btn-novo-agendamento:hover {
-    background: #3d281e;
-    transform: translateY(-1px);
+form button:hover,
+.btn-novo:hover {
+    background: #f0d56a;
 }
 
-
-/* =========================================
-   TABELA
-   ========================================= */
-
-.tabela-scroll {
-    width: 100%;
-    overflow-x: auto;
+.erro {
+    padding: 12px;
+    margin-bottom: 15px;
+    background: rgba(220, 60, 60, 0.1);
+    border: 1px solid rgba(220, 60, 60, 0.2);
+    border-radius: 7px;
+    color: #ff9999;
 }
 
-.tabela-agendamentos {
-    width: 100%;
-    min-width: 1050px;
-
-    border-collapse: collapse;
-}
-
-.tabela-agendamentos th {
-    padding: 15px 18px;
-
-    background: #faf7f4;
-
-    color: #796f68;
-
-    text-align: left;
-
-    font-size: 11px;
-    font-weight: 800;
-
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-}
-
-.tabela-agendamentos td {
-    padding: 17px 18px;
-
-    border-top: 1px solid #eee7e1;
-
-    color: #544a44;
-
-    font-size: 13px;
-}
-
-.tabela-agendamentos tbody tr {
-    transition: background 0.2s;
-}
-
-.tabela-agendamentos tbody tr:hover {
-    background: #fdfaf7;
-}
-
-
-/* =========================================
-   CLIENTE
-   ========================================= */
-
-.cliente-info {
+.agendamento-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
+    margin-bottom: 30px;
 }
 
-.cliente-avatar {
-    width: 38px;
-    height: 38px;
+.lista-agendamentos {
+    display: grid;
+    gap: 15px;
+}
 
+.agendamento-card,
+.vazio {
+    background: #111;
+    border: 1px solid #252525;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.card-topo {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: #e8d8c7;
-    color: #5c3b2e;
-
-    font-size: 11px;
-    font-weight: 800;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #252525;
 }
 
-.cliente-info strong {
-    display: block;
-
-    color: #33251e;
-
-    font-size: 13px;
-}
-
-.cliente-info small {
-    color: #9a918b;
+.card-topo small {
+    color: #d4af37;
     font-size: 10px;
+    letter-spacing: 2px;
 }
 
-
-/* =========================================
-   STATUS
-   ========================================= */
+.card-topo h2 {
+    margin: 5px 0;
+}
 
 .status {
-    display: inline-flex;
-    align-items: center;
-
     padding: 6px 10px;
-
     border-radius: 20px;
+    background: rgba(212, 175, 55, 0.1);
+    color: #d4af37;
+    font-size: 10px;
+    font-weight: bold;
+}
 
+.dados-agendamento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 20px 0;
+}
+
+.dados-agendamento div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dados-agendamento small,
+.observacao small {
+    color: #777;
+}
+
+.dados-agendamento strong {
+    color: #ddd;
+}
+
+.observacao {
+    border-top: 1px solid #252525;
+    padding-top: 15px;
+}
+
+.observacao p {
+    color: #bbb;
+}
+
+.btn-cancelar {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 12px;
+    color: #ff8585;
+    border: 1px solid rgba(255, 133, 133, 0.2);
+    border-radius: 6px;
+    text-decoration: none;
     font-size: 11px;
-    font-weight: 800;
 }
 
-.status::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-
-    margin-right: 6px;
-
-    border-radius: 50%;
-}
-
-.status.confirmado {
-    background: #e5f5e9;
-    color: #287a45;
-}
-
-.status.confirmado::before {
-    background: #287a45;
-}
-
-.status.pendente {
-    background: #fff3dc;
-    color: #a36b00;
-}
-
-.status.pendente::before {
-    background: #d99a16;
-}
-
-.status.cancelado {
-    background: #fae5e3;
-    color: #b33b31;
-}
-
-.status.cancelado::before {
-    background: #c0392b;
-}
-
-
-/* =========================================
-   AÇÕES
-   ========================================= */
-
-.acoes {
-    display: flex;
-    gap: 6px;
-}
-
-.acao {
-    width: 34px;
-    height: 34px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border: none;
-    border-radius: 8px;
-
-    background: #f4eee8;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-.acao:hover {
-    transform: translateY(-2px);
-}
-
-.acao.visualizar:hover {
-    background: #e4edf5;
-}
-
-.acao.editar:hover {
-    background: #fff0d5;
-}
-
-.acao.excluir:hover {
-    background: #fae3e1;
-}
-
-
-/* =========================================
-   SEM RESULTADOS
-   ========================================= */
-
-.sem-resultados {
-    padding: 60px 20px;
-
+.vazio {
     text-align: center;
+    padding: 60px 20px;
 }
 
-.sem-resultados div {
-    font-size: 35px;
-    margin-bottom: 10px;
+.vazio > div {
+    font-size: 45px;
 }
 
-.sem-resultados h3 {
-    margin-bottom: 5px;
-
-    font-size: 18px;
+.vazio p {
+    color: #777;
 }
 
-.sem-resultados p {
-    color: #888;
-    font-size: 13px;
-}
+@media (max-width: 650px) {
 
-
-/* =========================================
-   PAGINAÇÃO
-   ========================================= */
-
-.paginacao {
-    display: flex;
-    justify-content: flex-end;
-    gap: 6px;
-
-    padding: 20px 25px;
-
-    border-top: 1px solid #eee7e1;
-}
-
-.paginacao button {
-    width: 35px;
-    height: 35px;
-
-    border: 1px solid #ded4ca;
-    border-radius: 7px;
-
-    background: white;
-    color: #5c3b2e;
-
-    cursor: pointer;
-}
-
-.paginacao button:hover:not(:disabled) {
-    background: #f1e7dc;
-}
-
-.paginacao button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.paginacao .pagina-atual {
-    background: #5c3b2e;
-    color: white;
-    border-color: #5c3b2e;
-}
-
-
-/* =========================================
-   RESPONSIVIDADE
-   ========================================= */
-
-@media (max-width: 1000px) {
-
-    .resumo-agendamentos {
-        grid-template-columns: repeat(2, 1fr);
+    .agendamento-page {
+        padding: 20px 15px;
     }
 
-    .filtros-agendamentos {
-        flex-wrap: wrap;
+    .agendamento-box {
+        padding: 25px 20px;
     }
 
-    .campo-filtro,
-    .campo-filtro.busca {
-        min-width: 220px;
-    }
-}
-
-
-@media (max-width: 700px) {
-
-    .admin-agendamentos {
-        padding: 30px 15px;
-    }
-
-    .admin-header {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .admin-header h1 {
-        font-size: 30px;
-    }
-
-    .resumo-agendamentos {
-        grid-template-columns: 1fr;
-    }
-
-    .filtros-agendamentos {
+    .agendamento-header {
         flex-direction: column;
         align-items: stretch;
     }
 
-    .campo-filtro,
-    .campo-filtro.busca {
-        min-width: 100%;
-    }
-
-    .btn-limpar-filtros {
-        width: 100%;
-    }
-
-    .tabela-topo {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .btn-novo-agendamento {
-        width: 100%;
+    .dados-agendamento {
+        grid-template-columns: 1fr;
     }
 }

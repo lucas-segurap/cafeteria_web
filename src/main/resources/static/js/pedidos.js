@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // =========================================================
-    // ELEMENTOS
-    // =========================================================
+    const checkboxes = Array.from(
+        form.querySelectorAll(".produto-selecao")
+    );
 
-    const checkboxes =
-        Array.from(form.querySelectorAll(".produto-selecao"));
+    const botaoEnviar =
+        form.querySelector(".order-submit");
 
     const listaResumo =
         document.getElementById("listaResumo");
@@ -25,13 +25,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const mensagem =
         document.getElementById("mensagemConfirmacao");
 
-    const botaoEnviar =
-        form.querySelector(".order-submit");
+    const opcoesAtendimento =
+        form.querySelectorAll(
+            'input[name="tipoAtendimento"]'
+        );
+
+    const campoMesa =
+        document.getElementById("campoMesa");
+
+    const campoEntrega =
+        document.getElementById("campoEntrega");
+
+    const numeroMesa =
+        document.getElementById("numeroMesa");
+
+    const enderecoEntrega =
+        document.getElementById("enderecoEntrega");
 
 
-    // =========================================================
-    // FORMATAÇÃO DE PREÇO
-    // =========================================================
+    // =====================================================
+    // PREÇO
+    // =====================================================
 
     function formatarPreco(valor) {
 
@@ -43,9 +57,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =========================================================
+    // =====================================================
     // PRODUTOS SELECIONADOS
-    // =========================================================
+    // =====================================================
 
     function itensSelecionados() {
 
@@ -64,7 +78,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 let quantidade =
                     parseInt(quantidadeInput.value, 10);
 
-                if (Number.isNaN(quantidade) || quantidade < 1) {
+                if (
+                    Number.isNaN(quantidade) ||
+                    quantidade < 1
+                ) {
                     quantidade = 1;
                 }
 
@@ -78,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     parseFloat(checkbox.dataset.preco);
 
                 return {
-                    valor: checkbox.value,
+                    id: checkbox.value,
                     nome: checkbox.dataset.nome,
                     quantidade: quantidade,
                     preco: preco,
@@ -90,19 +107,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =========================================================
-    // ATUALIZAR RESUMO DO PEDIDO
-    // =========================================================
+    // =====================================================
+    // ATUALIZAR RESUMO
+    // =====================================================
 
     function atualizarResumo() {
 
-        const itens =
-            itensSelecionados();
-
-
-        // -----------------------------------------------------
-        // PEDIDO VAZIO
-        // -----------------------------------------------------
+        const itens = itensSelecionados();
 
         if (itens.length === 0) {
 
@@ -110,31 +121,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="summary-empty">
                     <span>☕</span>
                     <p>Seu pedido está vazio.</p>
-                    <small>Escolha um produto para começar.</small>
+                    <small>
+                        Escolha um produto para começar.
+                    </small>
                 </div>
             `;
 
-            if (valorSubtotal) {
-                valorSubtotal.textContent =
-                    formatarPreco(0);
-            }
+            valorSubtotal.textContent =
+                formatarPreco(0);
 
-            if (valorTotal) {
-                valorTotal.textContent =
-                    formatarPreco(0);
-            }
+            valorTotal.textContent =
+                formatarPreco(0);
 
-            if (botaoEnviar) {
-                botaoEnviar.disabled = true;
-            }
+            botaoEnviar.disabled = true;
 
             return;
         }
 
-
-        // -----------------------------------------------------
-        // MOSTRAR ITENS
-        // -----------------------------------------------------
 
         listaResumo.innerHTML =
             itens.map(function (item) {
@@ -143,7 +146,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="summary-item">
 
                         <div>
-                            <strong>${item.nome}</strong>
+                            <strong>
+                                ${item.nome}
+                            </strong>
 
                             <small>
                                 ${item.quantidade}x
@@ -160,11 +165,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             <button
                                 type="button"
                                 class="btn-remover-item"
-                                data-remover="${item.valor}"
-                                aria-label="Remover ${item.nome} do pedido">
-
+                                data-remover="${item.id}">
                                 &times;
-
                             </button>
 
                         </div>
@@ -175,67 +177,57 @@ document.addEventListener("DOMContentLoaded", function () {
             }).join("");
 
 
-        // -----------------------------------------------------
-        // TOTAL
-        // -----------------------------------------------------
-
-        const subtotal =
+        const total =
             itens.reduce(function (soma, item) {
                 return soma + item.subtotal;
             }, 0);
 
 
-        if (valorSubtotal) {
-            valorSubtotal.textContent =
-                formatarPreco(subtotal);
-        }
+        valorSubtotal.textContent =
+            formatarPreco(total);
 
-        if (valorTotal) {
-            valorTotal.textContent =
-                formatarPreco(subtotal);
-        }
+        valorTotal.textContent =
+            formatarPreco(total);
 
 
-        if (botaoEnviar) {
-            botaoEnviar.disabled = false;
-        }
+        botaoEnviar.disabled = false;
 
-
-        // -----------------------------------------------------
-        // BOTÃO REMOVER
-        // -----------------------------------------------------
 
         listaResumo
             .querySelectorAll("[data-remover]")
             .forEach(function (botao) {
 
-                botao.addEventListener("click", function () {
+                botao.addEventListener(
+                    "click",
+                    function () {
 
-                    const checkbox =
-                        checkboxes.find(function (item) {
-                            return item.value === botao.dataset.remover;
-                        });
+                        const checkbox =
+                            checkboxes.find(function (item) {
+                                return item.value ===
+                                    botao.dataset.remover;
+                            });
 
-                    if (!checkbox) {
-                        return;
+                        if (!checkbox) {
+                            return;
+                        }
+
+                        checkbox.checked = false;
+
+                        checkbox.dispatchEvent(
+                            new Event("change")
+                        );
+
                     }
-
-                    checkbox.checked = false;
-
-                    checkbox.dispatchEvent(
-                        new Event("change")
-                    );
-
-                });
+                );
 
             });
 
     }
 
 
-    // =========================================================
-    // SELEÇÃO DOS PRODUTOS
-    // =========================================================
+    // =====================================================
+    // PRODUTOS
+    // =====================================================
 
     checkboxes.forEach(function (checkbox) {
 
@@ -256,9 +248,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (checkbox.checked) {
 
-                    if (!quantidadeInput.value) {
-                        quantidadeInput.value = 1;
-                    }
+                    quantidadeInput.value =
+                        quantidadeInput.value || 1;
 
                 } else {
 
@@ -275,9 +266,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    // =========================================================
-    // QUANTIDADE
-    // =========================================================
+    // =====================================================
+    // QUANTIDADES
+    // =====================================================
 
     form.querySelectorAll(
         ".quantidade-produto"
@@ -290,16 +281,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 let quantidade =
                     parseInt(input.value, 10);
 
-
-                if (Number.isNaN(quantidade) || quantidade < 1) {
+                if (
+                    Number.isNaN(quantidade) ||
+                    quantidade < 1
+                ) {
                     quantidade = 1;
                 }
-
 
                 if (quantidade > 10) {
                     quantidade = 10;
                 }
-
 
                 input.value = quantidade;
 
@@ -308,70 +299,26 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         );
 
-
-        input.addEventListener(
-            "click",
-            function (evento) {
-
-                evento.stopPropagation();
-
-            }
-        );
-
     });
 
 
-    // =========================================================
+    // =====================================================
     // TIPO DE ATENDIMENTO
-    // =========================================================
-
-    const opcoesAtendimento =
-        document.querySelectorAll(
-            'input[name="tipoAtendimento"]'
-        );
-
-
-    const campoMesa =
-        document.getElementById("campoMesa");
-
-    const campoEntrega =
-        document.getElementById("campoEntrega");
-
-
-    const numeroMesa =
-        document.getElementById("numeroMesa");
-
-
-    const enderecoEntrega =
-        document.getElementById("enderecoEntrega");
-
+    // =====================================================
 
     function atualizarAtendimento() {
 
         const selecionado =
-            document.querySelector(
+            form.querySelector(
                 'input[name="tipoAtendimento"]:checked'
             );
 
 
-        if (campoMesa) {
-            campoMesa.style.display = "none";
-        }
+        campoMesa.style.display = "none";
+        campoEntrega.style.display = "none";
 
-
-        if (campoEntrega) {
-            campoEntrega.style.display = "none";
-        }
-
-
-        if (numeroMesa) {
-            numeroMesa.required = false;
-        }
-
-
-        if (enderecoEntrega) {
-            enderecoEntrega.required = false;
-        }
+        numeroMesa.required = false;
+        enderecoEntrega.required = false;
 
 
         if (!selecionado) {
@@ -379,40 +326,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // -----------------------------------------------------
-        // MESA
-        // -----------------------------------------------------
+        if (selecionado.value === "MESA") {
 
-        if (
-            selecionado.value === "MESA"
-        ) {
-
-            if (campoMesa) {
-                campoMesa.style.display = "block";
-            }
-
-            if (numeroMesa) {
-                numeroMesa.required = true;
-            }
+            campoMesa.style.display = "block";
+            numeroMesa.required = true;
 
         }
 
 
-        // -----------------------------------------------------
-        // ENTREGA
-        // -----------------------------------------------------
+        if (selecionado.value === "ENTREGA") {
 
-        if (
-            selecionado.value === "ENTREGA"
-        ) {
-
-            if (campoEntrega) {
-                campoEntrega.style.display = "block";
-            }
-
-            if (enderecoEntrega) {
-                enderecoEntrega.required = true;
-            }
+            campoEntrega.style.display = "block";
+            enderecoEntrega.required = true;
 
         }
 
@@ -429,53 +354,37 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    // =========================================================
-    // ENVIO REAL DO PEDIDO
-    // =========================================================
+    // =====================================================
+    // ENVIO DO PEDIDO
+    // =====================================================
 
     form.addEventListener(
         "submit",
         function (evento) {
 
+            console.log(
+                ">>> SUBMIT DO PEDIDO EXECUTADO <<<"
+            );
+
+
             const itens =
                 itensSelecionados();
 
-
-            // -------------------------------------------------
-            // NENHUM PRODUTO
-            // -------------------------------------------------
 
             if (itens.length === 0) {
 
                 evento.preventDefault();
 
-                if (mensagem) {
+                mensagem.textContent =
+                    "Selecione ao menos um produto.";
 
-                    mensagem.textContent =
-                        "Selecione ao menos um produto antes de confirmar.";
-
-                    mensagem.classList.remove(
-                        "mensagem-sucesso"
-                    );
-
-                    mensagem.classList.add(
-                        "mensagem-erro"
-                    );
-
-                    mensagem.scrollIntoView({
-                        behavior: "smooth",
-                        block: "nearest"
-                    });
-
-                }
+                mensagem.classList.add(
+                    "mensagem-erro"
+                );
 
                 return;
             }
 
-
-            // -------------------------------------------------
-            // VALIDAÇÃO DO FORMULÁRIO
-            // -------------------------------------------------
 
             if (!form.checkValidity()) {
 
@@ -487,42 +396,31 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            // -------------------------------------------------
-            // ENVIO
-            // -------------------------------------------------
+            console.log(
+                ">>> ENVIANDO POST /pedidos <<<"
+            );
+
 
             /*
-             * IMPORTANTE:
+             * NÃO colocar preventDefault() aqui.
              *
-             * NÃO usamos preventDefault() aqui.
-             *
-             * O navegador irá enviar normalmente:
+             * O navegador enviará:
              *
              * POST /pedidos
-             *
-             * para o PedidoController.
              */
 
-            if (botaoEnviar) {
+            botaoEnviar.disabled = true;
 
-                botaoEnviar.disabled = true;
-
-                botaoEnviar.classList.add(
-                    "is-loading"
-                );
-
-                botaoEnviar.textContent =
-                    "Enviando...";
-
-            }
+            botaoEnviar.textContent =
+                "Enviando...";
 
         }
     );
 
 
-    // =========================================================
+    // =====================================================
     // INICIALIZAÇÃO
-    // =========================================================
+    // =====================================================
 
     checkboxes.forEach(function (checkbox) {
 
@@ -532,10 +430,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const quantidadeInput =
             card.querySelector(".quantidade-produto");
 
-
         quantidadeInput.disabled =
             !checkbox.checked;
-
 
     });
 
@@ -543,5 +439,10 @@ document.addEventListener("DOMContentLoaded", function () {
     atualizarAtendimento();
 
     atualizarResumo();
+
+
+    console.log(
+        ">>> pedidos.js CARREGADO CORRETAMENTE <<<"
+    );
 
 });
