@@ -2,7 +2,10 @@
 -- CAFETERIA SEGURA
 -- Carga inicial dos produtos do Anexo I
 -- ============================================================
---
+
+USE cafeteriasegura;
+
+DESCRIBE produtos;
 -- ATENÇÃO:
 -- O Anexo I fornecido informa os nomes e grupos dos produtos,
 -- mas não informa preços, descrições ou imagens.
@@ -11,7 +14,7 @@
 --
 -- As categorias correspondem aos grupos do Anexo I.
 -- ============================================================
-
+use cafeteriasegura;
 INSERT INTO produtos (nome, descricao, preco, imagem, categoria) VALUES
 
 -- ============================================================
