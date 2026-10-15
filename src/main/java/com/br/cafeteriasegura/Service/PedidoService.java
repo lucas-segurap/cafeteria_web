@@ -1,6 +1,8 @@
+
 package com.br.cafeteriasegura.Service;
 
 import com.br.cafeteriasegura.Model.Pedido;
+import com.br.cafeteriasegura.Model.StatusPedido;
 import com.br.cafeteriasegura.Repository.PedidoRepository;
 
 import org.springframework.stereotype.Service;
@@ -13,17 +15,13 @@ public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
 
-
     // =========================================================
     // CONSTRUTOR
     // =========================================================
 
-    public PedidoService(
-            PedidoRepository pedidoRepository) {
-
+    public PedidoService(PedidoRepository pedidoRepository) {
         this.pedidoRepository = pedidoRepository;
     }
-
 
     // =========================================================
     // LISTAR TODOS OS PEDIDOS
@@ -31,43 +29,34 @@ public class PedidoService {
 
     @Transactional(readOnly = true)
     public List<Pedido> listar() {
-
         return pedidoRepository.findAll();
     }
 
-
     // =========================================================
     // LISTAR TODOS PARA O ADMIN
-    // Inclui cliente, itens e produtos
     // =========================================================
 
     @Transactional(readOnly = true)
     public List<Pedido> listarTodosComItens() {
-
         return pedidoRepository.findTodosComItens();
     }
-
 
     // =========================================================
     // LISTAR PEDIDOS DO CLIENTE
     // =========================================================
 
     @Transactional(readOnly = true)
-    public List<Pedido> listarPorCliente(
-            Long clienteId) {
+    public List<Pedido> listarPorCliente(Long clienteId) {
 
         if (clienteId == null) {
             return List.of();
         }
 
-        return pedidoRepository.findByClienteId(
-                clienteId
-        );
+        return pedidoRepository.findByClienteId(clienteId);
     }
 
-
     // =========================================================
-    // PEDIDOS EM ATENDIMENTO
+    // LISTAR PEDIDOS EM ATENDIMENTO
     // =========================================================
 
     @Transactional(readOnly = true)
@@ -76,18 +65,13 @@ public class PedidoService {
         return listarTodosComItens()
                 .stream()
                 .filter(pedido ->
-                        pedido.getStatus() != null
-                                && "EM_ATENDIMENTO"
-                                .equals(
-                                        pedido.getStatus().name()
-                                )
+                        pedido.getStatus() == StatusPedido.EM_ATENDIMENTO
                 )
                 .toList();
     }
 
-
     // =========================================================
-    // PEDIDOS FINALIZADOS
+    // LISTAR PEDIDOS FINALIZADOS
     // =========================================================
 
     @Transactional(readOnly = true)
@@ -96,18 +80,13 @@ public class PedidoService {
         return listarTodosComItens()
                 .stream()
                 .filter(pedido ->
-                        pedido.getStatus() != null
-                                && "FINALIZADO"
-                                .equals(
-                                        pedido.getStatus().name()
-                                )
+                        pedido.getStatus() == StatusPedido.FINALIZADO
                 )
                 .toList();
     }
 
-
     // =========================================================
-    // PEDIDOS RECEBIDOS
+    // LISTAR PEDIDOS RECEBIDOS
     // =========================================================
 
     @Transactional(readOnly = true)
@@ -116,18 +95,13 @@ public class PedidoService {
         return listarTodosComItens()
                 .stream()
                 .filter(pedido ->
-                        pedido.getStatus() != null
-                                && "RECEBIDO"
-                                .equals(
-                                        pedido.getStatus().name()
-                                )
+                        pedido.getStatus() == StatusPedido.RECEBIDO
                 )
                 .toList();
     }
 
-
     // =========================================================
-    // PEDIDOS CANCELADOS
+    // LISTAR PEDIDOS CANCELADOS
     // =========================================================
 
     @Transactional(readOnly = true)
@@ -136,36 +110,112 @@ public class PedidoService {
         return listarTodosComItens()
                 .stream()
                 .filter(pedido ->
-                        pedido.getStatus() != null
-                                && "CANCELADO"
-                                .equals(
-                                        pedido.getStatus().name()
-                                )
+                        pedido.getStatus() == StatusPedido.CANCELADO
                 )
                 .toList();
     }
-
 
     // =========================================================
     // SALVAR PEDIDO
     // =========================================================
 
     @Transactional
-    public Pedido salvar(
-            Pedido pedido) {
+    public Pedido salvar(Pedido pedido) {
 
         if (pedido == null) {
-
             throw new IllegalArgumentException(
                     "Pedido inválido."
             );
         }
 
-        return pedidoRepository.save(
-                pedido
-        );
+        return pedidoRepository.save(pedido);
     }
 
+    // =========================================================
+    // INICIAR ATENDIMENTO
+    // =========================================================
+
+    @Transactional
+    public Pedido iniciarAtendimento(Long id) {
+
+        Pedido pedido = buscarPedidoPorId(id);
+
+        if (pedido.getStatus() != StatusPedido.RECEBIDO) {
+            throw new IllegalStateException(
+                    "Somente pedidos recebidos podem iniciar atendimento."
+            );
+        }
+
+        pedido.setStatus(StatusPedido.EM_ATENDIMENTO);
+
+        return pedidoRepository.save(pedido);
+    }
+
+    // =========================================================
+    // FINALIZAR PEDIDO
+    // =========================================================
+
+    @Transactional
+    public Pedido finalizarPedido(Long id) {
+
+        Pedido pedido = buscarPedidoPorId(id);
+
+        if (pedido.getStatus() != StatusPedido.EM_ATENDIMENTO) {
+            throw new IllegalStateException(
+                    "Somente pedidos em atendimento podem ser finalizados."
+            );
+        }
+
+        pedido.setStatus(StatusPedido.FINALIZADO);
+
+        return pedidoRepository.save(pedido);
+    }
+
+    // =========================================================
+    // CANCELAR PEDIDO
+    // =========================================================
+
+    @Transactional
+    public Pedido cancelarPedido(Long id) {
+
+        Pedido pedido = buscarPedidoPorId(id);
+
+        if (pedido.getStatus() == StatusPedido.FINALIZADO) {
+            throw new IllegalStateException(
+                    "Não é possível cancelar um pedido finalizado."
+            );
+        }
+
+        if (pedido.getStatus() == StatusPedido.CANCELADO) {
+            throw new IllegalStateException(
+                    "Este pedido já está cancelado."
+            );
+        }
+
+        pedido.setStatus(StatusPedido.CANCELADO);
+
+        return pedidoRepository.save(pedido);
+    }
+
+    // =========================================================
+    // BUSCAR PEDIDO POR ID
+    // =========================================================
+
+    private Pedido buscarPedidoPorId(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException(
+                    "ID do pedido inválido."
+            );
+        }
+
+        return pedidoRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Pedido não encontrado."
+                        )
+                );
+    }
 
     // =========================================================
     // EXCLUIR PEDIDO
@@ -175,14 +225,12 @@ public class PedidoService {
     public void excluir(Long id) {
 
         if (id == null) {
-
             throw new IllegalArgumentException(
                     "ID do pedido inválido."
             );
         }
 
         if (!pedidoRepository.existsById(id)) {
-
             throw new IllegalArgumentException(
                     "Pedido não encontrado."
             );
