@@ -1,4 +1,5 @@
-package com.br.cafeteriasegura.Controller;
+
+        package com.br.cafeteriasegura.Controller;
 
 import com.br.cafeteriasegura.Model.Admin;
 import com.br.cafeteriasegura.Model.StatusAgendamento;
@@ -25,11 +26,6 @@ public class AdminController {
     private final PedidoService pedidoService;
     private final AgendamentoService agendamentoService;
 
-
-    // =========================================================
-    // CONSTRUTOR
-    // =========================================================
-
     public AdminController(
             AdminService adminService,
             PedidoService pedidoService,
@@ -40,45 +36,32 @@ public class AdminController {
         this.agendamentoService = agendamentoService;
     }
 
-
-    // =========================================================
-    // ADMIN LOGADO
-    // =========================================================
+    // =====================================================
+    // VERIFICAR ADMINISTRADOR LOGADO
+    // =====================================================
 
     private Admin obterAdminLogado(HttpSession session) {
-
         return (Admin) session.getAttribute("adminLogado");
     }
 
-
     private boolean adminLogado(HttpSession session) {
-
         return session.getAttribute("adminLogado") != null;
     }
 
-
-    // =========================================================
-    // LOGIN - TELA
-    // =========================================================
+    // =====================================================
+    // LOGIN
+    // =====================================================
 
     @GetMapping("/login")
     public String login(Model model) {
 
-        boolean primeiroAdmin =
-                adminService.listarTodos().isEmpty();
-
         model.addAttribute(
                 "primeiroAdmin",
-                primeiroAdmin
+                adminService.listarTodos().isEmpty()
         );
 
         return "login-admin";
     }
-
-
-    // =========================================================
-    // LOGIN - REALIZAR
-    // =========================================================
 
     @PostMapping("/login")
     public String realizarLogin(
@@ -92,94 +75,63 @@ public class AdminController {
                 .orElse(null);
 
         if (admin == null) {
-
             model.addAttribute(
                     "erro",
                     "Usuário ou senha incorretos."
             );
-
             model.addAttribute(
                     "primeiroAdmin",
                     adminService.listarTodos().isEmpty()
             );
-
             return "login-admin";
         }
 
         if (!Boolean.TRUE.equals(admin.getAtivo())) {
-
             model.addAttribute(
                     "erro",
                     "Este administrador está desativado."
             );
-
-            model.addAttribute(
-                    "primeiroAdmin",
-                    false
-            );
-
+            model.addAttribute("primeiroAdmin", false);
             return "login-admin";
         }
 
-        boolean senhaCorreta =
-                adminService.verificarSenha(
-                        senha,
-                        admin.getSenha()
-                );
-
-        if (!senhaCorreta) {
+        if (!adminService.verificarSenha(
+                senha,
+                admin.getSenha())) {
 
             model.addAttribute(
                     "erro",
                     "Usuário ou senha incorretos."
             );
-
-            model.addAttribute(
-                    "primeiroAdmin",
-                    false
-            );
-
+            model.addAttribute("primeiroAdmin", false);
             return "login-admin";
         }
 
-        session.setAttribute(
-                "adminLogado",
-                admin
-        );
+        session.setAttribute("adminLogado", admin);
 
         return "redirect:/admin";
     }
 
-
-    // =========================================================
-    // PRIMEIRO ADMINISTRADOR
-    // =========================================================
+    // =====================================================
+    // CADASTRO DO PRIMEIRO ADMINISTRADOR
+    // =====================================================
 
     @GetMapping("/primeiro-admin")
     public String primeiroAdmin(Model model) {
 
         if (!adminService.listarTodos().isEmpty()) {
-
             return "redirect:/admin/login";
         }
 
-        model.addAttribute(
-                "novoAdmin",
-                new Admin()
-        );
-
-        model.addAttribute(
-                "primeiroAdmin",
-                true
-        );
+        model.addAttribute("novoAdmin", new Admin());
+        model.addAttribute("primeiroAdmin", true);
 
         return "admin-form";
     }
 
-
-    // =========================================================
+    // =====================================================
     // PAINEL ADMINISTRATIVO
-    // =========================================================
+    // =====================================================
 
     @GetMapping
     public String painel(
@@ -189,22 +141,17 @@ public class AdminController {
         Admin admin = obterAdminLogado(session);
 
         if (admin == null) {
-
             return "redirect:/admin/login";
         }
 
-        model.addAttribute(
-                "admin",
-                admin
-        );
+        model.addAttribute("admin", admin);
 
         return "admin";
     }
 
-
-    // =========================================================
-    // ADMINISTRADORES - LISTAR
-    // =========================================================
+    // =====================================================
+    // LISTAR ADMINISTRADORES
+    // =====================================================
 
     @GetMapping("/admins")
     public String listarAdmins(
@@ -214,15 +161,10 @@ public class AdminController {
         Admin admin = obterAdminLogado(session);
 
         if (admin == null) {
-
             return "redirect:/admin/login";
         }
 
-        model.addAttribute(
-                "admin",
-                admin
-        );
-
+        model.addAttribute("admin", admin);
         model.addAttribute(
                 "admins",
                 adminService.listarTodos()
@@ -231,10 +173,9 @@ public class AdminController {
         return "admins";
     }
 
-
-    // =========================================================
-    // ADMINISTRADORES - NOVO
-    // =========================================================
+    // =====================================================
+    // FORMULÁRIO DE NOVO ADMINISTRADOR
+    // =====================================================
 
     @GetMapping("/admins/novo")
     public String formularioNovoAdmin(
@@ -244,32 +185,19 @@ public class AdminController {
         Admin admin = obterAdminLogado(session);
 
         if (admin == null) {
-
             return "redirect:/admin/login";
         }
 
-        model.addAttribute(
-                "admin",
-                admin
-        );
-
-        model.addAttribute(
-                "novoAdmin",
-                new Admin()
-        );
-
-        model.addAttribute(
-                "primeiroAdmin",
-                false
-        );
+        model.addAttribute("admin", admin);
+        model.addAttribute("novoAdmin", new Admin());
+        model.addAttribute("primeiroAdmin", false);
 
         return "admin-form";
     }
 
-
-    // =========================================================
-    // ADMINISTRADORES - SALVAR
-    // =========================================================
+    // =====================================================
+    // SALVAR ADMINISTRADOR
+    // =====================================================
 
     @PostMapping("/admins/salvar")
     public String salvarAdmin(
@@ -278,508 +206,281 @@ public class AdminController {
             HttpSession session,
             Model model) {
 
-        Admin adminLogado =
-                obterAdminLogado(session);
+        Admin adminLogado = obterAdminLogado(session);
 
         boolean primeiroAdmin =
                 adminService.listarTodos().isEmpty();
 
-
-        // -----------------------------------------------------
-        // PERMISSÃO
-        // -----------------------------------------------------
-
         if (adminLogado == null && !primeiroAdmin) {
-
             return "redirect:/admin/login";
         }
 
+        String erro = null;
 
-        // -----------------------------------------------------
-        // NOME
-        // -----------------------------------------------------
-
-        if (novoAdmin.getNome() == null ||
-                novoAdmin.getNome().trim().isEmpty()) {
-
-            return voltarComErro(
-                    model,
-                    novoAdmin,
-                    confirmarSenha,
-                    "Informe o nome do administrador.",
-                    adminLogado,
-                    primeiroAdmin
-            );
+        if (novoAdmin.getNome() == null
+                || novoAdmin.getNome().isBlank()) {
+            erro = "Informe o nome do administrador.";
+        } else if (novoAdmin.getUsuario() == null
+                || novoAdmin.getUsuario().isBlank()) {
+            erro = "Informe o usuário.";
+        } else if (novoAdmin.getEmail() == null
+                || novoAdmin.getEmail().isBlank()) {
+            erro = "Informe o e-mail.";
+        } else if (novoAdmin.getSenha() == null
+                || novoAdmin.getSenha().isBlank()) {
+            erro = "Informe a senha.";
+        } else if (confirmarSenha == null
+                || !novoAdmin.getSenha().equals(confirmarSenha)) {
+            erro = "As senhas não são iguais.";
+        } else if (adminService.usuarioExiste(
+                novoAdmin.getUsuario().trim())) {
+            erro = "Esse usuário já está cadastrado.";
+        } else if (adminService.emailExiste(
+                novoAdmin.getEmail().trim())) {
+            erro = "Esse e-mail já está cadastrado.";
         }
 
+        if (erro != null) {
+            model.addAttribute("erro", erro);
+            model.addAttribute("novoAdmin", novoAdmin);
+            model.addAttribute("confirmarSenha", confirmarSenha);
+            model.addAttribute("primeiroAdmin", primeiroAdmin);
 
-        // -----------------------------------------------------
-        // USUÁRIO
-        // -----------------------------------------------------
+            if (adminLogado != null) {
+                model.addAttribute("admin", adminLogado);
+            }
 
-        if (novoAdmin.getUsuario() == null ||
-                novoAdmin.getUsuario().trim().isEmpty()) {
-
-            return voltarComErro(
-                    model,
-                    novoAdmin,
-                    confirmarSenha,
-                    "Informe o usuário.",
-                    adminLogado,
-                    primeiroAdmin
-            );
+            return "admin-form";
         }
 
-
-        // -----------------------------------------------------
-        // E-MAIL
-        // -----------------------------------------------------
-
-        if (novoAdmin.getEmail() == null ||
-                novoAdmin.getEmail().trim().isEmpty()) {
-
-            return voltarComErro(
-                    model,
-                    novoAdmin,
-                    confirmarSenha,
-                    "Informe o e-mail.",
-                    adminLogado,
-                    primeiroAdmin
-            );
-        }
-
-
-        // -----------------------------------------------------
-        // SENHA
-        // -----------------------------------------------------
-
-        if (novoAdmin.getSenha() == null ||
-                novoAdmin.getSenha().isEmpty()) {
-
-            return voltarComErro(
-                    model,
-                    novoAdmin,
-                    confirmarSenha,
-                    "Informe a senha.",
-                    adminLogado,
-                    primeiroAdmin
-            );
-        }
-
-
-        // -----------------------------------------------------
-        // CONFIRMAÇÃO DA SENHA
-        // -----------------------------------------------------
-
-        if (confirmarSenha == null ||
-                !novoAdmin.getSenha().equals(confirmarSenha)) {
-
-            return voltarComErro(
-                    model,
-                    novoAdmin,
-                    confirmarSenha,
-                    "As senhas não são iguais.",
-                    adminLogado,
-                    primeiroAdmin
-            );
-        }
-
-
-        // -----------------------------------------------------
-        // USUÁRIO DUPLICADO
-        // -----------------------------------------------------
-
-        if (adminService.usuarioExiste(
-                novoAdmin.getUsuario())) {
-
-            return voltarComErro(
-                    model,
-                    novoAdmin,
-                    confirmarSenha,
-                    "Esse usuário já está cadastrado.",
-                    adminLogado,
-                    primeiroAdmin
-            );
-        }
-
-
-        // -----------------------------------------------------
-        // E-MAIL DUPLICADO
-        // -----------------------------------------------------
-
-        if (adminService.emailExiste(
-                novoAdmin.getEmail())) {
-
-            return voltarComErro(
-                    model,
-                    novoAdmin,
-                    confirmarSenha,
-                    "Esse e-mail já está cadastrado.",
-                    adminLogado,
-                    primeiroAdmin
-            );
-        }
-
-
-        // -----------------------------------------------------
-        // SALVAR
-        // -----------------------------------------------------
-
+        novoAdmin.setNome(novoAdmin.getNome().trim());
+        novoAdmin.setUsuario(novoAdmin.getUsuario().trim());
+        novoAdmin.setEmail(novoAdmin.getEmail().trim());
         novoAdmin.setAtivo(true);
 
         adminService.salvar(novoAdmin);
 
-
-        // Primeiro administrador
         if (primeiroAdmin) {
-
             return "redirect:/admin/login";
         }
 
-
-        // Administrador criado por outro administrador
         return "redirect:/admin/admins";
     }
 
-
-    // =========================================================
-    // ERRO NO FORMULÁRIO
-    // =========================================================
-
-    private String voltarComErro(
-            Model model,
-            Admin novoAdmin,
-            String confirmarSenha,
-            String mensagem,
-            Admin adminLogado,
-            boolean primeiroAdmin) {
-
-        model.addAttribute(
-                "erro",
-                mensagem
-        );
-
-        model.addAttribute(
-                "novoAdmin",
-                novoAdmin
-        );
-
-        model.addAttribute(
-                "confirmarSenha",
-                confirmarSenha
-        );
-
-        model.addAttribute(
-                "primeiroAdmin",
-                primeiroAdmin
-        );
-
-        if (adminLogado != null) {
-
-            model.addAttribute(
-                    "admin",
-                    adminLogado
-            );
-        }
-
-        return "admin-form";
-    }
-
-
-    // =========================================================
-    // ADMINISTRADORES - EXCLUIR
-    // =========================================================
+    // =====================================================
+    // EXCLUIR ADMINISTRADOR
+    // =====================================================
 
     @PostMapping("/admins/excluir/{id}")
     public String excluirAdmin(
             @PathVariable Long id,
             HttpSession session) {
 
-        Admin adminLogado =
-                obterAdminLogado(session);
+        Admin admin = obterAdminLogado(session);
 
-        if (adminLogado == null) {
-
+        if (admin == null) {
             return "redirect:/admin/login";
         }
 
-
-        // Não permite excluir a própria conta
-
-        if (adminLogado.getId() != null &&
-                adminLogado.getId().equals(id)) {
-
+        if (admin.getId() != null
+                && admin.getId().equals(id)) {
             return "redirect:/admin/admins";
         }
-
 
         adminService.excluir(id);
 
         return "redirect:/admin/admins";
     }
 
-
-    // =========================================================
+    // =====================================================
     // FUNCIONÁRIOS
-    // =========================================================
+    // =====================================================
 
     @GetMapping("/funcionarios")
-    public String funcionarios(
-            HttpSession session) {
+    public String funcionarios(HttpSession session) {
 
         if (!adminLogado(session)) {
-
             return "redirect:/admin/login";
         }
 
         return "redirect:/funcionarios";
     }
 
-
-    // =========================================================
-    // PEDIDOS - TODOS
-    // =========================================================
+    // =====================================================
+    // PEDIDOS: TODOS
+    // =====================================================
 
     @GetMapping("/pedidos")
     public String pedidos(
             HttpSession session,
             Model model) {
 
-        Admin admin =
-                obterAdminLogado(session);
+        Admin admin = obterAdminLogado(session);
 
         if (admin == null) {
-
             return "redirect:/admin/login";
         }
 
-        model.addAttribute(
-                "admin",
-                admin
-        );
-
+        model.addAttribute("admin", admin);
         model.addAttribute(
                 "pedidos",
                 pedidoService.listarTodosComItens()
         );
-
-        model.addAttribute(
-                "titulo",
-                "Todos os Pedidos"
-        );
-
+        model.addAttribute("titulo", "Todos os Pedidos");
         model.addAttribute(
                 "descricao",
                 "Visualização geral dos pedidos da cafeteria."
         );
-
-        model.addAttribute(
-                "tipoPagina",
-                "TODOS"
-        );
+        model.addAttribute("tipoPagina", "TODOS");
 
         return "admin-pedidos";
     }
 
-
-    // =========================================================
-    // PEDIDOS - EM ATENDIMENTO
-    // =========================================================
+    // =====================================================
+    // PEDIDOS: EM ATENDIMENTO
+    // =====================================================
 
     @GetMapping("/pedidos/em-atendimento")
     public String pedidosEmAtendimento(
             HttpSession session,
             Model model) {
 
-        Admin admin =
-                obterAdminLogado(session);
+        Admin admin = obterAdminLogado(session);
 
         if (admin == null) {
-
             return "redirect:/admin/login";
         }
 
-        model.addAttribute(
-                "admin",
-                admin
-        );
-
+        model.addAttribute("admin", admin);
         model.addAttribute(
                 "pedidos",
                 pedidoService.listarEmAtendimento()
         );
-
-        model.addAttribute(
-                "titulo",
-                "Em Atendimento"
-        );
-
+        model.addAttribute("titulo", "Em Atendimento");
         model.addAttribute(
                 "descricao",
                 "Pedidos que estão sendo preparados ou atendidos."
         );
-
-        model.addAttribute(
-                "tipoPagina",
-                "EM_ATENDIMENTO"
-        );
+        model.addAttribute("tipoPagina", "EM_ATENDIMENTO");
 
         return "admin-pedidos";
     }
 
-
-    // =========================================================
-    // PEDIDOS - FINALIZADOS
-    // =========================================================
+    // =====================================================
+    // PEDIDOS: FINALIZADOS
+    // =====================================================
 
     @GetMapping("/pedidos/finalizados")
     public String pedidosFinalizados(
             HttpSession session,
             Model model) {
 
-        Admin admin =
-                obterAdminLogado(session);
+        Admin admin = obterAdminLogado(session);
 
         if (admin == null) {
-
             return "redirect:/admin/login";
         }
 
-        model.addAttribute(
-                "admin",
-                admin
-        );
-
+        model.addAttribute("admin", admin);
         model.addAttribute(
                 "pedidos",
                 pedidoService.listarFinalizados()
         );
-
-        model.addAttribute(
-                "titulo",
-                "Finalizados"
-        );
-
+        model.addAttribute("titulo", "Pedidos Finalizados");
         model.addAttribute(
                 "descricao",
                 "Pedidos que já foram concluídos."
         );
-
-        model.addAttribute(
-                "tipoPagina",
-                "FINALIZADOS"
-        );
+        model.addAttribute("tipoPagina", "FINALIZADOS");
 
         return "admin-pedidos";
     }
 
+    // =====================================================
+    // PEDIDOS: INICIAR ATENDIMENTO
+    // =====================================================
 
-    // =========================================================
-    // PEDIDOS - INICIAR ATENDIMENTO
-    // =========================================================
-
-    @GetMapping("/pedidos/iniciar/{id}")
+    @PostMapping("/pedidos/iniciar/{id}")
     public String iniciarAtendimento(
             @PathVariable Long id,
             HttpSession session) {
 
         if (!adminLogado(session)) {
-
             return "redirect:/admin/login";
         }
 
         try {
-
             pedidoService.iniciarAtendimento(id);
-
-        } catch (IllegalStateException |
-                 IllegalArgumentException e) {
-
+        } catch (IllegalStateException
+                 | IllegalArgumentException e) {
             return "redirect:/admin/pedidos";
         }
 
         return "redirect:/admin/pedidos/em-atendimento";
     }
 
+    // =====================================================
+    // PEDIDOS: FINALIZAR
+    // =====================================================
 
-    // =========================================================
-    // PEDIDOS - FINALIZAR
-    // =========================================================
-
-    @GetMapping("/pedidos/finalizar/{id}")
+    @PostMapping("/pedidos/finalizar/{id}")
     public String finalizarPedido(
             @PathVariable Long id,
             HttpSession session) {
 
         if (!adminLogado(session)) {
-
             return "redirect:/admin/login";
         }
 
         try {
-
             pedidoService.finalizarPedido(id);
-
-        } catch (IllegalStateException |
-                 IllegalArgumentException e) {
-
+        } catch (IllegalStateException
+                 | IllegalArgumentException e) {
             return "redirect:/admin/pedidos/em-atendimento";
         }
 
         return "redirect:/admin/pedidos/finalizados";
     }
 
+    // =====================================================
+    // PEDIDOS: CANCELAR
+    // =====================================================
 
-    // =========================================================
-    // PEDIDOS - CANCELAR
-    // =========================================================
-
-    @GetMapping("/pedidos/cancelar/{id}")
+    @PostMapping("/pedidos/cancelar/{id}")
     public String cancelarPedido(
             @PathVariable Long id,
             HttpSession session) {
 
         if (!adminLogado(session)) {
-
             return "redirect:/admin/login";
         }
 
         try {
-
             pedidoService.cancelarPedido(id);
-
-        } catch (IllegalStateException |
-                 IllegalArgumentException e) {
-
+        } catch (IllegalStateException
+                 | IllegalArgumentException e) {
             return "redirect:/admin/pedidos";
         }
 
         return "redirect:/admin/pedidos";
     }
 
-
-    // =========================================================
+    // =====================================================
     // AGENDAMENTOS
-    // =========================================================
+    // =====================================================
 
     @GetMapping("/agendamentos")
     public String agendamentos(
             HttpSession session,
             Model model) {
 
-        Admin admin =
-                obterAdminLogado(session);
+        Admin admin = obterAdminLogado(session);
 
         if (admin == null) {
-
             return "redirect:/admin/login";
         }
 
-        model.addAttribute(
-                "admin",
-                admin
-        );
-
+        model.addAttribute("admin", admin);
         model.addAttribute(
                 "agendamentos",
                 agendamentoService.listarTodos()
@@ -788,18 +489,16 @@ public class AdminController {
         return "admin-agendamentos";
     }
 
-
-    // =========================================================
+    // =====================================================
     // CONFIRMAR AGENDAMENTO
-    // =========================================================
+    // =====================================================
 
-    @GetMapping("/agendamentos/confirmar/{id}")
+    @PostMapping("/agendamentos/confirmar/{id}")
     public String confirmarAgendamento(
             @PathVariable Long id,
             HttpSession session) {
 
         if (!adminLogado(session)) {
-
             return "redirect:/admin/login";
         }
 
@@ -811,18 +510,16 @@ public class AdminController {
         return "redirect:/admin/agendamentos";
     }
 
-
-    // =========================================================
+    // =====================================================
     // CONCLUIR AGENDAMENTO
-    // =========================================================
+    // =====================================================
 
-    @GetMapping("/agendamentos/concluir/{id}")
+    @PostMapping("/agendamentos/concluir/{id}")
     public String concluirAgendamento(
             @PathVariable Long id,
             HttpSession session) {
 
         if (!adminLogado(session)) {
-
             return "redirect:/admin/login";
         }
 
@@ -834,18 +531,16 @@ public class AdminController {
         return "redirect:/admin/agendamentos";
     }
 
-
-    // =========================================================
+    // =====================================================
     // CANCELAR AGENDAMENTO
-    // =========================================================
+    // =====================================================
 
-    @GetMapping("/agendamentos/cancelar/{id}")
+    @PostMapping("/agendamentos/cancelar/{id}")
     public String cancelarAgendamento(
             @PathVariable Long id,
             HttpSession session) {
 
         if (!adminLogado(session)) {
-
             return "redirect:/admin/login";
         }
 
@@ -857,18 +552,16 @@ public class AdminController {
         return "redirect:/admin/agendamentos";
     }
 
-
-    // =========================================================
+    // =====================================================
     // EXCLUIR AGENDAMENTO
-    // =========================================================
+    // =====================================================
 
-    @GetMapping("/agendamentos/excluir/{id}")
+    @PostMapping("/agendamentos/excluir/{id}")
     public String excluirAgendamento(
             @PathVariable Long id,
             HttpSession session) {
 
         if (!adminLogado(session)) {
-
             return "redirect:/admin/login";
         }
 
@@ -877,10 +570,9 @@ public class AdminController {
         return "redirect:/admin/agendamentos";
     }
 
-
-    // =========================================================
+    // =====================================================
     // LOGOUT
-    // =========================================================
+    // =====================================================
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
@@ -889,10 +581,4 @@ public class AdminController {
 
         return "redirect:/admin/login";
     }
-
-
 }
-
-}
-
-
