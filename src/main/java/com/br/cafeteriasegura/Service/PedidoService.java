@@ -277,7 +277,7 @@ public class PedidoService {
     // =========================================================
 
     @Transactional
-    public Pedido iniciarAtendimento(Long id) {
+    public Pedido IniciarAtendimento(Long id) {
 
         Pedido pedido = buscarPedidoPorId(id);
 
@@ -297,7 +297,7 @@ public class PedidoService {
     // =========================================================
 
     @Transactional
-    public Pedido finalizarPedido(Long id) {
+    public Pedido FinalizarPedido(Long id) {
 
         Pedido pedido = buscarPedidoPorId(id);
 
@@ -317,7 +317,7 @@ public class PedidoService {
     // =========================================================
 
     @Transactional
-    public Pedido cancelarPedido(Long id) {
+    public Pedido CancelarPedido(Long id) {
 
         Pedido pedido = buscarPedidoPorId(id);
 
