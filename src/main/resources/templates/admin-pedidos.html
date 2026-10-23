@@ -398,62 +398,68 @@
                      AÇÕES
                 ========================== -->
 
+
+                    <!-- =========================
+                         AÇÕES DO PEDIDO
+                    ========================== -->
+
                     <div class="pedido-acoes">
 
-
                         <!-- INICIAR ATENDIMENTO -->
+                        <form th:if="${pedido.status != null
+            && pedido.status.name() == 'RECEBIDO'}"
+                              th:action="@{/admin/pedidos/iniciar/{id}(id=${pedido.id})}"
+                              method="post">
 
-                        <a th:if="${pedido.status != null
-                        && pedido.status.name() == 'RECEBIDO'}"
-                            th:href="@{/admin/pedidos/iniciar/{id}(id=${pedido.id})}" class="btn-acao btn-iniciar">
+                            <button type="submit" class="btn-acao btn-iniciar">
+                                ▶ Iniciar atendimento
+                            </button>
 
-                            ▶ Iniciar atendimento
+                        </form>
 
-                        </a>
+                        <!-- FINALIZAR PEDIDO -->
+                        <form th:if="${pedido.status != null
+            && pedido.status.name() == 'EM_ATENDIMENTO'}"
+                              th:action="@{/admin/pedidos/finalizar/{id}(id=${pedido.id})}"
+                              method="post">
 
+                            <button type="submit" class="btn-acao btn-finalizar">
+                                ✓ Finalizar pedido
+                            </button>
 
-                        <!-- FINALIZAR -->
+                        </form>
 
-                        <a th:if="${pedido.status != null
-                        && pedido.status.name() == 'EM_ATENDIMENTO'}"
-                            th:href="@{/admin/pedidos/finalizar/{id}(id=${pedido.id})}" class="btn-acao btn-finalizar">
+                        <!-- CANCELAR PEDIDO -->
+                        <form th:if="${pedido.status != null
+            && pedido.status.name() != 'FINALIZADO'
+            && pedido.status.name() != 'CANCELADO'}"
+                              th:action="@{/admin/pedidos/cancelar/{id}(id=${pedido.id})}"
+                              method="post"
+                              onsubmit="return confirm('Deseja realmente cancelar este pedido?');">
 
-                            ✓ Finalizar pedido
+                            <button type="submit" class="btn-acao btn-cancelar">
+                                ✕ Cancelar
+                            </button>
 
-                        </a>
-
-
-                        <!-- CANCELAR -->
-
-                        <a th:if="${pedido.status != null
-                        && pedido.status.name() != 'FINALIZADO'
-                        && pedido.status.name() != 'CANCELADO'}"
-                            th:href="@{/admin/pedidos/cancelar/{id}(id=${pedido.id})}" class="btn-acao btn-cancelar"
-                            onclick="return confirm('Deseja realmente cancelar este pedido?');">
-
-                            ✕ Cancelar
-
-                        </a>
-
+                        </form>
 
                         <!-- PEDIDO FINALIZADO -->
-
                         <span th:if="${pedido.status != null
-                        && pedido.status.name() == 'FINALIZADO'}" class="pedido-concluido">
+            && pedido.status.name() == 'FINALIZADO'}"
+                              class="pedido-concluido">
 
-                            ✓ Pedido finalizado
+        ✓ Pedido finalizado
 
-                        </span>
-
+    </span>
 
                         <!-- PEDIDO CANCELADO -->
-
                         <span th:if="${pedido.status != null
-                        && pedido.status.name() == 'CANCELADO'}" class="pedido-cancelado">
+            && pedido.status.name() == 'CANCELADO'}"
+                              class="pedido-cancelado">
 
-                            Pedido cancelado
+        Pedido cancelado
 
-                        </span>
+    </span>
 
                     </div>
 

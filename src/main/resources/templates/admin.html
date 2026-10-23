@@ -338,15 +338,20 @@
              ACESSO RÁPIDO
         ================================================== -->
 
+
+        <!-- =================================================
+             ACESSO RÁPIDO
+        ================================================== -->
+
         <section class="acesso-rapido">
 
             <div class="acesso-rapido-topo">
 
                 <div>
 
-                    <span class="area-admin-tag">
-                        ACESSO RÁPIDO
-                    </span>
+            <span class="area-admin-tag">
+                ACESSO RÁPIDO
+            </span>
 
                     <h3>
                         Outras funções
@@ -356,52 +361,50 @@
 
             </div>
 
-
             <div class="acesso-rapido-botoes">
-
 
                 <!-- TODOS OS PEDIDOS -->
 
                 <a th:href="@{/admin/pedidos}"
                    class="atalho-admin">
 
-                    <span class="atalho-icone">
-                        📋
-                    </span>
+            <span class="atalho-icone">
+                📋
+            </span>
 
                     <span>
-                        Todos os pedidos
-                    </span>
+                Todos os pedidos
+            </span>
 
                     <span class="atalho-seta">
-                        →
-                    </span>
+                →
+            </span>
 
                 </a>
 
+                <!-- CADASTRAR PRODUTO -->
 
-                <!-- AGENDAMENTOS -->
-
-                <a th:href="@{/admin/agendamentos}"
+                <a th:href="@{/produtos/novo}"
                    class="atalho-admin">
 
-                    <span class="atalho-icone">
-                        📅
-                    </span>
+            <span class="atalho-icone">
+                ☕
+            </span>
 
                     <span>
-                        Agendamentos
-                    </span>
+                Cadastrar produto
+            </span>
 
                     <span class="atalho-seta">
-                        →
-                    </span>
+                →
+            </span>
 
                 </a>
 
             </div>
 
         </section>
+
 
     </main>
 

@@ -185,4 +185,21 @@ public class PedidoController {
         System.out.println("====================================");
 
         return "redirect:/pedidos";
+    }
+
+    @PostMapping("/iniciar")
+    public String iniciarAtendimento(
+            @RequestParam("id") Long id,
+            HttpSession session) {
+
+        Cliente cliente =
+                (Cliente) session.getAttribute("cliente");
+
+        if (cliente == null) {
+            return "redirect:/login";
+        }
+
+        pedidoService.iniciarAtendimento(id);
+
+        return "redirect:/pedidos";
     }}
